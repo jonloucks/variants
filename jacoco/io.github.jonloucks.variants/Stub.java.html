@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Stub.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants</a> &gt; <span class="el_source">Stub.java</span></div><h1>Stub.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants;
+
+import io.github.jonloucks.variants.api.Variants;
+import io.github.jonloucks.variants.api.VariantException;
+import io.github.jonloucks.variants.api.GlobalVariants;
+import io.github.jonloucks.contracts.api.ContractException;
+import io.github.jonloucks.contracts.api.Contracts;
+import io.github.jonloucks.contracts.api.GlobalContracts;
+
+import static io.github.jonloucks.variants.api.Checks.validateVariants;
+
+/**
+ * A placeholder class to make sure dependencies are correct for api and implementation.
+ */
+public final class Stub {
+    
+    /**
+     * Utility class instantiation protection
+     * Test coverage not possible, java module protections in place
+     */
+    private Stub() {
+        // conflicting standards.  100% code coverage vs throwing exception on instantiation of utility class.
+        // Java modules protects agents invoking private methods.
+        // There are unit tests that will fail if this constructor is not private
+    }
+    
+    /**
+     * Quickly validates Global Contracts and Variants
+     *
+     * @throws ContractException when invalid
+     * @throws VariantException when invalid
+     * @throws IllegalArgumentException when invalid
+     */
+    public static void validate() {
+<span class="fc" id="L35">        validate(GlobalContracts.getInstance(), GlobalVariants.getInstance());</span>
+<span class="fc" id="L36">    }</span>
+    
+    /**
+     * Quickly validates a Contracts and Variants
+     *
+     * @param contracts the Contracts to validate
+     * @param variants the Variants to validate
+     *
+     * @throws ContractException when invalid
+     * @throws VariantException when invalid
+     * @throws IllegalArgumentException when invalid
+     */
+    public static void validate(Contracts contracts, Variants variants) {
+<span class="fc" id="L49">        validateVariants(contracts, variants);</span>
+<span class="fc" id="L50">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

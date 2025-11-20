@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"io.github.jonloucks.variants.api","l":"io.github.jonloucks.variants.api"}];updateSearchResults();

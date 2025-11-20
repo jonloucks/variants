@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VariantsFactoryFinder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">VariantsFactoryFinder.java</span></div><h1>VariantsFactoryFinder.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
+
+import java.util.Optional;
+import java.util.ServiceLoader;
+
+import static io.github.jonloucks.contracts.api.Checks.configCheck;
+import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static java.util.Optional.ofNullable;
+
+/**
+ * Responsible for locating and creating the VariantsFactory for a deployment.
+ */
+final class VariantsFactoryFinder {
+<span class="fc" id="L14">    VariantsFactoryFinder(Variants.Config config) {</span>
+<span class="fc" id="L15">        this.config = configCheck(config);</span>
+<span class="fc" id="L16">    }</span>
+    
+    Optional&lt;VariantsFactory&gt; find() {
+<span class="fc" id="L19">        final Optional&lt;VariantsFactory&gt; byReflection = createByReflection();</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        return byReflection.isPresent() ? byReflection : createByServiceLoader();</span>
+    }
+    
+    private Optional&lt;VariantsFactory&gt; createByServiceLoader() {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (config.useServiceLoader()) {</span>
+            try {
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                for (VariantsFactory factory : ServiceLoader.load(getServiceFactoryClass())) {</span>
+<span class="fc" id="L27">                    return Optional.of(factory);</span>
+                }
+<span class="fc" id="L29">            } catch (Throwable ignored) {</span>
+<span class="fc" id="L30">                return Optional.empty();</span>
+<span class="nc" id="L31">            }</span>
+        }
+<span class="fc" id="L33">        return Optional.empty();</span>
+    }
+    
+    private Class&lt;? extends VariantsFactory&gt; getServiceFactoryClass() {
+<span class="fc" id="L37">        return nullCheck(config.serviceLoaderClass(), &quot;Variants Service Loader class must be present.&quot;);</span>
+    }
+    
+    private Optional&lt;VariantsFactory&gt; createByReflection() {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (config.useReflection()) {</span>
+<span class="fc" id="L42">            return getReflectionClassName().map(this::createNewInstance);</span>
+        }
+<span class="fc" id="L44">        return Optional.empty();</span>
+    }
+    
+    private VariantsFactory createNewInstance(String className) {
+        try {
+<span class="fc" id="L49">            return (VariantsFactory)Class.forName(className).getConstructor().newInstance();</span>
+<span class="fc" id="L50">        } catch (Throwable thrown) {</span>
+<span class="fc" id="L51">            return null;</span>
+        }
+    }
+
+    private Optional&lt;String&gt; getReflectionClassName() {
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        return ofNullable(config.reflectionClassName()).filter(x -&gt; !x.isEmpty());</span>
+    }
+    
+    private final Variants.Config config;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
