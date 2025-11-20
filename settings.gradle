@@ -1,1 +1,5 @@
 rootProject.name = 'variants'
+include 'variants-api'
+include 'variants-test'
+include 'variants-impl'
+include 'variants-smoke'

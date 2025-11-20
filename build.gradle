@@ -1,20 +1,34 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        mavenLocal()
+    }
 }
 
-group = 'io.github.jonloucks.concurrency'
-version = '1.0-SNAPSHOT'
+plugins {
+    id 'io.github.jonloucks.java-library-kit' version libs.versions.gradle.kit.version
+    id 'io.github.jonloucks.maven-publish-kit' version libs.versions.gradle.kit.version
+    id 'io.github.jonloucks.signing-kit' version libs.versions.gradle.kit.version
+}
+
+apply from: "${rootDir}/gradle/java-publishing.gradle"
+
+defaultTasks 'check', 'jacocoTestReport', 'jacocoTestCoverageVerification', 'spotbugsMain', 'publishToMavenLocal'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+    api project(':variants-api')
+    api project(':variants-impl')
+    api libs.contracts.api
 
-test {
-    useJUnitPlatform()
+    testImplementation project(':variants-test')
+    testImplementation libs.contracts.test
+    testImplementation libs.contracts
+
+    testImplementation project(':variants-test')
 }
