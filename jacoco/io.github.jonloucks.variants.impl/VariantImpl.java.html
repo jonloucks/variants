@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VariantImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.impl</a> &gt; <span class="el_source">VariantImpl.java</span></div><h1>VariantImpl.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.impl;
+
+import io.github.jonloucks.variants.api.Variant;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+import static io.github.jonloucks.contracts.api.Checks.configCheck;
+import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static java.util.Collections.unmodifiableList;
+
+@SuppressWarnings(&quot;OptionalUsedAsFieldOrParameterType&quot;)
+final class VariantImpl&lt;T&gt; implements Variant&lt;T&gt; {
+    @Override
+    public List&lt;String&gt; getKeys() {
+<span class="fc" id="L17">        return this.keys;</span>
+    }
+    
+    @Override
+    public Optional&lt;String&gt; getName() {
+<span class="fc" id="L22">        return this.name;</span>
+    }
+    
+    @Override
+    public Optional&lt;String&gt; getDescription() {
+<span class="fc" id="L27">        return this.description;</span>
+    }
+    
+    @Override
+    public Optional&lt;T&gt; getFallback() {
+<span class="fc" id="L32">        return this.fallback;</span>
+    }
+    
+    @Override
+    public Optional&lt;Variant&lt;T&gt;&gt; getLink() {
+<span class="fc" id="L37">        return this.link;</span>
+    }
+    
+    @Override
+    public Optional&lt;T&gt; of(String value) {
+<span class="fc" id="L42">        return Optional.ofNullable(parser.apply(value));</span>
+    }
+    
+<span class="fc" id="L45">    VariantImpl(Variant.Config&lt;T&gt; config) {</span>
+<span class="fc" id="L46">        final Variant.Config&lt;T&gt; validConfig = configCheck(config);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (validConfig.getKeys().isEmpty()) {</span>
+<span class="fc" id="L48">            throw new IllegalArgumentException(&quot;Keys must be present.&quot;);</span>
+        }
+<span class="fc" id="L50">        this.keys = unmodifiableList(validConfig.getKeys());</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        this.name = validConfig.getName().isPresent() ? validConfig.getName() : Optional.of(keys.get(0));</span>
+<span class="fc" id="L52">        this.description = validConfig.getDescription();</span>
+<span class="fc" id="L53">        this.link = validConfig.getLink();</span>
+<span class="fc" id="L54">        this.fallback = validConfig.getFallback();</span>
+<span class="fc" id="L55">        this.parser = nullCheck(validConfig.getParser(), &quot;Parser should be present.&quot;);</span>
+<span class="fc" id="L56">    }</span>
+    
+    private final List&lt;String&gt; keys;
+    private final Optional&lt;String&gt; name;
+    private final Optional&lt;String&gt; description;
+    private final Optional&lt;T&gt; fallback;
+    private final Optional&lt;Variant&lt;T&gt;&gt; link;
+    private final Function&lt;CharSequence,T&gt; parser;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

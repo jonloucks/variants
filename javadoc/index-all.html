@@ -49,13 +49,15 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Checks.html" class="type-name-link" title="class in io.github.jonloucks.variants.api">Checks</a> - Class in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
 <dd>
 <div class="block">Checks used internally and supported for external use.</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html#CONTRACT" class="member-name-link">CONTRACT</a> - Static variable in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variants.html#CONTRACT" class="member-name-link">CONTRACT</a> - Static variable in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a></dt>
 <dd>
 <div class="block">Access the current Variants implementation</div>
@@ -76,6 +78,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Create a new instance of Variants</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html#createVariant(io.github.jonloucks.variants.api.Variant.Config)" class="member-name-link">createVariant(Variant.Config&lt;T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html#createVariant(java.util.function.Consumer)" class="member-name-link">createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html#createVariants(io.github.jonloucks.variants.api.Variants.Config)" class="member-name-link">createVariants(Variants.Config)</a> - Static method in class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html" title="class in io.github.jonloucks.variants.api">GlobalVariants</a></dt>
 <dd>
 <div class="block">Create a new Variants instance for customized deployments.</div>
@@ -87,12 +93,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The default configuration used when creating a new Variants instance</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#description(java.lang.String)" class="member-name-link">description(String)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variants.Config.Builder.html#FACTORY" class="member-name-link">FACTORY</a> - Static variable in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variants.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variants.Config.Builder</a></dt>
 <dd>
-<div class="block">Variants Config Builder</div>
+<div class="block">Variants Variant Builder</div>
+</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#fallback(java.util.function.Supplier)" class="member-name-link">fallback(Supplier&lt;T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantsFactoryFinder.html#find()" class="member-name-link">find()</a> - Method in class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantsFactoryFinder.html" title="class in io.github.jonloucks.variants.api">VariantsFactoryFinder</a></dt>
+<dd>
+<div class="block">Find a Variants factory</div>
 </dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html#findVariantsFactory(io.github.jonloucks.variants.api.Variants.Config)" class="member-name-link">findVariantsFactory(Variants.Config)</a> - Static method in class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html" title="class in io.github.jonloucks.variants.api">GlobalVariants</a></dt>
 <dd>
@@ -101,10 +115,32 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getDescription()" class="member-name-link">getDescription()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#getDescription()" class="member-name-link">getDescription()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getFallback()" class="member-name-link">getFallback()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#getFallback()" class="member-name-link">getFallback()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html#getInstance()" class="member-name-link">getInstance()</a> - Static method in class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html" title="class in io.github.jonloucks.variants.api">GlobalVariants</a></dt>
 <dd>
 <div class="block">Return the global instance of Contracts</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getKeys()" class="member-name-link">getKeys()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#getKeys()" class="member-name-link">getKeys()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getLink()" class="member-name-link">getLink()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#getLink()" class="member-name-link">getLink()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getName()" class="member-name-link">getName()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#getName()" class="member-name-link">getName()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html#getParser()" class="member-name-link">getParser()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html" class="type-name-link" title="class in io.github.jonloucks.variants.api">GlobalVariants</a> - Class in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
 <dd>
 <div class="block">Globally shared Variants singleton</div>
@@ -121,6 +157,31 @@ loadScripts(document, 'script');</script>
 <div class="block">The API module for Variants</div>
 </dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a> - package io.github.jonloucks.variants.api</dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:K">K</h2>
+<dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#keys(java.lang.String...)" class="member-name-link">keys(String...)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:L">L</h2>
+<dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#link(io.github.jonloucks.variants.api.Variant)" class="member-name-link">link(Variant&lt;T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:N">N</h2>
+<dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#name(java.lang.String)" class="member-name-link">name(String)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:O">O</h2>
+<dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html#of(java.lang.String)" class="member-name-link">of(String)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:P">P</h2>
+<dl class="index">
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html#parser(java.util.function.Function)" class="member-name-link">parser(Function&lt;CharSequence, T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
@@ -158,6 +219,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Quickly validates a Contracts and Variants</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.html" title="type parameter in Variant">T</a>&gt; - Interface in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.html" title="type parameter in Variant.Config">T</a>&gt; - Interface in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt; - Interface in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantException.html" class="type-name-link" title="class in io.github.jonloucks.variants.api">VariantException</a> - Exception in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
 <dd>
 <div class="block">Runtime exception thrown for Variants related problems.</div>
@@ -170,6 +237,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Passthrough for <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)" title="class or interface in java.lang" class="external-link"><code>RuntimeException(String, Throwable)</code></a></div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">VariantFactory</a> - Interface in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Variants.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">Variants</a> - Interface in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
 <dd>
 <div class="block">The Variants API</div>
@@ -190,8 +259,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Responsible for creating new instances of Variants</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantsFactoryFinder.html" class="type-name-link" title="class in io.github.jonloucks.variants.api">VariantsFactoryFinder</a> - Class in <a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/package-summary.html">io.github.jonloucks.variants.api</a></dt>
+<dd>
+<div class="block">Responsible for locating and creating the VariantsFactory for a deployment.</div>
+</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantsFactoryFinder.html#%3Cinit%3E(io.github.jonloucks.variants.api.Variants.Config)" class="member-name-link">VariantsFactoryFinder(Variants.Config)</a> - Constructor for class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantsFactoryFinder.html" title="class in io.github.jonloucks.variants.api">VariantsFactoryFinder</a></dt>
+<dd>
+<div class="block">Create a new Variants Factory Finder</div>
+</dd>
 </dl>
-<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

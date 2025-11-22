@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Variant.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">Variant.java</span></div><h1>Variant.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public interface Variant&lt;T&gt; {
+    
+    List&lt;String&gt; getKeys();
+    
+    default Optional&lt;String&gt; getName() {
+<span class="fc" id="L13">        return Optional.empty();</span>
+    }
+    
+    default Optional&lt;String&gt; getDescription() {
+<span class="fc" id="L17">        return Optional.empty();</span>
+    }
+    
+    default Optional&lt;T&gt; getFallback() {
+<span class="fc" id="L21">        return Optional.empty();</span>
+    }
+    
+    default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
+<span class="fc" id="L25">        return Optional.empty();</span>
+    }
+    
+    default Optional&lt;T&gt; of(String value) {
+<span class="fc" id="L29">        return Optional.empty();</span>
+    }
+    
+    interface Config&lt;T&gt;  {
+        
+        List&lt;String&gt; getKeys();
+        
+        default Function&lt;CharSequence, T&gt; getParser() {
+<span class="fc" id="L37">            return null;</span>
+        }
+        
+        default Optional&lt;String&gt; getName() {
+<span class="fc" id="L41">            return Optional.empty();</span>
+        }
+        
+        default Optional&lt;String&gt; getDescription() {
+<span class="fc" id="L45">            return Optional.empty();</span>
+        }
+        
+        default Optional&lt;T&gt; getFallback() {
+<span class="fc" id="L49">            return Optional.empty();</span>
+        }
+        
+        default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
+<span class="fc" id="L53">            return Optional.empty();</span>
+        }
+        
+        interface Builder&lt;T&gt; extends Config&lt;T&gt; {
+            
+            Builder&lt;T&gt; keys(String... keys);
+            
+            Builder&lt;T&gt; name(String name);
+            
+            Builder&lt;T&gt; parser(Function&lt;CharSequence, T&gt; parser);
+            
+            Builder&lt;T&gt; description(String description);
+            
+            Builder&lt;T&gt; fallback(Supplier&lt;T&gt; fallback);
+            
+            Builder&lt;T&gt; link(Variant&lt;T&gt; link);
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
