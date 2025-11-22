@@ -68,9 +68,9 @@ public interface Variants extends AutoOpen {
         interface Builder extends Config {
             
             /**
-             * Variants Config Builder
+             * Variants Variant Builder
              */
-            Contract<Supplier<Builder>> FACTORY = Contract.create("Variants Config Builder Factory");
+            Contract<Supplier<Builder>> FACTORY = Contract.create("Variants Variant Builder Factory");
             
             /**
              * @param useReflection enables or disables locating VariantsFactory implementation by reflection

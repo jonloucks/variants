@@ -14,7 +14,6 @@ import static io.github.jonloucks.variants.api.GlobalVariants.findVariantsFactor
 import static io.github.jonloucks.contracts.test.Tools.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-@SuppressWarnings("CodeBlock2Expr")
 public final class Tools {
     
     public static void clean() {
@@ -53,12 +52,6 @@ public final class Tools {
     public static VariantsFactory getVariantsFactory(Variants.Config config) {
         return findVariantsFactory(config)
             .orElseThrow(() -> new TestAbortedException("Variants Factory not found."));
-    }
-    
-    public static void withVariantsInstalled(Consumer<Contracts> block) {
-        withVariants(b -> {}, (contracts, variants) -> {
-            block.accept(contracts);
-        });
     }
     
     /**

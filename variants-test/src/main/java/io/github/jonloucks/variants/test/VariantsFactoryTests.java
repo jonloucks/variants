@@ -12,7 +12,7 @@ import static io.github.jonloucks.contracts.test.Tools.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public interface VariantsFactoryTests {
-    
+
     @Test
     default void variantsFactory_install_WithNullConfig_Throws() {
         withContracts(contracts -> {
