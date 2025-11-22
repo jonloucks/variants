@@ -10,12 +10,21 @@ import static java.util.Optional.ofNullable;
 /**
  * Responsible for locating and creating the VariantsFactory for a deployment.
  */
-final class VariantsFactoryFinder {
-    VariantsFactoryFinder(Variants.Config config) {
+public final class VariantsFactoryFinder {
+    
+    /**
+     * Create a new Variants Factory Finder
+     * @param config the Variants configuration
+     */
+    public VariantsFactoryFinder(Variants.Config config) {
         this.config = configCheck(config);
     }
     
-    Optional<VariantsFactory> find() {
+    /**
+     * Find a Variants factory
+     * @return the optional Variant Factory
+     */
+    public Optional<VariantsFactory> find() {
         final Optional<VariantsFactory> byReflection = createByReflection();
         return byReflection.isPresent() ? byReflection : createByServiceLoader();
     }
@@ -27,7 +36,6 @@ final class VariantsFactoryFinder {
                     return Optional.of(factory);
                 }
             } catch (Throwable ignored) {
-                return Optional.empty();
             }
         }
         return Optional.empty();

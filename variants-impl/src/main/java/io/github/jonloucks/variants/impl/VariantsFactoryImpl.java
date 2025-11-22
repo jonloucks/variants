@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import static io.github.jonloucks.contracts.api.BindStrategy.IF_NOT_BOUND;
 import static io.github.jonloucks.contracts.api.Checks.*;
 import static io.github.jonloucks.contracts.api.GlobalContracts.lifeCycle;
+import static io.github.jonloucks.contracts.api.GlobalContracts.singleton;
 
 /**
  * Creates Variants instances
@@ -57,10 +58,12 @@ public final class VariantsFactoryImpl implements VariantsFactory {
         validRepository.keep(Variants.CONTRACT, variantsPromisor, IF_NOT_BOUND);
     }
     
+    @SuppressWarnings("unused")
     private void installCore(Variants.Config config, Repository repository) {
         repository.require(Repository.FACTORY);
         
-        repository.keep(Variants.Config.Builder.FACTORY, () -> ConfigBuilderImpl::new, IF_NOT_BOUND);
+        repository.keep(Variants.Config.Builder.FACTORY, singleton(() -> ConfigBuilderImpl::new), IF_NOT_BOUND);
         repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), IF_NOT_BOUND);
+        repository.keep(VariantFactory.CONTRACT, singleton(VariantFactoryImpl::new), IF_NOT_BOUND);
     }
 }

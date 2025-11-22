@@ -8,8 +8,11 @@ public interface Tests extends
     ChecksTests,
     ExceptionTests,
     GlobalVariantsTests,
+    InternalTests,
+    VariantTests,
     VariantsConfigTests,
     VariantsTests,
+    VariantsFactoryFinderTests,
     VariantsFactoryTests,
     ToolsTests,
     ValidateTests
