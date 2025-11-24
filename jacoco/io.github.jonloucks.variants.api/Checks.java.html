@@ -44,6 +44,10 @@ public final class Checks {
 <span class="fc" id="L44">        contracts.claim(VariantsFactory.CONTRACT);</span>
 <span class="fc" id="L45">    }</span>
     
+    public static &lt;T&gt; Variant&lt;T&gt; variantCheck(Variant&lt;T&gt; variant) {
+<span class="fc" id="L48">        return nullCheck(variant, &quot;Variant must be present.&quot;);</span>
+    }
+    
     private Checks() {
     
     }

@@ -22,7 +22,7 @@ final class VariantsImpl implements Variants {
 <span class="fc" id="L22">    VariantsImpl(Config config, Repository repository, boolean autoOpen) {</span>
         //noinspection ResultOfMethodCallIgnored
 <span class="fc" id="L24">        configCheck(config);</span>
-<span class="fc" id="L25">        final Repository validRepository = nullCheck(repository, &quot;Repository must be present.&quot;);</span>
+<span class="fc" id="L25">        final Repository validRepository = nullCheck(repository, &quot;Environment must be present.&quot;);</span>
 <span class="fc bfc" id="L26" title="All 2 branches covered.">        this.closeRepository = autoOpen ? validRepository.open() : AutoClose.NONE;</span>
 <span class="fc" id="L27">    }</span>
     

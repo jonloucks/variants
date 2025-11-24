@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EnvironmentImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.impl</a> &gt; <span class="el_source">EnvironmentImpl.java</span></div><h1>EnvironmentImpl.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.impl;
+
+import io.github.jonloucks.variants.api.Environment;
+import io.github.jonloucks.variants.api.Variant;
+import io.github.jonloucks.variants.api.VariantSource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static io.github.jonloucks.contracts.api.Checks.configCheck;
+import static io.github.jonloucks.variants.api.Checks.variantCheck;
+import static io.github.jonloucks.variants.impl.Internal.optionalOr;
+
+/**
+ * Responsibility: Environment implementation
+ */
+final class EnvironmentImpl implements Environment {
+
+    @Override
+    public &lt;T&gt; Optional&lt;T&gt; findVariance(Variant&lt;T&gt; variant) {
+<span class="fc" id="L22">        final Variant&lt;T&gt; validVariant = variantCheck(variant);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (VariantSource source : sources) {</span>
+<span class="fc" id="L24">            final Optional&lt;T&gt; match = findVariantOrLinkInSource(validVariant, source);</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">            if (match.isPresent()) {</span>
+<span class="fc" id="L26">                return match;</span>
+            }
+<span class="fc" id="L28">        }</span>
+<span class="fc" id="L29">        return findVariantOrLinkFallback(validVariant);</span>
+    }
+    
+<span class="fc" id="L32">    EnvironmentImpl(Environment.Config config) {</span>
+<span class="fc" id="L33">        final Environment.Config validConfig = configCheck(config);</span>
+<span class="fc" id="L34">        sources.addAll(validConfig.getSources());</span>
+<span class="fc" id="L35">    }</span>
+    
+    private &lt;T&gt; Optional&lt;T&gt; findVariantOrLinkFallback(Variant&lt;T&gt; variant) {
+<span class="fc" id="L38">        return optionalOr(findByLinkFallback(variant), variant::getFallback);</span>
+    }
+    
+    private &lt;T&gt; Optional&lt;T&gt; findVariantOrLinkInSource(Variant&lt;T&gt; variant, VariantSource source) {
+<span class="fc" id="L42">        return optionalOr(findVariantInSource(variant, source), () -&gt; findLinkVariantInSource(variant, source));</span>
+    }
+    
+    private &lt;T&gt; Optional&lt;T&gt; findByLinkFallback(Variant&lt;T&gt; variant) {
+<span class="fc" id="L46">        final Optional&lt;Variant&lt;T&gt;&gt; optionalLink = variant.getLink();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (optionalLink.isPresent()) {</span>
+<span class="fc" id="L48">            final Variant&lt;T&gt; link = optionalLink.get();</span>
+<span class="fc" id="L49">            return link.getFallback();</span>
+        }
+<span class="fc" id="L51">        return Optional.empty();</span>
+    }
+    
+    private &lt;T&gt; Optional&lt;? extends T&gt; findLinkVariantInSource(Variant&lt;T&gt; variant, VariantSource source) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (variant.getLink().isPresent()) {</span>
+<span class="fc" id="L56">            final Optional&lt;T&gt; match = findVariantInSource(variant.getLink().get(), source);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (match.isPresent()) {</span>
+<span class="fc" id="L58">                return match;</span>
+            }
+        }
+<span class="fc" id="L61">        return Optional.empty();</span>
+    }
+    
+    private &lt;T&gt; Optional&lt;T&gt; findVariantInSource(Variant&lt;T&gt; variant, VariantSource source) {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (String key : variant.getKeys()) {</span>
+<span class="fc" id="L66">            final Optional&lt;CharSequence&gt; optionalText = source.getSource(key);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            if (optionalText.isPresent()) {</span>
+<span class="fc" id="L68">                final Optional&lt;T&gt; optionalVariance = variant.of(optionalText.get());</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                if (optionalVariance.isPresent()) {</span>
+<span class="fc" id="L70">                    return optionalVariance;</span>
+                }
+            }
+<span class="fc" id="L73">        }</span>
+<span class="fc" id="L74">        return Optional.empty();</span>
+    }
+    
+    
+<span class="fc" id="L78">    private final List&lt;VariantSource&gt; sources = new ArrayList&lt;&gt;();</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

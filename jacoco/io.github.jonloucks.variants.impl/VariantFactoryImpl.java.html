@@ -7,19 +7,22 @@ import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.builderConsumerCheck;
 
-<span class="fc" id="L10">final class VariantFactoryImpl implements VariantFactory {</span>
+/**
+ * Responsibility: VariantFactory implementation
+ */
+<span class="fc" id="L13">final class VariantFactoryImpl implements VariantFactory {</span>
     
     @Override
     public &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer) {
-<span class="fc" id="L14">        final Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; validBuildConsumer = builderConsumerCheck(builderConsumer);</span>
-<span class="fc" id="L15">        final VariantBuilderImpl&lt;T&gt; variantBuilder = new VariantBuilderImpl&lt;&gt;();</span>
-<span class="fc" id="L16">        validBuildConsumer.accept(variantBuilder);</span>
-<span class="fc" id="L17">        return createVariant(variantBuilder);</span>
+<span class="fc" id="L17">        final Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; validBuildConsumer = builderConsumerCheck(builderConsumer);</span>
+<span class="fc" id="L18">        final VariantBuilderImpl&lt;T&gt; variantBuilder = new VariantBuilderImpl&lt;&gt;();</span>
+<span class="fc" id="L19">        validBuildConsumer.accept(variantBuilder);</span>
+<span class="fc" id="L20">        return createVariant(variantBuilder);</span>
     }
     
     @Override
     public &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config) {
-<span class="fc" id="L22">        return new VariantImpl&lt;&gt;(config);</span>
+<span class="fc" id="L25">        return new VariantImpl&lt;&gt;(config);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Variants.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">Variants.java</span></div><h1>Variants.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
 
-import io.github.jonloucks.contracts.api.AutoOpen;
-import io.github.jonloucks.contracts.api.Contract;
-import io.github.jonloucks.contracts.api.Contracts;
-import io.github.jonloucks.contracts.api.GlobalContracts;
+import io.github.jonloucks.contracts.api.*;
 
 import java.util.function.Supplier;
 
@@ -14,7 +11,19 @@ public interface Variants extends AutoOpen {
     /**
      * Access the current Variants implementation
      */
-<span class="fc" id="L17">    Contract&lt;Variants&gt; CONTRACT = Contract.create(Variants.class);</span>
+<span class="fc" id="L14">    Contract&lt;Variants&gt; CONTRACT = Contract.create(Variants.class);</span>
+    
+    // load from disk. for example app.properties, app.yml
+    // load from gradle project properties
+    // load from System.env ( how to handle permission errors?)
+    // load from System.getProperty (how to handle permission errors?)
+    // auto naming schemes. APP_PROPERTY, app.property, ORG_GRADLE_PROJECT_
+    // where do actual values get stored? or is that not the responsibility of Variants
+    // are different sources opt-in or opt-out
+    
+    // how to handle links?
+
+    // are links and fallbacks only executed if all scopes fail? yes
     
     /**
      * The configuration used to create a new Variants instance.
@@ -24,44 +33,43 @@ public interface Variants extends AutoOpen {
         /**
          * The default configuration used when creating a new Variants instance
          */
-<span class="fc" id="L27">        Config DEFAULT = new Config() {};</span>
+<span class="fc" id="L36">        Config DEFAULT = new Config() {};</span>
         
         /**
          * @return if true, reflection might be used to locate the VariantsFactory
          */
         default boolean useReflection() {
-<span class="fc" id="L33">            return true;</span>
+<span class="fc" id="L42">            return true;</span>
         }
         
         /**
          * @return the class name to use if reflection is used to find the VariantsFactory
          */
         default String reflectionClassName() {
-<span class="fc" id="L40">            return &quot;io.github.jonloucks.variants.impl.VariantsFactoryImpl&quot;;</span>
+<span class="fc" id="L49">            return &quot;io.github.jonloucks.variants.impl.VariantsFactoryImpl&quot;;</span>
         }
         
         /**
          * @return if true, the ServiceLoader might be used to locate the VariantsFactory
          */
         default boolean useServiceLoader() {
-<span class="fc" id="L47">            return true;</span>
+<span class="fc" id="L56">            return true;</span>
         }
         
         /**
          * @return the class name to load from the ServiceLoader to find the VariantsFactory
          */
         default Class&lt;? extends VariantsFactory&gt; serviceLoaderClass() {
-<span class="fc" id="L54">            return VariantsFactory.class;</span>
+<span class="fc" id="L63">            return VariantsFactory.class;</span>
         }
         
         /**
          * @return the contracts, some use case have their own Contracts instance.
          */
         default Contracts contracts() {
-<span class="fc" id="L61">            return GlobalContracts.getInstance();</span>
+<span class="fc" id="L70">            return GlobalContracts.getInstance();</span>
         }
         
- 
         /**
          * The Variants configuration
          */
@@ -70,7 +78,7 @@ public interface Variants extends AutoOpen {
             /**
              * Variants Variant Builder
              */
-<span class="fc" id="L73">            Contract&lt;Supplier&lt;Builder&gt;&gt; FACTORY = Contract.create(&quot;Variants Variant Builder Factory&quot;);</span>
+<span class="fc" id="L81">            Contract&lt;Supplier&lt;Builder&gt;&gt; FACTORY = Contract.create(&quot;Variants Variant Builder Factory&quot;);</span>
             
             /**
              * @param useReflection enables or disables locating VariantsFactory implementation by reflection

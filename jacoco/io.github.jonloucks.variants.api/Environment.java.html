@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Environment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">Environment.java</span></div><h1>Environment.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Properties;
+
+import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static java.util.Optional.ofNullable;
+
+/**
+ * Responsibility: Locating variances from multiple sources.
+ * &lt;p&gt;
+ * A breadth first search into each source looking for provided value for a specific Variant
+ * Each key in the Variant is search in order of insertion.
+ * Fallback values (defaults) are only used if no values are found in any of the sources.
+ * &lt;/p&gt;
+ */
+public interface Environment {
+    
+    /**
+     * Find a variance if it exists.
+     *
+     * @param variant the Variant
+     * @return the optional value
+     * @param &lt;T&gt; the type of variance value
+     */
+    &lt;T&gt; Optional&lt;T&gt; findVariance(Variant&lt;T&gt; variant);
+    
+    /**
+     * Get required variance or throw an exception.
+     *
+     * @param variant the Variant
+     * @return the variance
+     * @throws VariantException if not found
+     * @param &lt;T&gt; the type of variance value
+     */
+    default &lt;T&gt; T getVariance(Variant&lt;T&gt; variant) {
+<span class="fc" id="L39">        return findVariance(variant).orElseThrow(() -&gt; new VariantException(&quot;Variant not found. &quot; + variant + &quot;.&quot;));</span>
+    }
+    
+    /**
+     * Responsibility: Configuration for creating a new Environment
+     */
+    interface Config {
+        
+        /**
+         * @return the list of sources. An empty list is allowed.
+         */
+        List&lt;VariantSource&gt; getSources();
+        
+        /**
+         * Responsibility: Builder a configuration used to create a new Environment
+         */
+        interface Builder extends Environment.Config {
+            
+            /**
+             * Add a new source.
+             *
+             * @param source the source to add
+             * @return this builder
+             */
+            Builder addSource(VariantSource source);
+            
+            /**
+             * Add a new source based on a java.util.Map.
+             *
+             * @param map the Map
+             * @return this builder
+             */
+            default Builder addMapSource(Map&lt;String, ?&gt; map) {
+<span class="fc" id="L72">                final Map&lt;String, ?&gt; validMap = nullCheck(map, &quot;Map must be present.&quot;);</span>
+<span class="fc" id="L73">                return addSource(k -&gt; Optional.ofNullable(validMap.get(k)).map(Object::toString));</span>
+            }
+            
+            /**
+             * Add a new source based on a java.util.Properties.
+             *
+             * @param properties the Properties
+             * @return this builder
+             */
+            default Builder addPropertiesSource(Properties properties) {
+<span class="fc" id="L83">                final Properties validProperties = nullCheck(properties, &quot;Properties must be present.&quot;);</span>
+<span class="fc" id="L84">                return addSource(k -&gt; ofNullable(validProperties.getProperty(k)));</span>
+            }
+            
+            /**
+             * Add System.getProperty as a source.
+             *
+             * @return this builder
+             */
+            default Builder addSystemPropertiesSource() {
+<span class="fc" id="L93">                addSource(k -&gt; ofNullable(System.getProperty(k)));</span>
+<span class="fc" id="L94">                return this;</span>
+            }
+            
+            /**
+             * Add System.getenv as a source.
+             *
+             * @return this builder
+             */
+            default Builder addSystemEnvironmentSource() {
+<span class="fc" id="L103">                addSource(k -&gt; ofNullable(System.getenv(k)));</span>
+<span class="fc" id="L104">                return this;</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

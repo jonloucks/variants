@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static io.github.jonloucks.variants.impl.Internal.optionalOr;
 import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 
@@ -17,83 +18,83 @@ final class VariantBuilderImpl&lt;T&gt; implements Variant.Config.Builder&lt;T&g
     
     @Override
     public VariantBuilderImpl&lt;T&gt; name(String name) {
-<span class="fc" id="L20">        this.name = name;</span>
-<span class="fc" id="L21">        return this;</span>
+<span class="fc" id="L21">        this.name = name;</span>
+<span class="fc" id="L22">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; parser(Function&lt;CharSequence, T&gt; parser) {
-<span class="fc" id="L26">        this.parser = parser;</span>
-<span class="fc" id="L27">        return this;</span>
+<span class="fc" id="L27">        this.parser = parser;</span>
+<span class="fc" id="L28">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; description(String description) {
-<span class="fc" id="L32">        this.description = description;</span>
-<span class="fc" id="L33">        return this;</span>
+<span class="fc" id="L33">        this.description = description;</span>
+<span class="fc" id="L34">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; keys(String... keys) {
-<span class="fc" id="L38">        final String[] validKeys = nullCheck(keys, &quot;Keys must be present&quot;);</span>
-<span class="fc" id="L39">        this.keys.addAll(asList(validKeys));</span>
-<span class="fc" id="L40">        return this;</span>
+<span class="fc" id="L39">        final String[] validKeys = nullCheck(keys, &quot;Keys must be present&quot;);</span>
+<span class="fc" id="L40">        this.keys.addAll(asList(validKeys));</span>
+<span class="fc" id="L41">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; fallback(Supplier&lt;T&gt; fallback) {
-<span class="fc" id="L45">        this.fallback = nullCheck(fallback, &quot;Fallback must be present.&quot;);</span>
-<span class="fc" id="L46">        return this;</span>
+<span class="fc" id="L46">        this.fallback = nullCheck(fallback, &quot;Fallback must be present.&quot;);</span>
+<span class="fc" id="L47">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; link(Variant&lt;T&gt; link) {
-<span class="fc" id="L51">        this.link = link;</span>
-<span class="fc" id="L52">        return this;</span>
+<span class="fc" id="L52">        this.link = link;</span>
+<span class="fc" id="L53">        return this;</span>
     }
     
     @Override
     public Optional&lt;String&gt; getName() {
-<span class="fc" id="L57">        return ofNullable(name);</span>
+<span class="fc" id="L58">        return optionalOr(ofNullable(name), () -&gt; keys.stream().findFirst());</span>
     }
     
     @Override
     public Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L62">        return ofNullable(description);</span>
+<span class="fc" id="L63">        return ofNullable(description);</span>
     }
     
     @Override
     public Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L67">        return ofNullable(fallback.get());</span>
+<span class="fc" id="L68">        return ofNullable(fallback.get());</span>
     }
     
     @Override
     public Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L72">        return ofNullable(link);</span>
+<span class="fc" id="L73">        return ofNullable(link);</span>
     }
     
     @Override
     public List&lt;String&gt; getKeys() {
-<span class="fc" id="L77">        return new ArrayList&lt;&gt;(keys);</span>
+<span class="fc" id="L78">        return new ArrayList&lt;&gt;(keys);</span>
     }
     
     @Override
-    public Function&lt;CharSequence, T&gt; getParser() {
-<span class="fc" id="L82">        return parser;</span>
+    public Optional&lt;Function&lt;CharSequence, T&gt;&gt; getParser() {
+<span class="fc" id="L83">        return ofNullable(parser);</span>
     }
     
     @Override
     public String toString() {
-<span class="fc" id="L87">        return ofNullable(name).orElse(&quot;***&quot;);</span>
+<span class="fc" id="L88">        return ofNullable(name).orElse(&quot;***&quot;);</span>
     }
     
-<span class="fc" id="L90">    VariantBuilderImpl() {</span>
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L91">    VariantBuilderImpl() {</span>
+<span class="fc" id="L92">    }</span>
     
     private String name;
     private String description;
-<span class="fc" id="L95">    private Supplier&lt;T&gt; fallback = () -&gt; null;</span>
-<span class="fc" id="L96">    private final LinkedHashSet&lt;String&gt; keys = new LinkedHashSet&lt;&gt;() ;</span>
+<span class="fc" id="L96">    private Supplier&lt;T&gt; fallback = () -&gt; null;</span>
+<span class="fc" id="L97">    private final LinkedHashSet&lt;String&gt; keys = new LinkedHashSet&lt;&gt;() ;</span>
     private Function&lt;CharSequence,T&gt; parser;
     private Variant&lt;T&gt; link;
 }
