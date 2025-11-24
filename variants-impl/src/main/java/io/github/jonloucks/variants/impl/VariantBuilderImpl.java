@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static io.github.jonloucks.variants.impl.Internal.optionalOr;
 import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 
@@ -54,7 +55,7 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     
     @Override
     public Optional<String> getName() {
-        return ofNullable(name);
+        return optionalOr(ofNullable(name), () -> keys.stream().findFirst());
     }
     
     @Override
@@ -78,8 +79,8 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     }
     
     @Override
-    public Function<CharSequence, T> getParser() {
-        return parser;
+    public Optional<Function<CharSequence, T>> getParser() {
+        return ofNullable(parser);
     }
     
     @Override

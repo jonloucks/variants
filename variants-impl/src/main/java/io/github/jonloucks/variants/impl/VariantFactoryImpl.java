@@ -7,6 +7,9 @@ import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.builderConsumerCheck;
 
+/**
+ * Responsibility: VariantFactory implementation
+ */
 final class VariantFactoryImpl implements VariantFactory {
     
     @Override

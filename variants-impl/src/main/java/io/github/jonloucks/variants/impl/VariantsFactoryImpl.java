@@ -65,5 +65,6 @@ public final class VariantsFactoryImpl implements VariantsFactory {
         repository.keep(Variants.Config.Builder.FACTORY, singleton(() -> ConfigBuilderImpl::new), IF_NOT_BOUND);
         repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), IF_NOT_BOUND);
         repository.keep(VariantFactory.CONTRACT, singleton(VariantFactoryImpl::new), IF_NOT_BOUND);
+        repository.keep(EnvironmentFactory.CONTRACT, singleton(EnvironmentFactoryImpl::new), IF_NOT_BOUND);
     }
 }

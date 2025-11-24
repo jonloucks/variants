@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
-import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Collections.unmodifiableList;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
@@ -38,21 +37,30 @@ final class VariantImpl<T> implements Variant<T> {
     }
     
     @Override
-    public Optional<T> of(String value) {
-        return Optional.ofNullable(parser.apply(value));
+    public Optional<T> of(CharSequence value) {
+        return parser.map(p -> p.apply(value));
+    }
+    
+    @Override
+    public String toString() {
+        if (getName().isPresent()) {
+            return "Variant[name=" + getName().get() + "]";
+        } else {
+            return "Variant[]";
+        }
     }
     
     VariantImpl(Variant.Config<T> config) {
         final Variant.Config<T> validConfig = configCheck(config);
-        if (validConfig.getKeys().isEmpty()) {
-            throw new IllegalArgumentException("Keys must be present.");
-        }
         this.keys = unmodifiableList(validConfig.getKeys());
-        this.name = validConfig.getName().isPresent() ? validConfig.getName() : Optional.of(keys.get(0));
+        this.name = validConfig.getName();
         this.description = validConfig.getDescription();
         this.link = validConfig.getLink();
         this.fallback = validConfig.getFallback();
-        this.parser = nullCheck(validConfig.getParser(), "Parser should be present.");
+        this.parser = validConfig.getParser();
+        if (!keys.isEmpty() && !validConfig.getParser().isPresent()) {
+            throw new IllegalArgumentException("Parser is required when keys are present.");
+        }
     }
     
     private final List<String> keys;
@@ -60,5 +68,5 @@ final class VariantImpl<T> implements Variant<T> {
     private final Optional<String> description;
     private final Optional<T> fallback;
     private final Optional<Variant<T>> link;
-    private final Function<CharSequence,T> parser;
+    private final Optional<Function<CharSequence,T>> parser;
 }

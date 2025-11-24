@@ -44,6 +44,10 @@ public final class Checks {
         contracts.claim(VariantsFactory.CONTRACT);
     }
     
+    public static <T> Variant<T> variantCheck(Variant<T> variant) {
+        return nullCheck(variant, "Variant must be present.");
+    }
+    
     private Checks() {
     
     }

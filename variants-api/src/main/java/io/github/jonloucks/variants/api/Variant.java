@@ -1,5 +1,6 @@
 package io.github.jonloucks.variants.api;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -7,7 +8,9 @@ import java.util.function.Supplier;
 
 public interface Variant<T> {
     
-    List<String> getKeys();
+    default List<String> getKeys() {
+        return Collections.emptyList();
+    }
     
     default Optional<String> getName() {
         return Optional.empty();
@@ -25,16 +28,16 @@ public interface Variant<T> {
         return Optional.empty();
     }
     
-    default Optional<T> of(String value) {
+    default Optional<T> of(CharSequence value) {
         return Optional.empty();
     }
     
-    interface Config<T>  {
+    interface Config<T> {
         
         List<String> getKeys();
         
-        default Function<CharSequence, T> getParser() {
-            return null;
+        default Optional<Function<CharSequence, T>> getParser() {
+            return Optional.empty();
         }
         
         default Optional<String> getName() {
