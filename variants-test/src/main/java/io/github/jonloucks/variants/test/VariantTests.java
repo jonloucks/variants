@@ -13,16 +13,13 @@ import static io.github.jonloucks.contracts.test.Tools.assertObject;
 import static io.github.jonloucks.contracts.test.Tools.assertThrown;
 import static io.github.jonloucks.variants.test.Tools.withVariants;
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public interface VariantTests {
     
     @Test
     default void variant_Variant_WithDefaults_Works() {
-        final List<String> keys = new ArrayList<>();
-        keys.add("key");
-        final Variant<Duration> variant = () -> keys;
+        final Variant<Duration> variant = new Variant<>() {};
         
         assertFalse(variant.getDescription().isPresent(), "By default description should not be present.");
         assertFalse(variant.getFallback().isPresent(), "By default fallback should not be present.");
@@ -41,14 +38,17 @@ public interface VariantTests {
         assertFalse(variant.getFallback().isPresent(), "By default fallback should not be present.");
         assertFalse(variant.getLink().isPresent(), "By default link should not be present.");
         assertFalse(variant.getName().isPresent(), "By default name should not be present.");
-        assertNull(variant.getParser(), "By parser should not be present.");
+        assertFalse(variant.getParser().isPresent(), "By parser should not be present.");
     }
     
     @Test
     default void variant_create_WithOverrides_Works() {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
-            final Variant<Duration> link = () -> singletonList("xyz");
+            final Variant<Duration> link = variantFactory.createVariant(b -> b
+                .keys("xyz")
+                .parser(Duration::parse)
+            );
             final Variant<Duration> variant = variantFactory.createVariant(b -> b
                 .description("description")
                 .name("name")
@@ -102,12 +102,25 @@ public interface VariantTests {
     }
     
     @Test
-    default void variant_create_BuilderWithoutKeys_Throws() {
+    default void variant_create_BuilderWithoutKeys_Works() {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            
+            final Variant<Duration> variant = variantFactory.createVariant(b -> {
+            });
+            
+            assertObject(variant);
+        });
+    }
+    
+    @Test
+    default void variant_create_WithKeyAndNoParser_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+
             assertThrown(IllegalArgumentException.class,
-                () -> variantFactory.createVariant(b -> {}),
-                "Keys must be present.");
+                () -> variantFactory.createVariant(b -> b.keys("key")),
+                "Parser is required when keys are present.");
         });
     }
 }

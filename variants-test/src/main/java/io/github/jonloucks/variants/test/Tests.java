@@ -7,6 +7,7 @@ public interface Tests extends
     BadVariantsFactoryTests,
     ChecksTests,
     ExceptionTests,
+    EnvironmentTests,
     GlobalVariantsTests,
     InternalTests,
     VariantTests,

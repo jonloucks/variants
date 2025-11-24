@@ -22,7 +22,7 @@ final class VariantsImpl implements Variants {
     VariantsImpl(Config config, Repository repository, boolean autoOpen) {
         //noinspection ResultOfMethodCallIgnored
         configCheck(config);
-        final Repository validRepository = nullCheck(repository, "Repository must be present.");
+        final Repository validRepository = nullCheck(repository, "Environment must be present.");
         this.closeRepository = autoOpen ? validRepository.open() : AutoClose.NONE;
     }
     

@@ -38,7 +38,7 @@ public interface VariantsFactory {
     Variants create(Consumer<Variants.Config.Builder> builderConsumer);
     
     /**
-     * Install all the requirements and promises to the given Contracts Repository.
+     * Install all the requirements and promises to the given Contracts Environment.
      * Include Variants#CONTRACT which will private a unique
      *
      * @param config the Variants config

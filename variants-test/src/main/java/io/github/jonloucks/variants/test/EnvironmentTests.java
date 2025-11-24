@@ -1,0 +1,340 @@
+package io.github.jonloucks.variants.test;
+
+import io.github.jonloucks.variants.api.*;
+import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Properties;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import static io.github.jonloucks.contracts.api.GlobalContracts.claimContract;
+import static io.github.jonloucks.contracts.test.Tools.assertObject;
+import static io.github.jonloucks.contracts.test.Tools.assertThrown;
+import static io.github.jonloucks.variants.test.Tools.withVariants;
+import static java.util.Collections.singletonMap;
+import static org.junit.jupiter.api.Assertions.*;
+
+public interface EnvironmentTests {
+    
+    @Test
+    default void environment_create_WithNullConfig_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            assertThrown(IllegalArgumentException.class, () -> {
+                factory.createEnvironment((Environment.Config)null);
+            }, "Config must be present.");
+        });
+    }
+    
+    @Test
+    default void environment_create_WithNullConfigBuilderConsumer_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            assertThrown(IllegalArgumentException.class, () -> {
+                factory.createEnvironment((Consumer<Environment.Config.Builder>)null);
+            }, "Builder consumer must be present.");
+        });
+    }
+    
+    @Test
+    default void environment_create_ConfigWithNoSources_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final Environment.Config config = Collections::emptyList;
+            
+            final Environment environment = factory.createEnvironment(config);
+            
+            assertObject(environment);
+        });
+    }
+    
+    @Test
+    default void environment_create_BuilderWithNoSources_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            
+            final Environment environment = factory.createEnvironment(b -> {});
+            
+            assertObject(environment);
+        });
+    }
+    
+    @Test
+    default void environment_create_BuilderWithNoNullMap_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            
+            final Environment environment = factory.createEnvironment(b -> {
+                assertThrown(IllegalArgumentException.class,
+                    () -> b.addMapSource(null),
+                    "Map must be present.");
+                
+            });
+            
+            assertObject(environment);
+        });
+    }
+    
+    @Test
+    default void environment_create_BuilderWithNoNullProperties_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            
+            final Environment environment = factory.createEnvironment(
+                b -> assertThrown(IllegalArgumentException.class,
+                    () -> b.addPropertiesSource(null),
+                    "Properties must be present."));
+            
+            assertObject(environment);
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithNoSources_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final Environment.Config config = Collections::emptyList;
+            final Variant<Duration> variant = new Variant<>() {};
+            
+            final Environment environment = factory.createEnvironment(config);
+            
+            assertFalse(environment.findVariance(variant).isPresent(),
+                "findVariance should not have found a matching variance.");
+            assertThrown(VariantException.class,
+                () -> environment.getVariance(variant));
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithSystemEnvironment_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                    .keys(UUID.randomUUID().toString())
+                    .parser(Object::toString)
+                );
+       
+            final Environment environment = factory.createEnvironment(Environment.Config.Builder::addSystemEnvironmentSource);
+            
+            assertFalse(environment.findVariance(variant).isPresent(),
+                "findVariance should not have found a matching variance.");
+            assertThrown(VariantException.class,
+                () -> environment.getVariance(variant));
+        });
+    }
+    
+    @Test
+    default void environment_Variance_WithMap_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "key";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(Object::toString)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addMapSource(singletonMap(key, "value")));
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("value", environment.findVariance(variant).get());
+            assertEquals("value", environment.getVariance(variant));
+        });
+    }
+    
+    @Test
+    default void environment_Variance_WithFickleParser_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "key";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(x -> null)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addMapSource(singletonMap(key, "value")));
+            
+            assertFalse(environment.findVariance(variant).isPresent(),
+                "findVariance should have not found a matching variance.");
+        });
+    }
+    
+    @Test
+    default void environment_Variance_WithProperties_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "key";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(Object::toString)
+            );
+            final Properties properties = new Properties();
+            properties.put("key", "value");
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addPropertiesSource(properties));
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("value", environment.findVariance(variant).get());
+            assertEquals("value", environment.getVariance(variant));
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithSystemProperties_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "java.version";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(Object::toString)
+            );
+            
+            final Environment environment = factory.createEnvironment(Environment.Config.Builder::addSystemPropertiesSource);
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithMaps_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "key";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(Object::toString)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addMapSource(singletonMap(key, "value1"))
+                .addMapSource(singletonMap(key, "value2"))
+                .addMapSource(singletonMap(key, "value3")));
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("value1", environment.findVariance(variant).get());
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithMixedMaps_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final String key = "key";
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys(key)
+                .parser(Object::toString)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addMapSource(singletonMap("unknown", "value1"))
+                .addMapSource(singletonMap(key, "value2"))
+                .addMapSource(singletonMap(key, "value3")));
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("value2", environment.findVariance(variant).get());
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithLink_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final Variant<String> linkVariant = variantFactory.createVariant(b -> b
+                .keys("linkKey")
+                .parser(Object::toString)
+            );
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys("key")
+                .parser(Object::toString)
+                .link(linkVariant)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> b
+                .addMapSource(singletonMap("unknownKey", "unknownValue"))
+                .addMapSource(singletonMap("linkKey", "linkValue")));
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("linkValue", environment.findVariance(variant).get());
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithLinkFallback_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final Variant<String> linkVariant = variantFactory.createVariant(b -> b
+                .fallback(() -> "linkValue")
+            );
+            final Variant<String> variant = variantFactory.createVariant(b -> b
+                .keys("key")
+                .parser(Object::toString)
+                .link(linkVariant)
+            );
+            
+            final Environment environment = factory.createEnvironment(b -> {});
+            
+            assertTrue(environment.findVariance(variant).isPresent(),
+                "findVariance should have found a matching variance.");
+            assertEquals("linkValue", environment.findVariance(variant).get());
+        });
+    }
+    
+    @Test
+    default void environment_getVariance_WithNoSources_Works() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final Environment.Config config = Collections::emptyList;
+            final Variant<Duration> variant = new Variant<>() {};
+
+            final Environment environment = factory.createEnvironment(config);
+
+            assertFalse(environment.findVariance(variant).isPresent());
+            assertThrown(VariantException.class,() -> environment.getVariance(variant));
+        });
+    }
+    
+    @Test
+    default void environment_findVariance_WithNullVariant_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final Environment.Config config = Collections::emptyList;
+            final Environment environment = factory.createEnvironment(config);
+            
+            assertThrown(IllegalArgumentException.class,
+                () -> environment.findVariance(null),
+                "Variant must be present.");
+        });
+    }
+    
+    @Test
+    default void environment_getVariance_WithNullVariant_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            final Environment.Config config = Collections::emptyList;
+            final Environment environment = factory.createEnvironment(config);
+            
+            assertThrown(IllegalArgumentException.class,
+                () -> environment.getVariance(null),
+                "Variant must be present.");
+        });
+    }
+}
