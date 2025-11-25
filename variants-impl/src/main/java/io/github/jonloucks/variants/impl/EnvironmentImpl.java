@@ -63,7 +63,7 @@ final class EnvironmentImpl implements Environment {
     
     private <T> Optional<T> findVariantInSource(Variant<T> variant, VariantSource source) {
         for (String key : variant.getKeys()) {
-            final Optional<CharSequence> optionalText = source.getSource(key);
+            final Optional<CharSequence> optionalText = source.getSourceText(key);
             if (optionalText.isPresent()) {
                 final Optional<T> optionalVariance = variant.of(optionalText.get());
                 if (optionalVariance.isPresent()) {

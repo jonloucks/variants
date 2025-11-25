@@ -2,18 +2,19 @@ package io.github.jonloucks.variants.impl;
 
 import io.github.jonloucks.variants.api.Variant;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static io.github.jonloucks.variants.api.Checks.keysCheck;
 import static io.github.jonloucks.variants.impl.Internal.optionalOr;
-import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 
+/**
+ * Responsibility: Variant.Config.Builder implementation
+ * @param <T> the value type of Variant
+ */
 final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     
     @Override
@@ -35,9 +36,8 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     }
     
     @Override
-    public VariantBuilderImpl<T> keys(String... keys) {
-        final String[] validKeys = nullCheck(keys, "Keys must be present");
-        this.keys.addAll(asList(validKeys));
+    public VariantBuilderImpl<T> keys(Collection<String> keys) {
+        this.keys.addAll(keysCheck(keys));
         return this;
     }
     
@@ -81,11 +81,6 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     @Override
     public Optional<Function<CharSequence, T>> getParser() {
         return ofNullable(parser);
-    }
-    
-    @Override
-    public String toString() {
-        return ofNullable(name).orElse("***");
     }
     
     VariantBuilderImpl() {
