@@ -5,80 +5,68 @@ import io.github.jonloucks.contracts.api.*;
 import java.util.function.Supplier;
 
 /**
- * The Variants API
+ * Responsibility: Provide access to essential Variant methods.
  */
 public interface Variants extends AutoOpen {
     /**
      * Access the current Variants implementation
      */
 <span class="fc" id="L14">    Contract&lt;Variants&gt; CONTRACT = Contract.create(Variants.class);</span>
-    
-    // load from disk. for example app.properties, app.yml
-    // load from gradle project properties
-    // load from System.env ( how to handle permission errors?)
-    // load from System.getProperty (how to handle permission errors?)
-    // auto naming schemes. APP_PROPERTY, app.property, ORG_GRADLE_PROJECT_
-    // where do actual values get stored? or is that not the responsibility of Variants
-    // are different sources opt-in or opt-out
-    
-    // how to handle links?
 
-    // are links and fallbacks only executed if all scopes fail? yes
-    
     /**
-     * The configuration used to create a new Variants instance.
+     * Responsibility: Configuration used to create a new Variants instance.
      */
     interface Config {
         
         /**
          * The default configuration used when creating a new Variants instance
          */
-<span class="fc" id="L36">        Config DEFAULT = new Config() {};</span>
+<span class="fc" id="L24">        Config DEFAULT = new Config() {};</span>
         
         /**
          * @return if true, reflection might be used to locate the VariantsFactory
          */
         default boolean useReflection() {
-<span class="fc" id="L42">            return true;</span>
+<span class="fc" id="L30">            return true;</span>
         }
         
         /**
          * @return the class name to use if reflection is used to find the VariantsFactory
          */
         default String reflectionClassName() {
-<span class="fc" id="L49">            return &quot;io.github.jonloucks.variants.impl.VariantsFactoryImpl&quot;;</span>
+<span class="fc" id="L37">            return &quot;io.github.jonloucks.variants.impl.VariantsFactoryImpl&quot;;</span>
         }
         
         /**
          * @return if true, the ServiceLoader might be used to locate the VariantsFactory
          */
         default boolean useServiceLoader() {
-<span class="fc" id="L56">            return true;</span>
+<span class="fc" id="L44">            return true;</span>
         }
         
         /**
          * @return the class name to load from the ServiceLoader to find the VariantsFactory
          */
         default Class&lt;? extends VariantsFactory&gt; serviceLoaderClass() {
-<span class="fc" id="L63">            return VariantsFactory.class;</span>
+<span class="fc" id="L51">            return VariantsFactory.class;</span>
         }
         
         /**
          * @return the contracts, some use case have their own Contracts instance.
          */
         default Contracts contracts() {
-<span class="fc" id="L70">            return GlobalContracts.getInstance();</span>
+<span class="fc" id="L58">            return GlobalContracts.getInstance();</span>
         }
         
         /**
-         * The Variants configuration
+         * Responsibility: Build configuration to create a new Variants instance
          */
         interface Builder extends Config {
             
             /**
              * Variants Variant Builder
              */
-<span class="fc" id="L81">            Contract&lt;Supplier&lt;Builder&gt;&gt; FACTORY = Contract.create(&quot;Variants Variant Builder Factory&quot;);</span>
+<span class="fc" id="L69">            Contract&lt;Supplier&lt;Builder&gt;&gt; FACTORY = Contract.create(&quot;Variants Variant Builder Factory&quot;);</span>
             
             /**
              * @param useReflection enables or disables locating VariantsFactory implementation by reflection

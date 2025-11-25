@@ -72,8 +72,13 @@ loadScripts(document, 'script');</script>
 <h1 title="Interface Variant" class="title">Interface Variant&lt;T&gt;</h1>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the type of configuration value</dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Variant&lt;T&gt;</span></div>
+<div class="block">Responsibility: Provide information on how to retrieve a configuration value.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -88,7 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="Variant.Config.html" class="type-name-link" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;<a href="Variant.Config.html" title="type parameter in Variant.Config">T</a>&gt;</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Responsibility: Configuration for creating a new Variant.</div>
+</div>
 </div>
 </section>
 </li>
@@ -111,16 +118,27 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getKeys()" class="member-name-link">getKeys</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">The primary use case of getting a property value by key</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getLink()" class="member-name-link">getLink</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Links can be helpful when a Variant which does not
+ have an explicit value can default the value of another Variant.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Note: The name is not used to look up values!
+ Note: if name is not set the first key might be used</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#of(java.lang.CharSequence)" class="member-name-link">of</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#of(java.lang.CharSequence)" class="member-name-link">of</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;rawText)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Parses the
+ Note: Required if keys are used to retrieve a value.</div>
+</div>
 </div>
 </div>
 </div>
@@ -139,36 +157,70 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getKeys()">
 <h3>getKeys</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getKeys</span>()</div>
+<div class="block">The primary use case of getting a property value by key</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the ordered list of keys used to search for values.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getName()">
 <h3>getName</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getName</span>()</div>
+<div class="block">Note: The name is not used to look up values!
+ Note: if name is not set the first key might be used</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The user facing name of this Variant</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getDescription()">
 <h3>getDescription</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getDescription</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the optional description</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getFallback()">
 <h3>getFallback</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;</span>&nbsp;<span class="element-name">getFallback</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the optional fallback value. aka default value</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getLink()">
 <h3>getLink</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getLink</span>()</div>
+<div class="block">Links can be helpful when a Variant which does not
+ have an explicit value can default the value of another Variant.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The optional link to another Variant</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="of(java.lang.CharSequence)">
 <h3>of</h3>
-<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;</span>&nbsp;<span class="element-name">of</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;value)</span></div>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.html" title="type parameter in Variant">T</a>&gt;</span>&nbsp;<span class="element-name">of</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;rawText)</span></div>
+<div class="block">Parses the
+ Note: Required if keys are used to retrieve a value.
+ Note: implementations of this function should return empty on null values.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>rawText</code> - the text to be parsed</dd>
+<dt>Returns:</dt>
+<dd>the optional Variance</dd>
+</dl>
 </section>
 </li>
 </ul>

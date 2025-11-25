@@ -7,7 +7,7 @@ import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static io.github.jonloucks.contracts.api.Checks.validateContracts;
 
 /**
- * Checks used internally and supported for external use.
+ * Responsibility: Common argument checking and validation
  */
 public final class Checks {
     
@@ -44,8 +44,37 @@ public final class Checks {
 <span class="fc" id="L44">        contracts.claim(VariantsFactory.CONTRACT);</span>
 <span class="fc" id="L45">    }</span>
     
+    /**
+     * Check if given Variant is not null or invalid
+     *
+     * @param variant the Variant to check
+     * @return a valid Variant
+     * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when invalid
+     */
     public static &lt;T&gt; Variant&lt;T&gt; variantCheck(Variant&lt;T&gt; variant) {
-<span class="fc" id="L48">        return nullCheck(variant, &quot;Variant must be present.&quot;);</span>
+<span class="fc" id="L56">        return nullCheck(variant, &quot;Variant must be present.&quot;);</span>
+    }
+    
+    /**
+     * Check if given key is not null or invalid
+     *
+     * @param key the key to check
+     * @return a valid key
+     */
+    public static String keyCheck(String key) {
+<span class="fc" id="L66">        return nullCheck(key, &quot;Key must be present.&quot;);</span>
+    }
+    
+    /**
+     * Check if given is not null or invalid
+     *
+     * @param keys the keys to check
+     * @return valid keys
+     * @param &lt;T&gt; the type of keys
+     */
+    public static &lt;T&gt; T keysCheck(T keys) {
+<span class="fc" id="L77">        return nullCheck(keys, &quot;Keys must be present.&quot;);</span>
     }
     
     private Checks() {

@@ -75,7 +75,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="Checks.html" title="class in io.github.jonloucks.variants.api">Checks</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Checks used internally and supported for external use.</div>
+<div class="block">Responsibility: Common argument checking and validation</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Environment.html" title="interface in io.github.jonloucks.variants.api">Environment</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
@@ -95,42 +95,52 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GlobalVariants.html" title="class in io.github.jonloucks.variants.api">GlobalVariants</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">Globally shared Variants singleton</div>
+<div class="block">Responsibility: Globally shared Variants</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">&nbsp;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Responsibility: Provide information on how to retrieve a configuration value.</div>
+</div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">&nbsp;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="block">Responsibility: Configuration for creating a new Variant.</div>
+</div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">&nbsp;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Responsibility: Builder a configuration used to create a new Variant</div>
+</div>
 <div class="col-first odd-row-color class-summary class-summary-tab5"><a href="VariantException.html" title="class in io.github.jonloucks.variants.api">VariantException</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab5">
 <div class="block">Runtime exception thrown for Variants related problems.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">&nbsp;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Responsibility: The creation of a Variant</div>
+</div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">The Variants API</div>
+<div class="block">Responsibility: Provide access to essential Variant methods.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="Variants.Config.html" title="interface in io.github.jonloucks.variants.api">Variants.Config</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">The configuration used to create a new Variants instance.</div>
+<div class="block">Responsibility: Configuration used to create a new Variants instance.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Variants.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variants.Config.Builder</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">The Variants configuration</div>
+<div class="block">Responsibility: Build configuration to create a new Variants instance</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="VariantsFactory.html" title="interface in io.github.jonloucks.variants.api">VariantsFactory</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Responsible for creating new instances of Variants</div>
+<div class="block">Responsibility: Creating new instances of Variants</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="VariantsFactoryFinder.html" title="class in io.github.jonloucks.variants.api">VariantsFactoryFinder</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Responsible for locating and creating the VariantsFactory for a deployment.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="VariantSource.html" title="interface in io.github.jonloucks.variants.api">VariantSource</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">&nbsp;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Responsibility: Retrieve variance in text format</div>
+</div>
 </div>
 </div>
 </div>

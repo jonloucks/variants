@@ -8,60 +8,64 @@ import java.util.function.Function;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Optional.ofNullable;
 
 @SuppressWarnings(&quot;OptionalUsedAsFieldOrParameterType&quot;)
 final class VariantImpl&lt;T&gt; implements Variant&lt;T&gt; {
     @Override
     public List&lt;String&gt; getKeys() {
-<span class="fc" id="L16">        return this.keys;</span>
+<span class="fc" id="L17">        return this.keys;</span>
     }
     
     @Override
     public Optional&lt;String&gt; getName() {
-<span class="fc" id="L21">        return this.name;</span>
+<span class="fc" id="L22">        return this.name;</span>
     }
     
     @Override
     public Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L26">        return this.description;</span>
+<span class="fc" id="L27">        return this.description;</span>
     }
     
     @Override
     public Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L31">        return this.fallback;</span>
+<span class="fc" id="L32">        return this.fallback;</span>
     }
     
     @Override
     public Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L36">        return this.link;</span>
+<span class="fc" id="L37">        return this.link;</span>
     }
     
     @Override
-    public Optional&lt;T&gt; of(CharSequence value) {
-<span class="fc" id="L41">        return parser.map(p -&gt; p.apply(value));</span>
+    public Optional&lt;T&gt; of(CharSequence rawText) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (ofNullable(rawText).isPresent()) {</span>
+<span class="fc" id="L43">            return parser.map(p -&gt; p.apply(rawText));</span>
+        }
+<span class="nc" id="L45">        return Optional.empty();</span>
     }
     
     @Override
     public String toString() {
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (getName().isPresent()) {</span>
-<span class="fc" id="L47">            return &quot;Variant[name=&quot; + getName().get() + &quot;]&quot;;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (getName().isPresent()) {</span>
+<span class="fc" id="L51">            return &quot;Variant[name=&quot; + getName().get() + &quot;]&quot;;</span>
         } else {
-<span class="fc" id="L49">            return &quot;Variant[]&quot;;</span>
+<span class="fc" id="L53">            return &quot;Variant[]&quot;;</span>
         }
     }
     
-<span class="fc" id="L53">    VariantImpl(Variant.Config&lt;T&gt; config) {</span>
-<span class="fc" id="L54">        final Variant.Config&lt;T&gt; validConfig = configCheck(config);</span>
-<span class="fc" id="L55">        this.keys = unmodifiableList(validConfig.getKeys());</span>
-<span class="fc" id="L56">        this.name = validConfig.getName();</span>
-<span class="fc" id="L57">        this.description = validConfig.getDescription();</span>
-<span class="fc" id="L58">        this.link = validConfig.getLink();</span>
-<span class="fc" id="L59">        this.fallback = validConfig.getFallback();</span>
-<span class="fc" id="L60">        this.parser = validConfig.getParser();</span>
-<span class="fc bfc" id="L61" title="All 4 branches covered.">        if (!keys.isEmpty() &amp;&amp; !validConfig.getParser().isPresent()) {</span>
-<span class="fc" id="L62">            throw new IllegalArgumentException(&quot;Parser is required when keys are present.&quot;);</span>
+<span class="fc" id="L57">    VariantImpl(Variant.Config&lt;T&gt; config) {</span>
+<span class="fc" id="L58">        final Variant.Config&lt;T&gt; validConfig = configCheck(config);</span>
+<span class="fc" id="L59">        this.keys = unmodifiableList(validConfig.getKeys());</span>
+<span class="fc" id="L60">        this.name = validConfig.getName();</span>
+<span class="fc" id="L61">        this.description = validConfig.getDescription();</span>
+<span class="fc" id="L62">        this.link = validConfig.getLink();</span>
+<span class="fc" id="L63">        this.fallback = validConfig.getFallback();</span>
+<span class="fc" id="L64">        this.parser = validConfig.getParser();</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">        if (!keys.isEmpty() &amp;&amp; !validConfig.getParser().isPresent()) {</span>
+<span class="fc" id="L66">            throw new IllegalArgumentException(&quot;Parser is required when keys are present.&quot;);</span>
         }
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L68">    }</span>
     
     private final List&lt;String&gt; keys;
     private final Optional&lt;String&gt; name;

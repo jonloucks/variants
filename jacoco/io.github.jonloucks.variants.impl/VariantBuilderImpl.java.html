@@ -2,42 +2,42 @@
 
 import io.github.jonloucks.variants.api.Variant;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static io.github.jonloucks.variants.api.Checks.keysCheck;
 import static io.github.jonloucks.variants.impl.Internal.optionalOr;
-import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 
+/**
+ * Responsibility: Variant.Config.Builder implementation
+ * @param &lt;T&gt; the value type of Variant
+ */
 final class VariantBuilderImpl&lt;T&gt; implements Variant.Config.Builder&lt;T&gt; {
     
     @Override
     public VariantBuilderImpl&lt;T&gt; name(String name) {
-<span class="fc" id="L21">        this.name = name;</span>
-<span class="fc" id="L22">        return this;</span>
+<span class="fc" id="L22">        this.name = name;</span>
+<span class="fc" id="L23">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; parser(Function&lt;CharSequence, T&gt; parser) {
-<span class="fc" id="L27">        this.parser = parser;</span>
-<span class="fc" id="L28">        return this;</span>
+<span class="fc" id="L28">        this.parser = parser;</span>
+<span class="fc" id="L29">        return this;</span>
     }
     
     @Override
     public VariantBuilderImpl&lt;T&gt; description(String description) {
-<span class="fc" id="L33">        this.description = description;</span>
-<span class="fc" id="L34">        return this;</span>
+<span class="fc" id="L34">        this.description = description;</span>
+<span class="fc" id="L35">        return this;</span>
     }
     
     @Override
-    public VariantBuilderImpl&lt;T&gt; keys(String... keys) {
-<span class="fc" id="L39">        final String[] validKeys = nullCheck(keys, &quot;Keys must be present&quot;);</span>
-<span class="fc" id="L40">        this.keys.addAll(asList(validKeys));</span>
+    public VariantBuilderImpl&lt;T&gt; keys(Collection&lt;String&gt; keys) {
+<span class="fc" id="L40">        this.keys.addAll(keysCheck(keys));</span>
 <span class="fc" id="L41">        return this;</span>
     }
     
@@ -83,18 +83,13 @@ final class VariantBuilderImpl&lt;T&gt; implements Variant.Config.Builder&lt;T&g
 <span class="fc" id="L83">        return ofNullable(parser);</span>
     }
     
-    @Override
-    public String toString() {
-<span class="fc" id="L88">        return ofNullable(name).orElse(&quot;***&quot;);</span>
-    }
-    
-<span class="fc" id="L91">    VariantBuilderImpl() {</span>
-<span class="fc" id="L92">    }</span>
+<span class="fc" id="L86">    VariantBuilderImpl() {</span>
+<span class="fc" id="L87">    }</span>
     
     private String name;
     private String description;
-<span class="fc" id="L96">    private Supplier&lt;T&gt; fallback = () -&gt; null;</span>
-<span class="fc" id="L97">    private final LinkedHashSet&lt;String&gt; keys = new LinkedHashSet&lt;&gt;() ;</span>
+<span class="fc" id="L91">    private Supplier&lt;T&gt; fallback = () -&gt; null;</span>
+<span class="fc" id="L92">    private final LinkedHashSet&lt;String&gt; keys = new LinkedHashSet&lt;&gt;() ;</span>
     private Function&lt;CharSequence,T&gt; parser;
     private Variant&lt;T&gt; link;
 }

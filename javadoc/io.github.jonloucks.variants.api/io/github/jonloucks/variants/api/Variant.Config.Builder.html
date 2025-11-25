@@ -73,6 +73,10 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - type Variant value type</dd>
+</dl>
+<dl class="notes">
 <dt>All Superinterfaces:</dt>
 <dd><code><a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;</code></dd>
 </dl>
@@ -83,6 +87,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public static interface </span><span class="element-name type-name-label">Variant.Config.Builder&lt;T&gt;</span><span class="extends-implements">
 extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;</span></div>
+<div class="block">Responsibility: Builder a configuration used to create a new Variant</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -100,7 +105,7 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -108,22 +113,45 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#description(java.lang.String)" class="member-name-link">description</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign the description</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#fallback(java.util.function.Supplier)" class="member-name-link">fallback</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;fallback)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign the fallback value supplier</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#key(java.lang.String)" class="member-name-link">key</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Add a new key</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#keys(java.lang.String...)" class="member-name-link">keys</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;keys)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Add a variable number of keys</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#keys(java.lang.String...)" class="member-name-link">keys</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;keys)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#keys(java.util.Collection)" class="member-name-link">keys</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;keys)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Add a collection of keys</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#link(io.github.jonloucks.variants.api.Variant)" class="member-name-link">link</a><wbr>(<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;link)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign a link</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#name(java.lang.String)" class="member-name-link">name</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign the name</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#parser(java.util.function.Function)" class="member-name-link">parser</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;parser)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign the parser to convert text into Variant values
+  A parser can return null for any reason, it is processed as unassigned</div>
+</div>
 </div>
 </div>
 </div>
@@ -142,39 +170,108 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="key(java.lang.String)">
+<h3>key</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">key</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key)</span></div>
+<div class="block">Add a new key</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>key</code> - the key to add</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="keys(java.lang.String...)">
 <h3>keys</h3>
-<div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">keys</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;keys)</span></div>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">keys</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;keys)</span></div>
+<div class="block">Add a variable number of keys</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>keys</code> - the keys to add</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="keys(java.util.Collection)">
+<h3>keys</h3>
+<div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">keys</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;keys)</span></div>
+<div class="block">Add a collection of keys</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>keys</code> - the keys to add</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="name(java.lang.String)">
 <h3>name</h3>
 <div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">name</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</span></div>
+<div class="block">Assign the name</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>name</code> - the new name</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="parser(java.util.function.Function)">
 <h3>parser</h3>
 <div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">parser</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;parser)</span></div>
+<div class="block">Assign the parser to convert text into Variant values
+  A parser can return null for any reason, it is processed as unassigned</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>parser</code> - the parser</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="description(java.lang.String)">
 <h3>description</h3>
 <div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">description</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</span></div>
+<div class="block">Assign the description</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>description</code> - the description</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="fallback(java.util.function.Supplier)">
 <h3>fallback</h3>
 <div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">fallback</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;fallback)</span></div>
+<div class="block">Assign the fallback value supplier</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fallback</code> - the fallback value supplier</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="link(io.github.jonloucks.variants.api.Variant)">
 <h3>link</h3>
 <div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">link</span><wbr><span class="parameters">(<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;link)</span></div>
+<div class="block">Assign a link</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>link</code> - the link</dd>
+<dt>Returns:</dt>
+<dd>this Builder</dd>
+</dl>
 </section>
 </li>
 </ul>

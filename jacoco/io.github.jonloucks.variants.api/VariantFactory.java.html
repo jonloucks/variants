@@ -4,11 +4,30 @@ import io.github.jonloucks.contracts.api.Contract;
 
 import java.util.function.Consumer;
 
+/**
+ * Responsibility: The creation of a Variant
+ */
 public interface VariantFactory {
-<span class="fc" id="L8">    Contract&lt;VariantFactory&gt; CONTRACT = Contract.create(VariantFactory.class, b -&gt; b.name(&quot;Variant Factory&quot;));</span>
+    /**
+     * The Contract for the VariantFactory
+     */
+<span class="fc" id="L14">    Contract&lt;VariantFactory&gt; CONTRACT = Contract.create(VariantFactory.class, b -&gt; b.name(&quot;Variant Factory&quot;));</span>
     
+    /**
+     * Create a Variant by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Variant
+     * @param &lt;T&gt; the Variant value type
+     */
     &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer);
     
+    /**
+     *
+     * @param config the configuration for creating the Variant
+     * @return the new Variant
+     * @param &lt;T&gt; the Variant value type
+     */
     &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config);
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

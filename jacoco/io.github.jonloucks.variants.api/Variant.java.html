@@ -1,73 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Variant.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">Variant.java</span></div><h1>Variant.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static io.github.jonloucks.variants.api.Checks.keyCheck;
+import static io.github.jonloucks.variants.api.Checks.keysCheck;
+import static java.util.Collections.singletonList;
+
+/**
+ * Responsibility: Provide information on how to retrieve a configuration value.
+ *
+ * @param &lt;T&gt; the type of configuration value
+ */
 public interface Variant&lt;T&gt; {
     
+    /**
+     * The primary use case of getting a property value by key
+     * @return the ordered list of keys used to search for values.
+     */
     default List&lt;String&gt; getKeys() {
-<span class="nc" id="L12">        return Collections.emptyList();</span>
+<span class="fc" id="L23">        return Collections.emptyList();</span>
     }
     
+    /**
+     * Note: The name is not used to look up values!
+     * Note: if name is not set the first key might be used
+     * @return The user facing name of this Variant
+     */
     default Optional&lt;String&gt; getName() {
-<span class="fc" id="L16">        return Optional.empty();</span>
-    }
-    
-    default Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L20">        return Optional.empty();</span>
-    }
-    
-    default Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L24">        return Optional.empty();</span>
-    }
-    
-    default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L28">        return Optional.empty();</span>
-    }
-    
-    default Optional&lt;T&gt; of(CharSequence value) {
 <span class="fc" id="L32">        return Optional.empty();</span>
     }
     
+    /**
+     * @return the optional description
+     */
+    default Optional&lt;String&gt; getDescription() {
+<span class="fc" id="L39">        return Optional.empty();</span>
+    }
+    
+    /**
+     * @return the optional fallback value. aka default value
+     */
+    default Optional&lt;T&gt; getFallback() {
+<span class="fc" id="L46">        return Optional.empty();</span>
+    }
+    
+    /**
+     * Links can be helpful when a Variant which does not
+     * have an explicit value can default the value of another Variant.
+     * @return The optional link to another Variant
+     */
+    default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
+<span class="fc" id="L55">        return Optional.empty();</span>
+    }
+    
+    /**
+     * Parses the
+     * Note: Required if keys are used to retrieve a value.
+     * Note: implementations of this function should return empty on null values.
+     * @param rawText the text to be parsed
+     * @return the optional Variance
+     */
+    default Optional&lt;T&gt; of(CharSequence rawText) {
+<span class="fc" id="L66">        return Optional.empty();</span>
+    }
+    
+    /**
+     * Responsibility: Configuration for creating a new Variant.
+     *
+     * @param &lt;T&gt; type Variant value type
+     */
     interface Config&lt;T&gt; {
         
-        List&lt;String&gt; getKeys();
-        
-        default Optional&lt;Function&lt;CharSequence, T&gt;&gt; getParser() {
-<span class="fc" id="L40">            return Optional.empty();</span>
+        /**
+         * The primary use case of getting a property value by key
+         * @return the ordered list of keys used to search for values.
+         */
+        default List&lt;String&gt; getKeys() {
+<span class="fc" id="L81">            return Collections.emptyList();</span>
         }
         
+        /**
+         * Note: The name is not used to look up values!
+         * @return The user facing name of this Variant
+         */
         default Optional&lt;String&gt; getName() {
-<span class="fc" id="L44">            return Optional.empty();</span>
+<span class="fc" id="L89">            return Optional.empty();</span>
         }
         
+        /**
+         * @return the optional description
+         */
         default Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L48">            return Optional.empty();</span>
+<span class="fc" id="L96">            return Optional.empty();</span>
         }
         
+        /**
+         * @return the optional fallback value. aka default value
+         */
         default Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L52">            return Optional.empty();</span>
+<span class="fc" id="L103">            return Optional.empty();</span>
         }
         
+        /**
+         * Links can be helpful when a Variant which does not
+         * have an explicit value can default the value of another Variant.
+         * @return The optional link to another Variant
+         */
         default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L56">            return Optional.empty();</span>
+<span class="fc" id="L112">            return Optional.empty();</span>
         }
         
+        /**
+         * @return The parser used to convert raw text into a Variant value
+         */
+        default Optional&lt;Function&lt;CharSequence, T&gt;&gt; getParser() {
+<span class="fc" id="L119">            return Optional.empty();</span>
+        }
+
+        /**
+         * Responsibility: Builder a configuration used to create a new Variant
+         *
+         * @param &lt;T&gt; type Variant value type
+         */
         interface Builder&lt;T&gt; extends Config&lt;T&gt; {
             
-            Builder&lt;T&gt; keys(String... keys);
+            /**
+             * Add a new key
+             *
+             * @param key the key to add
+             * @return this Builder
+             */
+            default Builder&lt;T&gt; key(String key) {
+<span class="fc" id="L136">                return keys(singletonList(keyCheck(key)));</span>
+            }
             
+            /**
+             * Add a variable number of keys
+             *
+             * @param keys the keys to add
+             * @return this Builder
+             */
+            default Builder&lt;T&gt; keys(String... keys) {
+<span class="fc" id="L146">                return keys(Arrays.asList(keysCheck(keys)));</span>
+            }
+            
+            /**
+             * Add a collection of keys
+             *
+             * @param keys the keys to add
+             * @return this Builder
+             */
+            Builder&lt;T&gt; keys(Collection&lt;String&gt; keys);
+            
+            /**
+             * Assign the name
+             *
+             * @param name the new name
+             * @return this Builder
+             */
             Builder&lt;T&gt; name(String name);
             
+            /**
+             *  Assign the parser to convert text into Variant values
+             *  A parser can return null for any reason, it is processed as unassigned
+             *
+             * @param parser the parser
+             * @return this Builder
+             */
             Builder&lt;T&gt; parser(Function&lt;CharSequence, T&gt; parser);
             
+            /**
+             * Assign the description
+             *
+             * @param description the description
+             * @return this Builder
+             */
             Builder&lt;T&gt; description(String description);
             
+            /**
+             * Assign the fallback value supplier
+             *
+             * @param fallback the fallback value supplier
+             * @return this Builder
+             */
             Builder&lt;T&gt; fallback(Supplier&lt;T&gt; fallback);
             
+            /**
+             * Assign a link
+             * @param link the link
+             * @return this Builder
+             */
             Builder&lt;T&gt; link(Variant&lt;T&gt; link);
         }
     }

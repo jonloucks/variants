@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">Checks</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Checks used internally and supported for external use.</div>
+<div class="block">Responsibility: Common argument checking and validation</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,6 +93,16 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#keyCheck(java.lang.String)" class="member-name-link">keyCheck</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Check if given key is not null or invalid</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;T</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#keysCheck(T)" class="member-name-link">keysCheck</a><wbr>(T&nbsp;keys)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Check if given is not null or invalid</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#validateVariants(io.github.jonloucks.contracts.api.Contracts,io.github.jonloucks.variants.api.Variants)" class="member-name-link">validateVariants</a><wbr>(io.github.jonloucks.contracts.api.Contracts&nbsp;contracts,
  <a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a>&nbsp;variants)</code></div>
@@ -101,7 +111,9 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#variantCheck(io.github.jonloucks.variants.api.Variant)" class="member-name-link">variantCheck</a><wbr>(<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;&nbsp;variant)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Check if given Variant is not null or invalid</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#variantsCheck(io.github.jonloucks.variants.api.Variants)" class="member-name-link">variantsCheck</a><wbr>(<a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a>&nbsp;variants)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -160,6 +172,45 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="variantCheck(io.github.jonloucks.variants.api.Variant)">
 <h3>variantCheck</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</span>&nbsp;<span class="element-name">variantCheck</span><wbr><span class="parameters">(<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;&nbsp;variant)</span></div>
+<div class="block">Check if given Variant is not null or invalid</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the Variant value type</dd>
+<dt>Parameters:</dt>
+<dd><code>variant</code> - the Variant to check</dd>
+<dt>Returns:</dt>
+<dd>a valid Variant</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when invalid</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="keyCheck(java.lang.String)">
+<h3>keyCheck</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">keyCheck</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key)</span></div>
+<div class="block">Check if given key is not null or invalid</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>key</code> - the key to check</dd>
+<dt>Returns:</dt>
+<dd>a valid key</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="keysCheck(T)">
+<h3 id="keysCheck(java.lang.Object)">keysCheck</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">keysCheck</span><wbr><span class="parameters">(T&nbsp;keys)</span></div>
+<div class="block">Check if given is not null or invalid</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the type of keys</dd>
+<dt>Parameters:</dt>
+<dd><code>keys</code> - the keys to check</dd>
+<dt>Returns:</dt>
+<dd>valid keys</dd>
+</dl>
 </section>
 </li>
 </ul>
