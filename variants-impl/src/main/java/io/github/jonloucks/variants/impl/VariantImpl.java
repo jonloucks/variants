@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Optional.ofNullable;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 final class VariantImpl<T> implements Variant<T> {
@@ -37,8 +38,11 @@ final class VariantImpl<T> implements Variant<T> {
     }
     
     @Override
-    public Optional<T> of(CharSequence value) {
-        return parser.map(p -> p.apply(value));
+    public Optional<T> of(CharSequence rawText) {
+        if (ofNullable(rawText).isPresent()) {
+            return parser.map(p -> p.apply(rawText));
+        }
+        return Optional.empty();
     }
     
     @Override

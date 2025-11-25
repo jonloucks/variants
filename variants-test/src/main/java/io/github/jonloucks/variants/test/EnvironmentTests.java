@@ -22,9 +22,9 @@ public interface EnvironmentTests {
     default void environment_create_WithNullConfig_Throws() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            assertThrown(IllegalArgumentException.class, () -> {
-                factory.createEnvironment((Environment.Config)null);
-            }, "Config must be present.");
+            assertThrown(IllegalArgumentException.class,
+                () -> factory.createEnvironment((Environment.Config)null),
+                "Config must be present.");
         });
     }
     
@@ -32,9 +32,9 @@ public interface EnvironmentTests {
     default void environment_create_WithNullConfigBuilderConsumer_Throws() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            assertThrown(IllegalArgumentException.class, () -> {
-                factory.createEnvironment((Consumer<Environment.Config.Builder>)null);
-            }, "Builder consumer must be present.");
+            assertThrown(IllegalArgumentException.class,
+                () -> factory.createEnvironment((Consumer<Environment.Config.Builder>)null),
+                "Builder consumer must be present.");
         });
     }
     
@@ -65,14 +65,10 @@ public interface EnvironmentTests {
     default void environment_create_BuilderWithNoNullMap_Throws() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            
-            final Environment environment = factory.createEnvironment(b -> {
-                assertThrown(IllegalArgumentException.class,
-                    () -> b.addMapSource(null),
-                    "Map must be present.");
-                
-            });
-            
+            final Environment environment = factory.createEnvironment(
+                b -> assertThrown(IllegalArgumentException.class,
+                () -> b.addMapSource(null),
+                "Map must be present."));
             assertObject(environment);
         });
     }
@@ -113,11 +109,14 @@ public interface EnvironmentTests {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                    .keys(UUID.randomUUID().toString())
+                    .key(UUID.randomUUID().toString())
                     .parser(Object::toString)
                 );
-       
-            final Environment environment = factory.createEnvironment(Environment.Config.Builder::addSystemEnvironmentSource);
+            
+            final Environment environment = factory.createEnvironment(b -> {
+                final Environment.Config.Builder returnBuilder = b.addSystemEnvironmentSource();
+                assertEquals(b, returnBuilder);
+            });
             
             assertFalse(environment.findVariance(variant).isPresent(),
                 "findVariance should not have found a matching variance.");
@@ -133,7 +132,7 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "key";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(Object::toString)
             );
             
@@ -154,7 +153,7 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "key";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(x -> null)
             );
             
@@ -173,15 +172,18 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "key";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(Object::toString)
             );
             final Properties properties = new Properties();
             properties.put("key", "value");
             
-            final Environment environment = factory.createEnvironment(b -> b
-                .addPropertiesSource(properties));
             
+            final Environment environment = factory.createEnvironment(b -> {
+                final Environment.Config.Builder returnBuilder = b.addPropertiesSource(properties);
+                assertEquals(b, returnBuilder);
+            });
+  
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
             assertEquals("value", environment.findVariance(variant).get());
@@ -196,11 +198,14 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "java.version";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(Object::toString)
             );
             
-            final Environment environment = factory.createEnvironment(Environment.Config.Builder::addSystemPropertiesSource);
+            final Environment environment = factory.createEnvironment(b -> {
+                final Environment.Config.Builder returnBuilder = b.addSystemPropertiesSource();
+                assertEquals(b, returnBuilder);
+            });
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
@@ -214,7 +219,7 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "key";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(Object::toString)
             );
             
@@ -236,7 +241,7 @@ public interface EnvironmentTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final String key = "key";
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys(key)
+                .key(key)
                 .parser(Object::toString)
             );
             
@@ -257,11 +262,11 @@ public interface EnvironmentTests {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final Variant<String> linkVariant = variantFactory.createVariant(b -> b
-                .keys("linkKey")
+                .key("linkKey")
                 .parser(Object::toString)
             );
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys("key")
+                .key("key")
                 .parser(Object::toString)
                 .link(linkVariant)
             );
@@ -285,7 +290,7 @@ public interface EnvironmentTests {
                 .fallback(() -> "linkValue")
             );
             final Variant<String> variant = variantFactory.createVariant(b -> b
-                .keys("key")
+                .key("key")
                 .parser(Object::toString)
                 .link(linkVariant)
             );

@@ -8,7 +8,7 @@ import io.github.jonloucks.contracts.api.Repository;
 import java.util.function.Consumer;
 
 /**
- * Responsible for creating new instances of Variants
+ * Responsibility: Creating new instances of Variants
  */
 public interface VariantsFactory {
     /**

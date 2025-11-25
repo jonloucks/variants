@@ -53,6 +53,6 @@ public class VariantException extends RuntimeException {
     /**
      * Imposed serialization from RuntimeException
      */
-    @SuppressWarnings("serial")
+    @SuppressWarnings({"serial", "RedundantSuppression"})
     private static final long serialVersionUID = 1L;
 }

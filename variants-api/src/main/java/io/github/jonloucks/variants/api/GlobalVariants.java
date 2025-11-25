@@ -7,7 +7,7 @@ import java.util.Optional;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
 /**
- * Globally shared Variants singleton
+ * Responsibility: Globally shared Variants
  */
 public final class GlobalVariants {
     

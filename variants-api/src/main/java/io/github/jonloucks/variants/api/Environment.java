@@ -55,7 +55,7 @@ public interface Environment {
         interface Builder extends Environment.Config {
             
             /**
-             * Add a new source.
+             * Add a new source
              *
              * @param source the source to add
              * @return this builder

@@ -5,28 +5,16 @@ import io.github.jonloucks.contracts.api.*;
 import java.util.function.Supplier;
 
 /**
- * The Variants API
+ * Responsibility: Provide access to essential Variant methods.
  */
 public interface Variants extends AutoOpen {
     /**
      * Access the current Variants implementation
      */
     Contract<Variants> CONTRACT = Contract.create(Variants.class);
-    
-    // load from disk. for example app.properties, app.yml
-    // load from gradle project properties
-    // load from System.env ( how to handle permission errors?)
-    // load from System.getProperty (how to handle permission errors?)
-    // auto naming schemes. APP_PROPERTY, app.property, ORG_GRADLE_PROJECT_
-    // where do actual values get stored? or is that not the responsibility of Variants
-    // are different sources opt-in or opt-out
-    
-    // how to handle links?
 
-    // are links and fallbacks only executed if all scopes fail? yes
-    
     /**
-     * The configuration used to create a new Variants instance.
+     * Responsibility: Configuration used to create a new Variants instance.
      */
     interface Config {
         
@@ -71,7 +59,7 @@ public interface Variants extends AutoOpen {
         }
         
         /**
-         * The Variants configuration
+         * Responsibility: Build configuration to create a new Variants instance
          */
         interface Builder extends Config {
             

@@ -5,8 +5,8 @@ import io.github.jonloucks.variants.api.VariantFactory;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.GlobalContracts.claimContract;
 import static io.github.jonloucks.contracts.test.Tools.assertObject;
@@ -21,6 +21,7 @@ public interface VariantTests {
     default void variant_Variant_WithDefaults_Works() {
         final Variant<Duration> variant = new Variant<>() {};
         
+        assertTrue(variant.getKeys().isEmpty(), "By default keys should not be present." );
         assertFalse(variant.getDescription().isPresent(), "By default description should not be present.");
         assertFalse(variant.getFallback().isPresent(), "By default fallback should not be present.");
         assertFalse(variant.getLink().isPresent(), "By default link should not be present.");
@@ -30,10 +31,9 @@ public interface VariantTests {
     
     @Test
     default void variant_Config_WithDefaults_Works() {
-        final List<String> keys = new ArrayList<>();
-        keys.add("key");
-        final Variant.Config<Duration> variant = () -> keys;
+        final Variant.Config<Duration> variant = new Variant.Config<>() {};
         
+        assertTrue(variant.getKeys().isEmpty(), "By default keys should not be present." );
         assertFalse(variant.getDescription().isPresent(), "By default description should not be present.");
         assertFalse(variant.getFallback().isPresent(), "By default fallback should not be present.");
         assertFalse(variant.getLink().isPresent(), "By default link should not be present.");
@@ -42,11 +42,54 @@ public interface VariantTests {
     }
     
     @Test
+    default void variant_ConfigBuilder_Key_WithNull_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            assertThrown(IllegalArgumentException.class,
+                () -> variantFactory.createVariant(b -> b.key(null))
+                , "Key must be present.");
+        });
+    }
+    
+    @Test
+    default void variant_ConfigBuilder_Keys_WithNullCollection_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            assertThrown(IllegalArgumentException.class,
+                () -> variantFactory.createVariant(b -> b.keys((Collection<String>) null))
+                , "Keys must be present.");
+        });
+    }
+    
+    @Test
+    default void variant_ConfigBuilder_Keys_WithNullArray_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            assertThrown(IllegalArgumentException.class,
+                () -> variantFactory.createVariant(b -> b.keys((String[]) null))
+                , "Keys must be present.");
+        });
+    }
+    
+    @Test
+    default void variant_ConfigBuilder_Keys_WithArray_Works() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final Variant<Integer> variant = variantFactory.createVariant(
+                b -> b
+                    .keys("key1", "key2", "key3")
+                    .parser(c -> Integer.valueOf(c.toString())));
+            
+            assertEquals(asList("key1", "key2", "key3"), variant.getKeys(), "Keys should match.");
+        });
+    }
+    
+    @Test
     default void variant_create_WithOverrides_Works() {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final Variant<Duration> link = variantFactory.createVariant(b -> b
-                .keys("xyz")
+                .key("xyz")
                 .parser(Duration::parse)
             );
             final Variant<Duration> variant = variantFactory.createVariant(b -> b
@@ -79,7 +122,7 @@ public interface VariantTests {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final Variant<Duration> variant = variantFactory.createVariant(b -> {
                 assertObject(b);
-                b.keys("key");
+                b.key("key");
                 assertObject(b);
                 b.name("name");
                 assertObject(b);
@@ -94,10 +137,32 @@ public interface VariantTests {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             final Variant<Duration> variant = variantFactory.createVariant(b -> b
-                .keys("key")
+                .key("key")
                 .parser(Duration::parse));
             assertTrue(variant.getName().isPresent(), "Name should be present.");
             assertEquals("key", variant.getName().get(), "Name should match.");
+        });
+    }
+    
+    @Test
+    default void variant_create_WithNullBuilderConsumer_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            
+            assertThrown(IllegalArgumentException.class,
+                () -> variantFactory.createVariant((Consumer<Variant.Config.Builder<String>>)null),
+                "Builder consumer must be present.");
+        });
+    }
+    
+    @Test
+    default void variant_create_WithNullConfig_Throws() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            
+            assertThrown(IllegalArgumentException.class,
+                () -> variantFactory.createVariant((Variant.Config<String>)null),
+                "Config must be present.");
         });
     }
     
