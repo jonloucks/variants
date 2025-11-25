@@ -1,11 +1,9 @@
 package io.github.jonloucks.variants.api;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -47,7 +45,9 @@ public interface Environment {
         /**
          * @return the list of sources. An empty list is allowed.
          */
-        List<VariantSource> getSources();
+        default List<VariantSource> getSources() {
+            return emptyList();
+        }
         
         /**
          * Responsibility: Builder a configuration used to create a new Environment
