@@ -3,6 +3,7 @@ package io.github.jonloucks.variants.api;
 import io.github.jonloucks.contracts.api.AutoClose;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
@@ -10,6 +11,47 @@ import static io.github.jonloucks.contracts.api.Checks.nullCheck;
  * Responsibility: Globally shared Variants
  */
 public final class GlobalVariants {
+    
+    /**
+     * Create a Variant by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Variant
+     * @param <T> the Variant value type
+     */
+    public static <T> Variant<T> createVariant(Consumer<Variant.Config.Builder<T>> builderConsumer) {
+        return INSTANCE.variants.createVariant(builderConsumer);
+    }
+    
+    /**
+     *
+     * @param config the configuration for creating the Variant
+     * @return the new Variant
+     * @param <T> the Variant value type
+     */
+    public static <T> Variant<T> createVariant(Variant.Config<T> config) {
+        return INSTANCE.variants.createVariant(config);
+    }
+    
+    /**
+     * Create an Environment by configuration
+     *
+     * @param config the configuration
+     * @return the new Environment
+     */
+    public static Environment createEnvironment(Environment.Config config)  {
+        return INSTANCE.variants.createEnvironment(config);
+    }
+    
+    /**
+     * Create an Environment by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Environment
+     */
+    public static Environment createEnvironment(Consumer<Environment.Config.Builder> builderConsumer) {
+        return INSTANCE.variants.createEnvironment(builderConsumer);
+    }
     
     /**
      * Return the global instance of Contracts

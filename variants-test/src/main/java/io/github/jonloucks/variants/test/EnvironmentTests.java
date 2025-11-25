@@ -4,7 +4,6 @@ import io.github.jonloucks.variants.api.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -42,7 +41,7 @@ public interface EnvironmentTests {
     default void environment_create_ConfigWithNoSources_Works() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            final Environment.Config config = Collections::emptyList;
+            final Environment.Config config = new Environment.Config() {};
             
             final Environment environment = factory.createEnvironment(config);
             
@@ -91,7 +90,7 @@ public interface EnvironmentTests {
     default void environment_findVariance_WithNoSources_Works() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            final Environment.Config config = Collections::emptyList;
+            final Environment.Config config = new Environment.Config() {};
             final Variant<Duration> variant = new Variant<>() {};
             
             final Environment environment = factory.createEnvironment(config);
@@ -307,7 +306,7 @@ public interface EnvironmentTests {
     default void environment_getVariance_WithNoSources_Works() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            final Environment.Config config = Collections::emptyList;
+            final Environment.Config config = new Environment.Config() {};
             final Variant<Duration> variant = new Variant<>() {};
 
             final Environment environment = factory.createEnvironment(config);
@@ -321,7 +320,7 @@ public interface EnvironmentTests {
     default void environment_findVariance_WithNullVariant_Throws() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            final Environment.Config config = Collections::emptyList;
+            final Environment.Config config = new Environment.Config() {};
             final Environment environment = factory.createEnvironment(config);
             
             assertThrown(IllegalArgumentException.class,
@@ -334,7 +333,7 @@ public interface EnvironmentTests {
     default void environment_getVariance_WithNullVariant_Throws() {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
-            final Environment.Config config = Collections::emptyList;
+            final Environment.Config config = new Environment.Config() {};
             final Environment environment = factory.createEnvironment(config);
             
             assertThrown(IllegalArgumentException.class,

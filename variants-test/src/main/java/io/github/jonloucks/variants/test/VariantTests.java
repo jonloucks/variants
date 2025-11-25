@@ -133,6 +133,15 @@ public interface VariantTests {
     }
     
     @Test
+    default void variant_of_SkipsNulls() {
+        withVariants((contracts, variants) -> {
+            final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
+            final Variant<Duration> variant = variantFactory.createVariant(b -> b.parser(Duration::parse));
+            assertFalse(variant.of(null).isPresent(), "Parse null should be skipped.");
+        });
+    }
+    
+    @Test
     default void variant_create_WithoutName_DefaultsToFirstKey() {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
@@ -171,8 +180,7 @@ public interface VariantTests {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
             
-            final Variant<Duration> variant = variantFactory.createVariant(b -> {
-            });
+            final Variant<Duration> variant = variantFactory.createVariant(b -> {});
             
             assertObject(variant);
         });

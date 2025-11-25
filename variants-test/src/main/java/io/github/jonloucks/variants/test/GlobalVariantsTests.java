@@ -1,10 +1,7 @@
 package io.github.jonloucks.variants.test;
 
 import io.github.jonloucks.contracts.api.GlobalContracts;
-import io.github.jonloucks.variants.api.GlobalVariants;
-import io.github.jonloucks.variants.api.VariantException;
-import io.github.jonloucks.variants.api.Variants;
-import io.github.jonloucks.variants.api.VariantsFactory;
+import io.github.jonloucks.variants.api.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,9 +12,11 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static io.github.jonloucks.contracts.test.Tools.*;
+import static io.github.jonloucks.variants.test.Tools.withVariants;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,6 +73,80 @@ public interface GlobalVariantsTests {
     @Test
     default void globalVariants_InternalCoverage() {
         assertInstantiateThrows(GlobalVariantsTestsTools.class);
+    }
+    
+    @Test
+    default void globalVariants_createVariant_WithNullConfig_Throws() {
+        withVariants((contracts, variants) ->
+            assertThrown(IllegalArgumentException.class,
+                () -> GlobalVariants.createVariant((Variant.Config<String>) null),
+                "Config must be present."));
+    }
+    
+    @Test
+    default void globalVariants_createVariant_WithConfig_Works() {
+        final Variant.Config<Integer> config = new Variant.Config<>() {
+            @Override
+            public Optional<Integer> getFallback() {
+                return Optional.of(7);
+            }
+        };
+        final Variant<Integer> variant =  GlobalVariants.createVariant(config);
+        
+        assertObject(variant);
+        assertTrue(variant.getFallback().isPresent(), "Fallback value must be present.");
+        assertEquals(7, variant.getFallback().get());
+    }
+    
+    @Test
+    default void globalVariants_createVariant_WithNullConfigBuilder_Throws() {
+        assertThrown(IllegalArgumentException.class,
+            () -> GlobalVariants.createVariant((Consumer<Variant.Config.Builder<String>>) null),
+            "Builder consumer must be present.");
+    }
+    
+    @Test
+    default void globalVariants_createVariant_WithConfigBuilder_Works() {
+        final Variant<Integer> variant =  GlobalVariants.createVariant(b -> b.fallback(() -> 7));
+        
+        assertObject(variant);
+        assertTrue(variant.getFallback().isPresent(), "Fallback value must be present.");
+        assertEquals(7, variant.getFallback().get());
+    }
+    
+    @Test
+    default void globalVariants_createEnvironment_WithNullConfig_Throws() {
+        assertThrown(IllegalArgumentException.class,
+            () -> GlobalVariants.createEnvironment((Environment.Config) null),
+            "Config must be present.");
+    }
+    
+    @Test
+    default void globalVariants_createEnvironment_WithConfig_Works() {
+        final Environment.Config config = new Environment.Config() {};
+        final Environment environment = GlobalVariants.createEnvironment(config);
+        final Variant<Integer> variant = GlobalVariants.createVariant(b -> b.fallback(() -> 7));
+        
+        assertObject(environment);
+        assertTrue(environment.findVariance(variant).isPresent(), "Variance must be present.");
+        assertEquals(7, environment.getVariance(variant), "Variance must match.");
+    }
+    
+    @Test
+    default void globalVariants_createEnvironment_WithNullConfigBuilder_Throws() {
+        assertThrown(IllegalArgumentException.class,
+            () -> GlobalVariants.createEnvironment((Consumer<Environment.Config.Builder>) null),
+            "Builder consumer must be present.");
+    }
+    
+    @Test
+    default void globalVariants_createEnvironment_WithConfigBuilder_Works() {
+        final Environment environment = GlobalVariants.createEnvironment(b -> {});
+        final Variant<Integer> variant = GlobalVariants.createVariant(b -> b.fallback(() -> 7));
+        
+        assertObject(environment);
+        assertTrue(environment.findVariance(variant).isPresent(), "Variance must be present.");
+        assertEquals(7, environment.getVariance(variant), "Variance must match.");
     }
     
     final class GlobalVariantsTestsTools {
