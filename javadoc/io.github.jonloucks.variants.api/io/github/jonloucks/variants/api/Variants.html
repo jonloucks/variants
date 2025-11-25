@@ -70,11 +70,11 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>io.github.jonloucks.contracts.api.AutoOpen</code></dd>
+<dd><code>io.github.jonloucks.contracts.api.AutoOpen</code>, <code><a href="EnvironmentFactory.html" title="interface in io.github.jonloucks.variants.api">EnvironmentFactory</a></code>, <code><a href="VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Variants</span><span class="extends-implements">
-extends io.github.jonloucks.contracts.api.AutoOpen</span></div>
+extends io.github.jonloucks.contracts.api.AutoOpen, <a href="VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a>, <a href="EnvironmentFactory.html" title="interface in io.github.jonloucks.variants.api">EnvironmentFactory</a></span></div>
 <div class="block">Responsibility: Provide access to essential Variant methods.</div>
 </section>
 <section class="summary">
@@ -123,6 +123,12 @@ extends io.github.jonloucks.contracts.api.AutoOpen</span></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.jonloucks.contracts.api.AutoOpen">Methods inherited from interface&nbsp;io.github.jonloucks.contracts.api.AutoOpen</h3>
 <code>open</code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-io.github.jonloucks.variants.api.EnvironmentFactory">Methods inherited from interface&nbsp;io.github.jonloucks.variants.api.<a href="EnvironmentFactory.html" title="interface in io.github.jonloucks.variants.api">EnvironmentFactory</a></h3>
+<code><a href="EnvironmentFactory.html#createEnvironment(io.github.jonloucks.variants.api.Environment.Config)">createEnvironment</a>, <a href="EnvironmentFactory.html#createEnvironment(java.util.function.Consumer)">createEnvironment</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-io.github.jonloucks.variants.api.VariantFactory">Methods inherited from interface&nbsp;io.github.jonloucks.variants.api.<a href="VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></h3>
+<code><a href="VariantFactory.html#createVariant(io.github.jonloucks.variants.api.Variant.Config)">createVariant</a>, <a href="VariantFactory.html#createVariant(java.util.function.Consumer)">createVariant</a></code></div>
 </section>
 </li>
 </ul>

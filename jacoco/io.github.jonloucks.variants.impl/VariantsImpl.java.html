@@ -2,9 +2,10 @@
 
 import io.github.jonloucks.contracts.api.AutoClose;
 import io.github.jonloucks.contracts.api.Repository;
-import io.github.jonloucks.variants.api.Variants;
+import io.github.jonloucks.variants.api.*;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
@@ -13,34 +14,58 @@ final class VariantsImpl implements Variants {
     
     @Override
     public AutoClose open() {
-<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (openState.compareAndSet(false, true)) {</span>
-<span class="fc" id="L17">            return realOpen();</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        if (openState.compareAndSet(false, true)) {</span>
+<span class="fc" id="L18">            return realOpen();</span>
         }
-<span class="fc" id="L19">        return AutoClose.NONE;</span>
+<span class="fc" id="L20">        return AutoClose.NONE;</span>
     }
     
-<span class="fc" id="L22">    VariantsImpl(Config config, Repository repository, boolean autoOpen) {</span>
-        //noinspection ResultOfMethodCallIgnored
-<span class="fc" id="L24">        configCheck(config);</span>
+<span class="fc" id="L23">    VariantsImpl(Config config, Repository repository, boolean autoOpen) {</span>
+<span class="fc" id="L24">        this.config = configCheck(config);</span>
 <span class="fc" id="L25">        final Repository validRepository = nullCheck(repository, &quot;Environment must be present.&quot;);</span>
 <span class="fc bfc" id="L26" title="All 2 branches covered.">        this.closeRepository = autoOpen ? validRepository.open() : AutoClose.NONE;</span>
 <span class="fc" id="L27">    }</span>
     
     private AutoClose realOpen() {
-<span class="fc" id="L30">        return this::close;</span>
+<span class="fc" id="L30">        variantFactory = config.contracts().claim(VariantFactory.CONTRACT);</span>
+<span class="fc" id="L31">        environmentFactory = config.contracts().claim(EnvironmentFactory.CONTRACT);</span>
+<span class="fc" id="L32">        return this::close;</span>
     }
 
     private void close() {
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (openState.compareAndSet(true, false)) {</span>
-<span class="fc" id="L35">            realClose();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (openState.compareAndSet(true, false)) {</span>
+<span class="fc" id="L37">            realClose();</span>
         }
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L39">    }</span>
     
     private void realClose() {
-<span class="fc" id="L40">        closeRepository.close();</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L42">        closeRepository.close();</span>
+<span class="fc" id="L43">    }</span>
+    
+    @Override
+    public Environment createEnvironment(Environment.Config config) {
+<span class="fc" id="L47">        return environmentFactory.createEnvironment(config);</span>
+    }
+    
+    @Override
+    public Environment createEnvironment(Consumer&lt;Environment.Config.Builder&gt; builderConsumer) {
+<span class="fc" id="L52">        return environmentFactory.createEnvironment(builderConsumer);</span>
+    }
+    
+    @Override
+    public &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer) {
+<span class="fc" id="L57">        return variantFactory.createVariant(builderConsumer);</span>
+    }
+    
+    @Override
+    public &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config) {
+<span class="fc" id="L62">        return variantFactory.createVariant(config);</span>
+    }
     
     private final AutoClose closeRepository;
-<span class="fc" id="L44">    private final AtomicBoolean openState = new AtomicBoolean();</span>
+<span class="fc" id="L66">    private final AtomicBoolean openState = new AtomicBoolean();</span>
+    private final Config config;
+    private VariantFactory variantFactory;
+    private EnvironmentFactory environmentFactory;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

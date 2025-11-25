@@ -39,10 +39,10 @@ final class VariantImpl&lt;T&gt; implements Variant&lt;T&gt; {
     
     @Override
     public Optional&lt;T&gt; of(CharSequence rawText) {
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (ofNullable(rawText).isPresent()) {</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (ofNullable(rawText).isPresent()) {</span>
 <span class="fc" id="L43">            return parser.map(p -&gt; p.apply(rawText));</span>
         }
-<span class="nc" id="L45">        return Optional.empty();</span>
+<span class="fc" id="L45">        return Optional.empty();</span>
     }
     
     @Override

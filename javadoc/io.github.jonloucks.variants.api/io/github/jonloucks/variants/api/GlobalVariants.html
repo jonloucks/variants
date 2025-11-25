@@ -93,6 +93,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Environment.html" title="interface in io.github.jonloucks.variants.api">Environment</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createEnvironment(io.github.jonloucks.variants.api.Environment.Config)" class="member-name-link">createEnvironment</a><wbr>(<a href="Environment.Config.html" title="interface in io.github.jonloucks.variants.api">Environment.Config</a>&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create an Environment by configuration</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Environment.html" title="interface in io.github.jonloucks.variants.api">Environment</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createEnvironment(java.util.function.Consumer)" class="member-name-link">createEnvironment</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a>&gt;&nbsp;builderConsumer)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create an Environment by configuration builder callback</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createVariant(io.github.jonloucks.variants.api.Variant.Config)" class="member-name-link">createVariant</a><wbr>(<a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createVariant(java.util.function.Consumer)" class="member-name-link">createVariant</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;&gt;&nbsp;builderConsumer)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create a Variant by configuration builder callback</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createVariants(io.github.jonloucks.variants.api.Variants.Config)" class="member-name-link">createVariants</a><wbr>(<a href="Variants.Config.html" title="interface in io.github.jonloucks.variants.api">Variants.Config</a>&nbsp;config)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -125,6 +143,61 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="createVariant(java.util.function.Consumer)">
+<h3>createVariant</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createVariant</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;&gt;&nbsp;builderConsumer)</span></div>
+<div class="block">Create a Variant by configuration builder callback</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the Variant value type</dd>
+<dt>Parameters:</dt>
+<dd><code>builderConsumer</code> - receives the configuration builder</dd>
+<dt>Returns:</dt>
+<dd>the new Variant</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createVariant(io.github.jonloucks.variants.api.Variant.Config)">
+<h3>createVariant</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createVariant</span><wbr><span class="parameters">(<a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;&nbsp;config)</span></div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the Variant value type</dd>
+<dt>Parameters:</dt>
+<dd><code>config</code> - the configuration for creating the Variant</dd>
+<dt>Returns:</dt>
+<dd>the new Variant</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createEnvironment(io.github.jonloucks.variants.api.Environment.Config)">
+<h3>createEnvironment</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Environment.html" title="interface in io.github.jonloucks.variants.api">Environment</a></span>&nbsp;<span class="element-name">createEnvironment</span><wbr><span class="parameters">(<a href="Environment.Config.html" title="interface in io.github.jonloucks.variants.api">Environment.Config</a>&nbsp;config)</span></div>
+<div class="block">Create an Environment by configuration</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>config</code> - the configuration</dd>
+<dt>Returns:</dt>
+<dd>the new Environment</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createEnvironment(java.util.function.Consumer)">
+<h3>createEnvironment</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Environment.html" title="interface in io.github.jonloucks.variants.api">Environment</a></span>&nbsp;<span class="element-name">createEnvironment</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a>&gt;&nbsp;builderConsumer)</span></div>
+<div class="block">Create an Environment by configuration builder callback</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>builderConsumer</code> - receives the configuration builder</dd>
+<dt>Returns:</dt>
+<dd>the new Environment</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="getInstance()">
 <h3>getInstance</h3>

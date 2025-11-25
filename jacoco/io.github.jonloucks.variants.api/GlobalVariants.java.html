@@ -3,6 +3,7 @@
 import io.github.jonloucks.contracts.api.AutoClose;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
@@ -12,11 +13,52 @@ import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 public final class GlobalVariants {
     
     /**
+     * Create a Variant by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Variant
+     * @param &lt;T&gt; the Variant value type
+     */
+    public static &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer) {
+<span class="fc" id="L23">        return INSTANCE.variants.createVariant(builderConsumer);</span>
+    }
+    
+    /**
+     *
+     * @param config the configuration for creating the Variant
+     * @return the new Variant
+     * @param &lt;T&gt; the Variant value type
+     */
+    public static &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config) {
+<span class="fc" id="L33">        return INSTANCE.variants.createVariant(config);</span>
+    }
+    
+    /**
+     * Create an Environment by configuration
+     *
+     * @param config the configuration
+     * @return the new Environment
+     */
+    public static Environment createEnvironment(Environment.Config config)  {
+<span class="fc" id="L43">        return INSTANCE.variants.createEnvironment(config);</span>
+    }
+    
+    /**
+     * Create an Environment by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Environment
+     */
+    public static Environment createEnvironment(Consumer&lt;Environment.Config.Builder&gt; builderConsumer) {
+<span class="fc" id="L53">        return INSTANCE.variants.createEnvironment(builderConsumer);</span>
+    }
+    
+    /**
      * Return the global instance of Contracts
      * @return the instance
      */
     public static Variants getInstance() {
-<span class="fc" id="L19">        return INSTANCE.variants;</span>
+<span class="fc" id="L61">        return INSTANCE.variants;</span>
     }
     
     /**
@@ -34,10 +76,10 @@ public final class GlobalVariants {
      * @throws IllegalArgumentException if config is null or invalid
      */
     public static Variants createVariants(Variants.Config config) {
-<span class="fc" id="L37">        final VariantsFactory factory = findVariantsFactory(config)</span>
-<span class="fc" id="L38">            .orElseThrow(() -&gt; new VariantException(&quot;Variants factory must be present.&quot;));</span>
+<span class="fc" id="L79">        final VariantsFactory factory = findVariantsFactory(config)</span>
+<span class="fc" id="L80">            .orElseThrow(() -&gt; new VariantException(&quot;Variants factory must be present.&quot;));</span>
    
-<span class="fc" id="L40">        return nullCheck(factory.create(config), &quot;Variants could not be created.&quot;);</span>
+<span class="fc" id="L82">        return nullCheck(factory.create(config), &quot;Variants could not be created.&quot;);</span>
     }
     
     /**
@@ -48,15 +90,15 @@ public final class GlobalVariants {
      * @throws IllegalArgumentException if config is null or invalid
      */
     public static Optional&lt;VariantsFactory&gt; findVariantsFactory(Variants.Config config) {
-<span class="fc" id="L51">        return new VariantsFactoryFinder(config).find();</span>
+<span class="fc" id="L93">        return new VariantsFactoryFinder(config).find();</span>
     }
     
-<span class="fc" id="L54">    private GlobalVariants() {</span>
-<span class="fc" id="L55">        this.variants = createVariants(Variants.Config.DEFAULT);</span>
-<span class="fc" id="L56">        this.close = variants.open();</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L96">    private GlobalVariants() {</span>
+<span class="fc" id="L97">        this.variants = createVariants(Variants.Config.DEFAULT);</span>
+<span class="fc" id="L98">        this.close = variants.open();</span>
+<span class="fc" id="L99">    }</span>
     
-<span class="fc" id="L59">    private static final GlobalVariants INSTANCE = new GlobalVariants();</span>
+<span class="fc" id="L101">    private static final GlobalVariants INSTANCE = new GlobalVariants();</span>
     
     private final Variants variants;
     @SuppressWarnings({&quot;FieldCanBeLocal&quot;, &quot;unused&quot;})

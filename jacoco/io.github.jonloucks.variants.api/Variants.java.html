@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 /**
  * Responsibility: Provide access to essential Variant methods.
  */
-public interface Variants extends AutoOpen {
+public interface Variants extends AutoOpen, VariantFactory, EnvironmentFactory {
     /**
      * Access the current Variants implementation
      */
