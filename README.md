@@ -67,5 +67,6 @@ assertEquals(Duration.ofSeconds(30), environment.getVariance(yourTimeout));
 [Java Test Coverage](https://jonloucks.github.io/variants/jacoco/)
 
 ## Badges
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11504/badge)](https://www.bestpractices.dev/projects/11504)
 [![Coverage Badge](https://raw.githubusercontent.com/jonloucks/variants/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/variants/jacoco/)
 [![Javadoc Badge](https://raw.githubusercontent.com/jonloucks/variants/refs/heads/badges/main-javadoc.svg)](https://jonloucks.github.io/variants/javadoc/)
