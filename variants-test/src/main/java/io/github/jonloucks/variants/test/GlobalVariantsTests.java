@@ -11,12 +11,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.time.Duration;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static io.github.jonloucks.contracts.test.Tools.*;
 import static io.github.jonloucks.variants.test.Tools.withVariants;
+import static java.lang.Integer.parseInt;
+import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -147,6 +151,59 @@ public interface GlobalVariantsTests {
         assertObject(environment);
         assertTrue(environment.findVariance(variant).isPresent(), "Variance must be present.");
         assertEquals(7, environment.getVariance(variant), "Variance must match.");
+    }
+    
+    @Test
+    default void globalVariants_properties_example() {
+        final Properties properties = new Properties();
+        properties.setProperty("greeting", "Hello");
+        
+        final Environment environment = GlobalVariants.createEnvironment(b -> b.addPropertiesSource(properties));
+        
+        final Variant<String> greeting = GlobalVariants.createVariant(
+            b -> b                      // builder
+                .key("greeting")                      // the property key
+                .parser(CharSequence::toString)       // CharSequence to String
+        );
+        
+        // Expecting "Hello"
+        assertEquals("Hello", environment.getVariance(greeting));
+    }
+        
+        
+        @Test
+    default void globalVariants_everything_example() {
+        
+        // A source takes a key and returns non-null value or empty.
+        final VariantSource customSource = key -> "YOUR_TIMEOUT".equals(key) ? Optional.of("PT30S") : Optional.empty();
+        
+        // Create an example environment
+        final Environment environment = GlobalVariants.createEnvironment(
+            b -> b                                               // builder
+                .addSystemEnvironmentSource()                           // opt-in; add System.getenv source
+                .addSystemPropertiesSource()                            // opt-in; add System.getProperty source
+                .addPropertiesSource(new Properties())                  // opt-in; add properties source
+                .addMapSource(singletonMap("key", "value"))             // opt-in; add map source
+                .addSource(customSource)                                // opt-in; custom source
+        );
+        
+        final Variant<Duration> generalTimeout = GlobalVariants.createVariant(
+            b -> b // builder
+                .keys("sun.net.client.defaultConnectTimeout")                          // jvm property
+                .parser(c -> Duration.ofMillis(parseInt(c.toString())))   // parse from millis
+                .fallback(() -> Duration.ofMinutes(5))                                 // if java ever removes the property
+        );
+
+        final Variant<Duration> yourTimeout = GlobalVariants.createVariant(
+            b -> b                                                  // builder
+                .name("Your timeout")                                               // opt-in; specify a user facing name
+                .description("How long you should wait for anything.")              // opt-in; description
+                .keys("YOUR_TIMEOUT", "your.timeout")                               // opt-in; zero or more keys
+                .parser(Duration::parse)                                            // opt-in; when using keys, the parser is required to convert values
+                .link(generalTimeout)                                               // opt-in; if no value is the link value is used. Good for cascading defaults
+        );
+
+        assertEquals(Duration.ofSeconds(30), environment.getVariance(yourTimeout));
     }
     
     final class GlobalVariantsTestsTools {
