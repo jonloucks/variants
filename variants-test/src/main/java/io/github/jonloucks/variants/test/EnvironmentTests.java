@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.GlobalContracts.claimContract;
@@ -285,20 +286,27 @@ public interface EnvironmentTests {
         withVariants((contracts, variants) -> {
             final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
-            final Variant<String> linkVariant = variantFactory.createVariant(b -> b
-                .fallback(() -> "linkValue")
+            final Variant<String> rootVariant = variantFactory.createVariant(b -> b
+                .fallback(() -> "rootValue")
             );
-            final Variant<String> variant = variantFactory.createVariant(b -> b
-                .key("key")
-                .parser(Object::toString)
-                .link(linkVariant)
-            );
+            
+            final AtomicReference<Variant<String>> lastVariant = new AtomicReference<>(rootVariant);
+            for (int n = 0; n < 100; n++) {
+                final String key = "key" + n;
+                final Variant<String> currentVariant = variantFactory.createVariant(b -> b
+                    .key(key)
+                    .parser(Object::toString)
+                    .link(lastVariant.get())
+                );
+                lastVariant.set(currentVariant);
+            }
+            final Variant<String> variant = lastVariant.get();
             
             final Environment environment = factory.createEnvironment(b -> {});
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
-            assertEquals("linkValue", environment.findVariance(variant).get());
+            assertEquals("rootValue", environment.findVariance(variant).get());
         });
     }
     
