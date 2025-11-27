@@ -117,19 +117,25 @@ extends <a href="Environment.Config.html" title="interface in io.github.jonlouck
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Add a new source based on a java.util.Properties.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addSource(io.github.jonloucks.variants.api.VariantSource)" class="member-name-link">addSource</a><wbr>(<a href="VariantSource.html" title="interface in io.github.jonloucks.variants.api">VariantSource</a>&nbsp;source)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#addSingletonSource(java.lang.String,java.lang.CharSequence)" class="member-name-link">addSingletonSource</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;text)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Create a VariantSource with a single key value pair</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addSource(io.github.jonloucks.variants.api.VariantSource)" class="member-name-link">addSource</a><wbr>(<a href="VariantSource.html" title="interface in io.github.jonloucks.variants.api">VariantSource</a>&nbsp;source)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Add a new source</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#addSystemEnvironmentSource()" class="member-name-link">addSystemEnvironmentSource</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#addSystemEnvironmentSource()" class="member-name-link">addSystemEnvironmentSource</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Add System.getenv as a source.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#addSystemPropertiesSource()" class="member-name-link">addSystemPropertiesSource</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#addSystemPropertiesSource()" class="member-name-link">addSystemPropertiesSource</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Add System.getProperty as a source.</div>
 </div>
 </div>
@@ -205,6 +211,21 @@ extends <a href="Environment.Config.html" title="interface in io.github.jonlouck
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></span>&nbsp;<span class="element-name">addSystemEnvironmentSource</span>()</div>
 <div class="block">Add System.getenv as a source.</div>
 <dl class="notes">
+<dt>Returns:</dt>
+<dd>this builder</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="addSingletonSource(java.lang.String,java.lang.CharSequence)">
+<h3>addSingletonSource</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Environment.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Environment.Config.Builder</a></span>&nbsp;<span class="element-name">addSingletonSource</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;text)</span></div>
+<div class="block">Create a VariantSource with a single key value pair</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>key</code> - the key</dd>
+<dd><code>text</code> - the mapped value</dd>
 <dt>Returns:</dt>
 <dd>this builder</dd>
 </dl>
