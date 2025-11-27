@@ -18,9 +18,10 @@ public final class GlobalVariants {
      * @param builderConsumer receives the configuration builder
      * @return the new Variant
      * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer) {
-<span class="fc" id="L23">        return INSTANCE.variants.createVariant(builderConsumer);</span>
+<span class="fc" id="L24">        return INSTANCE.variants.createVariant(builderConsumer);</span>
     }
     
     /**
@@ -28,9 +29,10 @@ public final class GlobalVariants {
      * @param config the configuration for creating the Variant
      * @return the new Variant
      * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config) {
-<span class="fc" id="L33">        return INSTANCE.variants.createVariant(config);</span>
+<span class="fc" id="L35">        return INSTANCE.variants.createVariant(config);</span>
     }
     
     /**
@@ -38,9 +40,10 @@ public final class GlobalVariants {
      *
      * @param config the configuration
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static Environment createEnvironment(Environment.Config config)  {
-<span class="fc" id="L43">        return INSTANCE.variants.createEnvironment(config);</span>
+<span class="fc" id="L46">        return INSTANCE.variants.createEnvironment(config);</span>
     }
     
     /**
@@ -48,9 +51,10 @@ public final class GlobalVariants {
      *
      * @param builderConsumer receives the configuration builder
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static Environment createEnvironment(Consumer&lt;Environment.Config.Builder&gt; builderConsumer) {
-<span class="fc" id="L53">        return INSTANCE.variants.createEnvironment(builderConsumer);</span>
+<span class="fc" id="L57">        return INSTANCE.variants.createEnvironment(builderConsumer);</span>
     }
     
     /**
@@ -58,7 +62,7 @@ public final class GlobalVariants {
      * @return the instance
      */
     public static Variants getInstance() {
-<span class="fc" id="L61">        return INSTANCE.variants;</span>
+<span class="fc" id="L65">        return INSTANCE.variants;</span>
     }
     
     /**
@@ -76,10 +80,10 @@ public final class GlobalVariants {
      * @throws IllegalArgumentException if config is null or invalid
      */
     public static Variants createVariants(Variants.Config config) {
-<span class="fc" id="L79">        final VariantsFactory factory = findVariantsFactory(config)</span>
-<span class="fc" id="L80">            .orElseThrow(() -&gt; new VariantException(&quot;Variants factory must be present.&quot;));</span>
+<span class="fc" id="L83">        final VariantsFactory factory = findVariantsFactory(config)</span>
+<span class="fc" id="L84">            .orElseThrow(() -&gt; new VariantException(&quot;Variants factory must be present.&quot;));</span>
    
-<span class="fc" id="L82">        return nullCheck(factory.create(config), &quot;Variants could not be created.&quot;);</span>
+<span class="fc" id="L86">        return nullCheck(factory.create(config), &quot;Variants could not be created.&quot;);</span>
     }
     
     /**
@@ -90,15 +94,15 @@ public final class GlobalVariants {
      * @throws IllegalArgumentException if config is null or invalid
      */
     public static Optional&lt;VariantsFactory&gt; findVariantsFactory(Variants.Config config) {
-<span class="fc" id="L93">        return new VariantsFactoryFinder(config).find();</span>
+<span class="fc" id="L97">        return new VariantsFactoryFinder(config).find();</span>
     }
     
-<span class="fc" id="L96">    private GlobalVariants() {</span>
-<span class="fc" id="L97">        this.variants = createVariants(Variants.Config.DEFAULT);</span>
-<span class="fc" id="L98">        this.close = variants.open();</span>
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L100">    private GlobalVariants() {</span>
+<span class="fc" id="L101">        this.variants = createVariants(Variants.Config.DEFAULT);</span>
+<span class="fc" id="L102">        this.close = variants.open();</span>
+<span class="fc" id="L103">    }</span>
     
-<span class="fc" id="L101">    private static final GlobalVariants INSTANCE = new GlobalVariants();</span>
+<span class="fc" id="L105">    private static final GlobalVariants INSTANCE = new GlobalVariants();</span>
     
     private final Variants variants;
     @SuppressWarnings({&quot;FieldCanBeLocal&quot;, &quot;unused&quot;})

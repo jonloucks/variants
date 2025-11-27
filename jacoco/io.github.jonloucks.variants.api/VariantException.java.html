@@ -4,7 +4,7 @@ import static io.github.jonloucks.contracts.api.Checks.messageCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
 /**
- * Runtime exception thrown for Variants related problems.
+ * Responsibility: Runtime exception thrown for Variants related problems.
  * For example, when Variants fails to initialize.
  */
 public class VariantException extends RuntimeException {
@@ -13,20 +13,22 @@ public class VariantException extends RuntimeException {
      * Passthrough for {@link RuntimeException#RuntimeException(String)}
      *
      * @param message the message for this exception
+     * @throws IllegalArgumentException when message is null or invalid
      */
     public VariantException(String message) {
-<span class="fc" id="L18">        this(message, null);</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L19">        this(message, null);</span>
+<span class="fc" id="L20">    }</span>
     
     /**
      * Passthrough for {@link RuntimeException#RuntimeException(String, Throwable)}
      *
      * @param message the message for this exception
      * @param thrown  the cause of this exception, null is allowed
+     * @throws IllegalArgumentException when message is null or invalid
      */
     public VariantException(String message, Throwable thrown) {
-<span class="fc" id="L28">        super(messageCheck(message), thrown);</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L30">        super(messageCheck(message), thrown);</span>
+<span class="fc" id="L31">    }</span>
     
     /**
      * Rethrows a caught exception or a VariantException if unchecked
@@ -39,15 +41,15 @@ public class VariantException extends RuntimeException {
      */
     @SuppressWarnings(&quot;UnusedReturnValue&quot;)
     public static VariantException rethrow(Throwable thrown) throws Error, RuntimeException {
-<span class="fc" id="L42">        final Throwable validThrown = nullCheck(thrown, &quot;Thrown must be present.&quot;);</span>
+<span class="fc" id="L44">        final Throwable validThrown = nullCheck(thrown, &quot;Thrown must be present.&quot;);</span>
 
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (validThrown instanceof Error) {</span>
-<span class="fc" id="L45">            throw (Error) validThrown;</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        } else if (validThrown instanceof RuntimeException) {</span>
-<span class="fc" id="L47">            throw (RuntimeException) validThrown;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (validThrown instanceof Error) {</span>
+<span class="fc" id="L47">            throw (Error) validThrown;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        } else if (validThrown instanceof RuntimeException) {</span>
+<span class="fc" id="L49">            throw (RuntimeException) validThrown;</span>
         }
         
-<span class="fc" id="L50">        return new VariantException(validThrown.getMessage(), validThrown);</span>
+<span class="fc" id="L52">        return new VariantException(validThrown.getMessage(), validThrown);</span>
     }
     
     /**

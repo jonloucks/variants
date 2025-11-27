@@ -23,6 +23,7 @@ public interface Environment {
      * @param variant the Variant
      * @return the optional value
      * @param &lt;T&gt; the type of variance value
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     &lt;T&gt; Optional&lt;T&gt; findVariance(Variant&lt;T&gt; variant);
     
@@ -33,9 +34,10 @@ public interface Environment {
      * @return the variance
      * @throws VariantException if not found
      * @param &lt;T&gt; the type of variance value
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     default &lt;T&gt; T getVariance(Variant&lt;T&gt; variant) {
-<span class="fc" id="L38">        return findVariance(variant).orElseThrow(() -&gt; new VariantException(&quot;Variant not found. &quot; + variant + &quot;.&quot;));</span>
+<span class="fc" id="L40">        return findVariance(variant).orElseThrow(() -&gt; new VariantException(&quot;Variant not found. &quot; + variant + &quot;.&quot;));</span>
     }
     
     /**
@@ -47,7 +49,7 @@ public interface Environment {
          * @return the list of sources. An empty list is allowed.
          */
         default List&lt;VariantSource&gt; getSources() {
-<span class="fc" id="L50">            return emptyList();</span>
+<span class="fc" id="L52">            return emptyList();</span>
         }
         
         /**
@@ -60,6 +62,7 @@ public interface Environment {
              *
              * @param source the source to add
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             Builder addSource(VariantSource source);
             
@@ -68,10 +71,11 @@ public interface Environment {
              *
              * @param map the Map
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addMapSource(Map&lt;String, ?&gt; map) {
-<span class="fc" id="L73">                final Map&lt;String, ?&gt; validMap = nullCheck(map, &quot;Map must be present.&quot;);</span>
-<span class="fc" id="L74">                return addSource(k -&gt; Optional.ofNullable(validMap.get(k)).map(Object::toString));</span>
+<span class="fc" id="L77">                final Map&lt;String, ?&gt; validMap = nullCheck(map, &quot;Map must be present.&quot;);</span>
+<span class="fc" id="L78">                return addSource(k -&gt; Optional.ofNullable(validMap.get(k)).map(Object::toString));</span>
             }
             
             /**
@@ -79,10 +83,11 @@ public interface Environment {
              *
              * @param properties the Properties
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addPropertiesSource(Properties properties) {
-<span class="fc" id="L84">                final Properties validProperties = nullCheck(properties, &quot;Properties must be present.&quot;);</span>
-<span class="fc" id="L85">                return addSource(k -&gt; ofNullable(validProperties.getProperty(k)));</span>
+<span class="fc" id="L89">                final Properties validProperties = nullCheck(properties, &quot;Properties must be present.&quot;);</span>
+<span class="fc" id="L90">                return addSource(k -&gt; ofNullable(validProperties.getProperty(k)));</span>
             }
             
             /**
@@ -91,8 +96,8 @@ public interface Environment {
              * @return this builder
              */
             default Builder addSystemPropertiesSource() {
-<span class="fc" id="L94">                addSource(k -&gt; ofNullable(System.getProperty(k)));</span>
-<span class="fc" id="L95">                return this;</span>
+<span class="fc" id="L99">                addSource(k -&gt; ofNullable(System.getProperty(k)));</span>
+<span class="fc" id="L100">                return this;</span>
             }
             
             /**
@@ -101,8 +106,8 @@ public interface Environment {
              * @return this builder
              */
             default Builder addSystemEnvironmentSource() {
-<span class="fc" id="L104">                addSource(k -&gt; ofNullable(System.getenv(k)));</span>
-<span class="fc" id="L105">                return this;</span>
+<span class="fc" id="L109">                addSource(k -&gt; ofNullable(System.getenv(k)));</span>
+<span class="fc" id="L110">                return this;</span>
             }
             
             /**
@@ -111,14 +116,15 @@ public interface Environment {
              * @param key the key
              * @param text the mapped value
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addSingletonSource(String key, CharSequence text) {
-<span class="fc" id="L116">                final String validKey = keyCheck(key);</span>
-<span class="fc" id="L117">                final Optional&lt;CharSequence&gt; optionalText = ofNullable(text);</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">                if (optionalText.isPresent()) {</span>
-<span class="fc bfc" id="L119" title="All 2 branches covered.">                    return addSource(k -&gt; validKey.equals(k) ? optionalText : Optional.empty());</span>
+<span class="fc" id="L122">                final String validKey = keyCheck(key);</span>
+<span class="fc" id="L123">                final Optional&lt;CharSequence&gt; optionalText = ofNullable(text);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                if (optionalText.isPresent()) {</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                    return addSource(k -&gt; validKey.equals(k) ? optionalText : Optional.empty());</span>
                 } else {
-<span class="fc" id="L121">                    throw new IllegalArgumentException(&quot;Text must be present.&quot;);</span>
+<span class="fc" id="L127">                    throw new IllegalArgumentException(&quot;Text must be present.&quot;);</span>
                 }
             }
         }

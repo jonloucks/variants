@@ -19,6 +19,7 @@ public interface VariantFactory {
      * @param builderConsumer receives the configuration builder
      * @return the new Variant
      * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer);
     
@@ -27,6 +28,7 @@ public interface VariantFactory {
      * @param config the configuration for creating the Variant
      * @return the new Variant
      * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     &lt;T&gt; Variant&lt;T&gt; createVariant(Variant.Config&lt;T&gt; config);
 }

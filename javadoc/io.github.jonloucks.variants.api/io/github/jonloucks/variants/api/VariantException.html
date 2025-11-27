@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">VariantException</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a></span></div>
-<div class="block">Runtime exception thrown for Variants related problems.
+<div class="block">Responsibility: Runtime exception thrown for Variants related problems.
  For example, when Variants fails to initialize.</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -165,6 +165,8 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>message</code> - the message for this exception</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when message is null or invalid</dd>
 </dl>
 </section>
 </li>
@@ -178,6 +180,8 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>message</code> - the message for this exception</dd>
 <dd><code>thrown</code> - the cause of this exception, null is allowed</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when message is null or invalid</dd>
 </dl>
 </section>
 </li>

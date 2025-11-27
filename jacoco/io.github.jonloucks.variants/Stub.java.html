@@ -10,7 +10,9 @@ import io.github.jonloucks.contracts.api.GlobalContracts;
 import static io.github.jonloucks.variants.api.Checks.validateVariants;
 
 /**
- * A placeholder class to make sure dependencies are correct for api and implementation.
+ * Responsibility: Quickly validate runtime
+ * Utility class instantiation protection
+ * Test coverage not possible, java module protections in place
  */
 public final class Stub {
     
@@ -32,8 +34,8 @@ public final class Stub {
      * @throws IllegalArgumentException when invalid
      */
     public static void validate() {
-<span class="fc" id="L35">        validate(GlobalContracts.getInstance(), GlobalVariants.getInstance());</span>
-<span class="fc" id="L36">    }</span>
+<span class="fc" id="L37">        validate(GlobalContracts.getInstance(), GlobalVariants.getInstance());</span>
+<span class="fc" id="L38">    }</span>
     
     /**
      * Quickly validates a Contracts and Variants
@@ -46,7 +48,7 @@ public final class Stub {
      * @throws IllegalArgumentException when invalid
      */
     public static void validate(Contracts contracts, Variants variants) {
-<span class="fc" id="L49">        validateVariants(contracts, variants);</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L51">        validateVariants(contracts, variants);</span>
+<span class="fc" id="L52">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -61,9 +61,10 @@ public final class Checks {
      *
      * @param key the key to check
      * @return a valid key
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static String keyCheck(String key) {
-<span class="fc" id="L66">        return nullCheck(key, &quot;Key must be present.&quot;);</span>
+<span class="fc" id="L67">        return nullCheck(key, &quot;Key must be present.&quot;);</span>
     }
     
     /**
@@ -72,9 +73,10 @@ public final class Checks {
      * @param keys the keys to check
      * @return valid keys
      * @param &lt;T&gt; the type of keys
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static &lt;T&gt; T keysCheck(T keys) {
-<span class="fc" id="L77">        return nullCheck(keys, &quot;Keys must be present.&quot;);</span>
+<span class="fc" id="L79">        return nullCheck(keys, &quot;Keys must be present.&quot;);</span>
     }
     
     private Checks() {

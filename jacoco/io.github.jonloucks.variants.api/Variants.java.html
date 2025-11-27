@@ -83,18 +83,21 @@ public interface Variants extends AutoOpen, VariantFactory, EnvironmentFactory {
             /**
              * @param contracts the Contracts to use
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             Builder contracts(Contracts contracts);
    
             /**
              * @param reflectionClassName the class name to use if reflection is used to find the ContractsFactory
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             Builder reflectionClassName(String reflectionClassName);
             
             /**
              * @param serviceLoaderClass the class name to load from the ServiceLoader to find the ContractsFactory
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             Builder serviceLoaderClass(Class&lt;? extends VariantsFactory&gt; serviceLoaderClass);
         }

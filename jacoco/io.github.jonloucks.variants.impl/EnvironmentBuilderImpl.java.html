@@ -8,24 +8,26 @@ import java.util.List;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
+/**
+ * Responsibility: Environment.Config.Builder implementation
+ */
 final class EnvironmentBuilderImpl implements Environment.Config.Builder {
-    
     @Override
     public EnvironmentBuilderImpl addSource(VariantSource source) {
-<span class="fc" id="L15">        final VariantSource validVariantSource = nullCheck(source, &quot;Source must be present.&quot;);</span>
-<span class="fc" id="L16">        this.sources.add(validVariantSource);</span>
-<span class="fc" id="L17">        return this;</span>
+<span class="fc" id="L17">        final VariantSource validVariantSource = nullCheck(source, &quot;Source must be present.&quot;);</span>
+<span class="fc" id="L18">        this.sources.add(validVariantSource);</span>
+<span class="fc" id="L19">        return this;</span>
     }
     
     @Override
     public List&lt;VariantSource&gt; getSources() {
-<span class="fc" id="L22">        return sources;</span>
+<span class="fc" id="L24">        return sources;</span>
     }
     
-<span class="fc" id="L25">    EnvironmentBuilderImpl() {</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L27">    EnvironmentBuilderImpl() {</span>
+<span class="fc" id="L28">    }</span>
     
     
-<span class="fc" id="L29">    private final List&lt;VariantSource&gt; sources = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L31">    private final List&lt;VariantSource&gt; sources = new ArrayList&lt;&gt;();</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

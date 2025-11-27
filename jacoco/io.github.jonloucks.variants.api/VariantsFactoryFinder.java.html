@@ -8,60 +8,61 @@ import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Optional.ofNullable;
 
 /**
- * Responsible for locating and creating the VariantsFactory for a deployment.
+ * Responsibility: Locating and creating the VariantsFactory for a deployment.
  */
 public final class VariantsFactoryFinder {
     
     /**
      * Create a new Variants Factory Finder
      * @param config the Variants configuration
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
-<span class="fc" id="L19">    public VariantsFactoryFinder(Variants.Config config) {</span>
-<span class="fc" id="L20">        this.config = configCheck(config);</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L20">    public VariantsFactoryFinder(Variants.Config config) {</span>
+<span class="fc" id="L21">        this.config = configCheck(config);</span>
+<span class="fc" id="L22">    }</span>
     
     /**
      * Find a Variants factory
      * @return the optional Variant Factory
      */
     public Optional&lt;VariantsFactory&gt; find() {
-<span class="fc" id="L28">        final Optional&lt;VariantsFactory&gt; byReflection = createByReflection();</span>
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        return byReflection.isPresent() ? byReflection : createByServiceLoader();</span>
+<span class="fc" id="L29">        final Optional&lt;VariantsFactory&gt; byReflection = createByReflection();</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        return byReflection.isPresent() ? byReflection : createByServiceLoader();</span>
     }
     
     private Optional&lt;VariantsFactory&gt; createByServiceLoader() {
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (config.useServiceLoader()) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (config.useServiceLoader()) {</span>
             try {
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                for (VariantsFactory factory : ServiceLoader.load(getServiceFactoryClass())) {</span>
-<span class="fc" id="L36">                    return Optional.of(factory);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">                for (VariantsFactory factory : ServiceLoader.load(getServiceFactoryClass())) {</span>
+<span class="fc" id="L37">                    return Optional.of(factory);</span>
                 }
-<span class="fc" id="L38">            } catch (Throwable ignored) {</span>
-<span class="nc" id="L39">            }</span>
+<span class="fc" id="L39">            } catch (Throwable ignored) {</span>
+<span class="nc" id="L40">            }</span>
         }
-<span class="fc" id="L41">        return Optional.empty();</span>
+<span class="fc" id="L42">        return Optional.empty();</span>
     }
     
     private Class&lt;? extends VariantsFactory&gt; getServiceFactoryClass() {
-<span class="fc" id="L45">        return nullCheck(config.serviceLoaderClass(), &quot;Variants Service Loader class must be present.&quot;);</span>
+<span class="fc" id="L46">        return nullCheck(config.serviceLoaderClass(), &quot;Variants Service Loader class must be present.&quot;);</span>
     }
     
     private Optional&lt;VariantsFactory&gt; createByReflection() {
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (config.useReflection()) {</span>
-<span class="fc" id="L50">            return getReflectionClassName().map(this::createNewInstance);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (config.useReflection()) {</span>
+<span class="fc" id="L51">            return getReflectionClassName().map(this::createNewInstance);</span>
         }
-<span class="fc" id="L52">        return Optional.empty();</span>
+<span class="fc" id="L53">        return Optional.empty();</span>
     }
     
     private VariantsFactory createNewInstance(String className) {
         try {
-<span class="fc" id="L57">            return (VariantsFactory)Class.forName(className).getConstructor().newInstance();</span>
-<span class="fc" id="L58">        } catch (Throwable thrown) {</span>
-<span class="fc" id="L59">            return null;</span>
+<span class="fc" id="L58">            return (VariantsFactory)Class.forName(className).getConstructor().newInstance();</span>
+<span class="fc" id="L59">        } catch (Throwable thrown) {</span>
+<span class="fc" id="L60">            return null;</span>
         }
     }
 
     private Optional&lt;String&gt; getReflectionClassName() {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        return ofNullable(config.reflectionClassName()).filter(x -&gt; !x.isEmpty());</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        return ofNullable(config.reflectionClassName()).filter(x -&gt; !x.isEmpty());</span>
     }
     
     private final Variants.Config config;
