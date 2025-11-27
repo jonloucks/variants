@@ -12,7 +12,7 @@ import static io.github.jonloucks.contracts.api.GlobalContracts.lifeCycle;
 import static io.github.jonloucks.contracts.api.GlobalContracts.singleton;
 
 /**
- * Creates Variants instances
+ * Responsibility: Creation of Variants
  * Opt-in construction via reflection, ServiceLoader or directly.
  */
 public final class VariantsFactoryImpl implements VariantsFactory {

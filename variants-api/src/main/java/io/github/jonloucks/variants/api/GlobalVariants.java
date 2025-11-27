@@ -18,6 +18,7 @@ public final class GlobalVariants {
      * @param builderConsumer receives the configuration builder
      * @return the new Variant
      * @param <T> the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static <T> Variant<T> createVariant(Consumer<Variant.Config.Builder<T>> builderConsumer) {
         return INSTANCE.variants.createVariant(builderConsumer);
@@ -28,6 +29,7 @@ public final class GlobalVariants {
      * @param config the configuration for creating the Variant
      * @return the new Variant
      * @param <T> the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static <T> Variant<T> createVariant(Variant.Config<T> config) {
         return INSTANCE.variants.createVariant(config);
@@ -38,6 +40,7 @@ public final class GlobalVariants {
      *
      * @param config the configuration
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static Environment createEnvironment(Environment.Config config)  {
         return INSTANCE.variants.createEnvironment(config);
@@ -48,6 +51,7 @@ public final class GlobalVariants {
      *
      * @param builderConsumer receives the configuration builder
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static Environment createEnvironment(Consumer<Environment.Config.Builder> builderConsumer) {
         return INSTANCE.variants.createEnvironment(builderConsumer);

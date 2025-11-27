@@ -7,6 +7,9 @@ import io.github.jonloucks.contracts.api.Contracts;
 import static io.github.jonloucks.contracts.api.Checks.contractsCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
+/**
+ * Responsibility: Variants.Config.Builder implementation
+ */
 final class ConfigBuilderImpl implements Variants.Config.Builder {
     @Override
     public Builder useReflection(boolean useReflection) {

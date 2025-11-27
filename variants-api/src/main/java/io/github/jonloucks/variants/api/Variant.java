@@ -56,7 +56,7 @@ public interface Variant<T> {
     }
     
     /**
-     * Parses the
+     * Parses the text into an Optional Variant value
      * Note: Required if keys are used to retrieve a value.
      * Note: implementations of this function should return empty on null values.
      * @param rawText the text to be parsed

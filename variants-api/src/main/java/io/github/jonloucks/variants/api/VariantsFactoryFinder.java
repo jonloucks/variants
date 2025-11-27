@@ -8,13 +8,14 @@ import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Optional.ofNullable;
 
 /**
- * Responsible for locating and creating the VariantsFactory for a deployment.
+ * Responsibility: Locating and creating the VariantsFactory for a deployment.
  */
 public final class VariantsFactoryFinder {
     
     /**
      * Create a new Variants Factory Finder
      * @param config the Variants configuration
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     public VariantsFactoryFinder(Variants.Config config) {
         this.config = configCheck(config);

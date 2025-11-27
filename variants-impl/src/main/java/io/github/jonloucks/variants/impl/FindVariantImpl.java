@@ -6,8 +6,13 @@ import io.github.jonloucks.variants.api.VariantSource;
 import java.util.List;
 import java.util.Optional;
 
+import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static io.github.jonloucks.variants.api.Checks.variantCheck;
 
+/**
+ * Responsibility: Find a Variant value from a list of sources
+ * @param <T> the type of Variant value
+ */
 final class FindVariantImpl<T> {
     
     Optional<T> findVariance() {
@@ -21,7 +26,7 @@ final class FindVariantImpl<T> {
     }
     
     FindVariantImpl(List<VariantSource> sources, Variant<T> variant) {
-        this.sources = sources;
+        this.sources = nullCheck(sources, "Sources must be present.");
         this.targetVariant = variantCheck(variant);
     }
     

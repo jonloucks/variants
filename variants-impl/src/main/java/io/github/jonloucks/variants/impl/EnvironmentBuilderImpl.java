@@ -8,8 +8,10 @@ import java.util.List;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
+/**
+ * Responsibility: Environment.Config.Builder implementation
+ */
 final class EnvironmentBuilderImpl implements Environment.Config.Builder {
-    
     @Override
     public EnvironmentBuilderImpl addSource(VariantSource source) {
         final VariantSource validVariantSource = nullCheck(source, "Source must be present.");

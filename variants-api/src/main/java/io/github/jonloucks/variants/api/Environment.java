@@ -23,6 +23,7 @@ public interface Environment {
      * @param variant the Variant
      * @return the optional value
      * @param <T> the type of variance value
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     <T> Optional<T> findVariance(Variant<T> variant);
     
@@ -33,6 +34,7 @@ public interface Environment {
      * @return the variance
      * @throws VariantException if not found
      * @param <T> the type of variance value
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     default <T> T getVariance(Variant<T> variant) {
         return findVariance(variant).orElseThrow(() -> new VariantException("Variant not found. " + variant + "."));
@@ -60,6 +62,7 @@ public interface Environment {
              *
              * @param source the source to add
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             Builder addSource(VariantSource source);
             
@@ -68,6 +71,7 @@ public interface Environment {
              *
              * @param map the Map
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addMapSource(Map<String, ?> map) {
                 final Map<String, ?> validMap = nullCheck(map, "Map must be present.");
@@ -79,6 +83,7 @@ public interface Environment {
              *
              * @param properties the Properties
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addPropertiesSource(Properties properties) {
                 final Properties validProperties = nullCheck(properties, "Properties must be present.");
@@ -111,6 +116,7 @@ public interface Environment {
              * @param key the key
              * @param text the mapped value
              * @return this builder
+             * @throws IllegalArgumentException when arguments are null or invalid
              */
             default Builder addSingletonSource(String key, CharSequence text) {
                 final String validKey = keyCheck(key);

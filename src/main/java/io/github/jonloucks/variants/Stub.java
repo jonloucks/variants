@@ -10,7 +10,9 @@ import io.github.jonloucks.contracts.api.GlobalContracts;
 import static io.github.jonloucks.variants.api.Checks.validateVariants;
 
 /**
- * A placeholder class to make sure dependencies are correct for api and implementation.
+ * Responsibility: Quickly validate runtime
+ * Utility class instantiation protection
+ * Test coverage not possible, java module protections in place
  */
 public final class Stub {
     
