@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -20,7 +21,6 @@ import java.util.stream.Stream;
 import static io.github.jonloucks.contracts.test.Tools.*;
 import static io.github.jonloucks.variants.test.Tools.withVariants;
 import static java.lang.Integer.parseInt;
-import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -183,7 +183,8 @@ public interface GlobalVariantsTests {
                 .addSystemEnvironmentSource()                           // opt-in; add System.getenv source
                 .addSystemPropertiesSource()                            // opt-in; add System.getProperty source
                 .addPropertiesSource(new Properties())                  // opt-in; add properties source
-                .addMapSource(singletonMap("key", "value"))             // opt-in; add map source
+                .addMapSource(new HashMap<>())                          // opt-in; add map source
+                .addSingletonSource("greeting", "Hello")                     // opt-in; add single key value pair
                 .addSource(customSource)                                // opt-in; custom source
         );
         
