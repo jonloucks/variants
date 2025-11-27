@@ -4,7 +4,7 @@ import static io.github.jonloucks.contracts.api.Checks.messageCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
 /**
- * Runtime exception thrown for Variants related problems.
+ * Responsibility: Runtime exception thrown for Variants related problems.
  * For example, when Variants fails to initialize.
  */
 public class VariantException extends RuntimeException {
@@ -13,6 +13,7 @@ public class VariantException extends RuntimeException {
      * Passthrough for {@link RuntimeException#RuntimeException(String)}
      *
      * @param message the message for this exception
+     * @throws IllegalArgumentException when message is null or invalid
      */
     public VariantException(String message) {
         this(message, null);
@@ -23,6 +24,7 @@ public class VariantException extends RuntimeException {
      *
      * @param message the message for this exception
      * @param thrown  the cause of this exception, null is allowed
+     * @throws IllegalArgumentException when message is null or invalid
      */
     public VariantException(String message, Throwable thrown) {
         super(messageCheck(message), thrown);

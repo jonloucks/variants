@@ -14,7 +14,7 @@ import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 
 /**
- * Smoke test, to validate running on real environment
+ * Responsibility: Smoke test, to validate running on real environment
  */
 public final class Main {
     

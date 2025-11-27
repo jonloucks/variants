@@ -19,6 +19,7 @@ public interface EnvironmentFactory {
      *
      * @param config the configuration
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     Environment createEnvironment(Environment.Config config);
     
@@ -27,6 +28,7 @@ public interface EnvironmentFactory {
      *
      * @param builderConsumer receives the configuration builder
      * @return the new Environment
+     * @throws IllegalArgumentException when arguments are null or invalid
      */
     Environment createEnvironment(Consumer<Environment.Config.Builder> builderConsumer);
 }

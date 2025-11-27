@@ -7,10 +7,14 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
+import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Optional.ofNullable;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+/**
+ * Responsibility: Immutable Variant implementation.
+ * @param <T> The type of Variant value
+ */
 final class VariantImpl<T> implements Variant<T> {
     @Override
     public List<String> getKeys() {
@@ -57,20 +61,28 @@ final class VariantImpl<T> implements Variant<T> {
     VariantImpl(Variant.Config<T> config) {
         final Variant.Config<T> validConfig = configCheck(config);
         this.keys = unmodifiableList(validConfig.getKeys());
-        this.name = validConfig.getName();
-        this.description = validConfig.getDescription();
-        this.link = validConfig.getLink();
-        this.fallback = validConfig.getFallback();
-        this.parser = validConfig.getParser();
-        if (!keys.isEmpty() && !validConfig.getParser().isPresent()) {
+        this.name = nullCheck(validConfig.getName(), "Optional name must be set.");
+        this.description = nullCheck(validConfig.getDescription(), "Optional description must be set.");
+        this.link = nullCheck(validConfig.getLink(), "Optional link must be set.");
+        this.fallback = nullCheck(validConfig.getFallback(), "Optional fallback must be set.");
+        this.parser = nullCheck(validConfig.getParser(), "Optional parser must be set.");
+        if (!keys.isEmpty() && !parser.isPresent()) {
             throw new IllegalArgumentException("Parser is required when keys are present.");
         }
     }
     
-    private final List<String> keys;
+    // Opting out of the best practice of not using Optionals as instance variables
+    // Reason:  Remove redundant operations checking nullability, which reduces memory and CPU usage
+    // Is it safe? Yes, since they are only assigned internally after a null checks
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<String> name;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<String> description;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<T> fallback;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<Variant<T>> link;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<Function<CharSequence,T>> parser;
+    private final List<String> keys;
 }
