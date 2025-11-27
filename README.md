@@ -36,7 +36,8 @@ Environment environment = GlobalVariants.createEnvironment(
         .addSystemEnvironmentSource()                               // opt-in; add System.getenv source
         .addSystemPropertiesSource()                                // opt-in; add System.getProperty source
         .addPropertiesSource(new Properties())                      // opt-in; add properties source
-        .addMapSource(Collections.singletonMap("key", "value"))     // opt-in; add map source
+        .addMapSource(new HashMap())                                // opt-in; add map source
+        .addSingletonSource("key", "value")                         // opt-in; add single key value pair source
         .addSource(customSource)                                    // opt-in; custom source
 );
 

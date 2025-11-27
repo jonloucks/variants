@@ -13,7 +13,6 @@ import static io.github.jonloucks.contracts.api.GlobalContracts.claimContract;
 import static io.github.jonloucks.contracts.test.Tools.assertObject;
 import static io.github.jonloucks.contracts.test.Tools.assertThrown;
 import static io.github.jonloucks.variants.test.Tools.withVariants;
-import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 public interface EnvironmentTests {
@@ -70,6 +69,30 @@ public interface EnvironmentTests {
                 () -> b.addMapSource(null),
                 "Map must be present."));
             assertObject(environment);
+        });
+    }
+    
+    @Test
+    default void environment_create_BuilderWithNullKey_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            
+            factory.createEnvironment(
+                b -> assertThrown(IllegalArgumentException.class,
+                    () -> b.addSingletonSource(null, "text"),
+                    "Key must be present."));
+        });
+    }
+    
+    @Test
+    default void environment_create_BuilderWithNullText_Throws() {
+        withVariants((contracts, variants) -> {
+            final EnvironmentFactory factory = claimContract(EnvironmentFactory.CONTRACT);
+            
+            factory.createEnvironment(
+                b -> assertThrown(IllegalArgumentException.class,
+                    () -> b.addSingletonSource("key", null),
+                    "Text must be present."));
         });
     }
     
@@ -137,7 +160,7 @@ public interface EnvironmentTests {
             );
             
             final Environment environment = factory.createEnvironment(b -> b
-                .addMapSource(singletonMap(key, "value")));
+                .addSingletonSource(key, "value"));
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
@@ -158,7 +181,7 @@ public interface EnvironmentTests {
             );
             
             final Environment environment = factory.createEnvironment(b -> b
-                .addMapSource(singletonMap(key, "value")));
+                .addSingletonSource(key, "value"));
             
             assertFalse(environment.findVariance(variant).isPresent(),
                 "findVariance should have not found a matching variance.");
@@ -224,9 +247,9 @@ public interface EnvironmentTests {
             );
             
             final Environment environment = factory.createEnvironment(b -> b
-                .addMapSource(singletonMap(key, "value1"))
-                .addMapSource(singletonMap(key, "value2"))
-                .addMapSource(singletonMap(key, "value3")));
+                .addSingletonSource(key, "value1")
+                .addSingletonSource(key, "value2")
+                .addSingletonSource(key, "value3"));
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
@@ -246,9 +269,9 @@ public interface EnvironmentTests {
             );
             
             final Environment environment = factory.createEnvironment(b -> b
-                .addMapSource(singletonMap("unknown", "value1"))
-                .addMapSource(singletonMap(key, "value2"))
-                .addMapSource(singletonMap(key, "value3")));
+                .addSingletonSource("unknown", "value1")
+                .addSingletonSource(key, "value2")
+                .addSingletonSource(key, "value3"));
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");
@@ -272,8 +295,8 @@ public interface EnvironmentTests {
             );
             
             final Environment environment = factory.createEnvironment(b -> b
-                .addMapSource(singletonMap("unknownKey", "unknownValue"))
-                .addMapSource(singletonMap("linkKey", "linkValue")));
+                .addSingletonSource("unknownKey", "unknownValue")
+                .addSingletonSource("linkKey", "linkValue"));
             
             assertTrue(environment.findVariance(variant).isPresent(),
                 "findVariance should have found a matching variance.");

@@ -3,6 +3,7 @@ package io.github.jonloucks.variants.api;
 import java.util.*;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
+import static io.github.jonloucks.variants.api.Checks.keyCheck;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 
@@ -102,6 +103,23 @@ public interface Environment {
             default Builder addSystemEnvironmentSource() {
                 addSource(k -> ofNullable(System.getenv(k)));
                 return this;
+            }
+            
+            /**
+             * Create a VariantSource with a single key value pair
+             *
+             * @param key the key
+             * @param text the mapped value
+             * @return this builder
+             */
+            default Builder addSingletonSource(String key, CharSequence text) {
+                final String validKey = keyCheck(key);
+                final Optional<CharSequence> optionalText = ofNullable(text);
+                if (optionalText.isPresent()) {
+                    return addSource(k -> validKey.equals(k) ? optionalText : Optional.empty());
+                } else {
+                    throw new IllegalArgumentException("Text must be present.");
+                }
             }
         }
     }
