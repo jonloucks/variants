@@ -5,6 +5,7 @@ import io.github.jonloucks.contracts.api.Repository;
 import io.github.jonloucks.variants.api.*;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
@@ -54,6 +55,11 @@ final class VariantsImpl implements Variants {
     
     @Override
     public <T> Variant<T> createVariant(Consumer<Variant.Config.Builder<T>> builderConsumer) {
+        return variantFactory.createVariant(builderConsumer);
+    }
+    
+    @Override
+    public <T> Variant<T> createVariant(BiConsumer<Variant.Config.Builder<T>, Parsers> builderConsumer) {
         return variantFactory.createVariant(builderConsumer);
     }
     

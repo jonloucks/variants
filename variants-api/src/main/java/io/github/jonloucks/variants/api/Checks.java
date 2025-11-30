@@ -3,6 +3,8 @@ package io.github.jonloucks.variants.api;
 import io.github.jonloucks.contracts.api.ContractException;
 import io.github.jonloucks.contracts.api.Contracts;
 
+import java.util.function.Function;
+
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static io.github.jonloucks.contracts.api.Checks.validateContracts;
 
@@ -77,6 +79,28 @@ public final class Checks {
      */
     public static <T> T keysCheck(T keys) {
         return nullCheck(keys, "Keys must be present.");
+    }
+    
+    /**
+     * Check if given parser is not null or invalid
+     *
+     * @param parser the parser to check
+     * @return a valid parser
+     * @param <F> the 'From' type
+     * @param <T> the 'To' type
+     */
+    public static <F,T> Function<F,T> parserCheck(Function<F,T> parser) {
+        return nullCheck(parser, "Parser must be present.");
+    }
+    
+    /**
+     * Check if given text is null or invalid
+     *
+     * @param sourceText the text to check
+     * @return a valid text
+     */
+    public static CharSequence textCheck(CharSequence sourceText) {
+        return nullCheck(sourceText, "Text must be present.");
     }
     
     private Checks() {
