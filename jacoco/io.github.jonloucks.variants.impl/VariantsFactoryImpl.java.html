@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VariantsFactoryImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.impl</a> &gt; <span class="el_source">VariantsFactoryImpl.java</span></div><h1>VariantsFactoryImpl.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.impl;
 
+import io.github.jonloucks.contracts.api.BindStrategy;
 import io.github.jonloucks.variants.api.*;
 import io.github.jonloucks.contracts.api.Promisor;
 import io.github.jonloucks.contracts.api.Repository;
@@ -21,51 +22,54 @@ public final class VariantsFactoryImpl implements VariantsFactory {
      * Publicly accessible constructor as an entry point into this library.
      * It can be invoked via reflection, ServiceLoader or directly.
      */
-<span class="fc" id="L24">    public VariantsFactoryImpl() {</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L25">    public VariantsFactoryImpl() {</span>
+<span class="fc" id="L26">    }</span>
     
     @Override
     public Variants create(Variants.Config config) {
-<span class="fc" id="L29">        final Variants.Config validConfig = configCheck(config);</span>
-<span class="fc" id="L30">        final Repository repository = validConfig.contracts().claim(Repository.FACTORY).get();</span>
+<span class="fc" id="L30">        final Variants.Config validConfig = configCheck(config);</span>
+<span class="fc" id="L31">        final Repository repository = validConfig.contracts().claim(Repository.FACTORY).get();</span>
         
-<span class="fc" id="L32">        installCore(validConfig, repository);</span>
+<span class="fc" id="L33">        installCore(validConfig, repository);</span>
         
-<span class="fc" id="L34">        final VariantsImpl variants = new VariantsImpl(validConfig, repository, true);</span>
-<span class="fc" id="L35">        repository.keep(Variants.CONTRACT, () -&gt; variants, IF_NOT_BOUND);</span>
-<span class="fc" id="L36">        return variants;</span>
+<span class="fc" id="L35">        final VariantsImpl variants = new VariantsImpl(validConfig, repository, true);</span>
+<span class="fc" id="L36">        repository.keep(Variants.CONTRACT, () -&gt; variants, IF_NOT_BOUND);</span>
+<span class="fc" id="L37">        return variants;</span>
     }
     
     @Override
     public Variants create(Consumer&lt;Variants.Config.Builder&gt; builderConsumer) {
-<span class="fc" id="L41">        final Consumer&lt;Variants.Config.Builder&gt; validBuilderConsumer = builderConsumerCheck(builderConsumer);</span>
-<span class="fc" id="L42">        final ConfigBuilderImpl builder = new ConfigBuilderImpl();</span>
+<span class="fc" id="L42">        final Consumer&lt;Variants.Config.Builder&gt; validBuilderConsumer = builderConsumerCheck(builderConsumer);</span>
+<span class="fc" id="L43">        final ConfigBuilderImpl builder = new ConfigBuilderImpl();</span>
         
-<span class="fc" id="L44">        validBuilderConsumer.accept(builder);</span>
+<span class="fc" id="L45">        validBuilderConsumer.accept(builder);</span>
         
-<span class="fc" id="L46">        return create(builder);</span>
+<span class="fc" id="L47">        return create(builder);</span>
     }
     
     @Override
     public void install(Variants.Config config, Repository repository) {
-<span class="fc" id="L51">        final Variants.Config validConfig = configCheck(config);</span>
-<span class="fc" id="L52">        final Repository validRepository = nullCheck(repository, &quot;Repository must be present.&quot;);</span>
+<span class="fc" id="L52">        final Variants.Config validConfig = configCheck(config);</span>
+<span class="fc" id="L53">        final Repository validRepository = nullCheck(repository, &quot;Repository must be present.&quot;);</span>
         
-<span class="fc" id="L54">        installCore(validConfig, validRepository);</span>
+<span class="fc" id="L55">        installCore(validConfig, validRepository);</span>
         
-<span class="fc" id="L56">        final Promisor&lt;Variants&gt; variantsPromisor = lifeCycle(() -&gt; new VariantsImpl(validConfig, validRepository, false));</span>
+<span class="fc" id="L57">        final Promisor&lt;Variants&gt; variantsPromisor = lifeCycle(() -&gt; new VariantsImpl(validConfig, validRepository, false));</span>
         
-<span class="fc" id="L58">        validRepository.keep(Variants.CONTRACT, variantsPromisor, IF_NOT_BOUND);</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L59">        validRepository.keep(Variants.CONTRACT, variantsPromisor, IF_NOT_BOUND);</span>
+<span class="fc" id="L60">    }</span>
     
     @SuppressWarnings(&quot;unused&quot;)
     private void installCore(Variants.Config config, Repository repository) {
-<span class="fc" id="L63">        repository.require(Repository.FACTORY);</span>
+<span class="fc" id="L64">        repository.require(Repository.FACTORY);</span>
         
-<span class="fc" id="L65">        repository.keep(Variants.Config.Builder.FACTORY, singleton(() -&gt; ConfigBuilderImpl::new), IF_NOT_BOUND);</span>
-<span class="fc" id="L66">        repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), IF_NOT_BOUND);</span>
-<span class="fc" id="L67">        repository.keep(VariantFactory.CONTRACT, singleton(VariantFactoryImpl::new), IF_NOT_BOUND);</span>
-<span class="fc" id="L68">        repository.keep(EnvironmentFactory.CONTRACT, singleton(EnvironmentFactoryImpl::new), IF_NOT_BOUND);</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L66">        final BindStrategy strategy = IF_NOT_BOUND;</span>
+        
+<span class="fc" id="L68">        repository.keep(Variants.Config.Builder.FACTORY, singleton(() -&gt; ConfigBuilderImpl::new), strategy);</span>
+<span class="fc" id="L69">        repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), strategy);</span>
+<span class="fc" id="L70">        repository.keep(VariantFactory.CONTRACT, singleton(() -&gt; new VariantFactoryImpl(config)), strategy);</span>
+<span class="fc" id="L71">        repository.keep(Parsers.CONTRACT, singleton(ParsersImpl::new), strategy);</span>
+<span class="fc" id="L72">        repository.keep(EnvironmentFactory.CONTRACT, singleton(EnvironmentFactoryImpl::new), strategy);</span>
+<span class="fc" id="L73">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

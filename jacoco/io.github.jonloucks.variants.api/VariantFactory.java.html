@@ -2,6 +2,7 @@
 
 import io.github.jonloucks.contracts.api.Contract;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -11,7 +12,7 @@ public interface VariantFactory {
     /**
      * The Contract for the VariantFactory
      */
-<span class="fc" id="L14">    Contract&lt;VariantFactory&gt; CONTRACT = Contract.create(VariantFactory.class, b -&gt; b.name(&quot;Variant Factory&quot;));</span>
+<span class="fc" id="L15">    Contract&lt;VariantFactory&gt; CONTRACT = Contract.create(VariantFactory.class, b -&gt; b.name(&quot;Variant Factory&quot;));</span>
     
     /**
      * Create a Variant by configuration builder callback
@@ -22,6 +23,17 @@ public interface VariantFactory {
      * @throws IllegalArgumentException when arguments are null or invalid
      */
     &lt;T&gt; Variant&lt;T&gt; createVariant(Consumer&lt;Variant.Config.Builder&lt;T&gt;&gt; builderConsumer);
+    
+    
+    /**
+     * Create a Variant by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Variant
+     * @param &lt;T&gt; the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
+     */
+    &lt;T&gt; Variant&lt;T&gt; createVariant(BiConsumer&lt;Variant.Config.Builder&lt;T&gt;, Parsers&gt; builderConsumer);
     
     /**
      *

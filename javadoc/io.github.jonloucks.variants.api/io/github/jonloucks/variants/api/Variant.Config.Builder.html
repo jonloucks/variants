@@ -147,8 +147,14 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 <div class="block">Assign the name</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#parser(java.util.function.Function)" class="member-name-link">parser</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;parser)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#of(java.util.function.Function)" class="member-name-link">of</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&gt;&nbsp;of)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Assign the main conversion method 'of'
+ Note: Implementations should be aware that the default of implementation invokes the parser.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#parser(java.util.function.Function)" class="member-name-link">parser</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&nbsp;parser)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Assign the parser to convert text into Variant values
   A parser can return null for any reason, it is processed as unassigned</div>
 </div>
@@ -157,7 +163,7 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.jonloucks.variants.api.Variant.Config">Methods inherited from interface&nbsp;io.github.jonloucks.variants.api.<a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a></h3>
-<code><a href="Variant.Config.html#getDescription()">getDescription</a>, <a href="Variant.Config.html#getFallback()">getFallback</a>, <a href="Variant.Config.html#getKeys()">getKeys</a>, <a href="Variant.Config.html#getLink()">getLink</a>, <a href="Variant.Config.html#getName()">getName</a>, <a href="Variant.Config.html#getParser()">getParser</a></code></div>
+<code><a href="Variant.Config.html#getDescription()">getDescription</a>, <a href="Variant.Config.html#getFallback()">getFallback</a>, <a href="Variant.Config.html#getKeys()">getKeys</a>, <a href="Variant.Config.html#getLink()">getLink</a>, <a href="Variant.Config.html#getName()">getName</a>, <a href="Variant.Config.html#getOf()">getOf</a>, <a href="Variant.Config.html#getParser()">getParser</a></code></div>
 </section>
 </li>
 </ul>
@@ -232,6 +238,20 @@ extends <a href="Variant.Config.html" title="interface in io.github.jonloucks.va
 <dd><code>parser</code> - the parser</dd>
 <dt>Returns:</dt>
 <dd>this Builder</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="of(java.util.function.Function)">
+<h3>of</h3>
+<div class="member-signature"><span class="return-type"><a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;</span>&nbsp;<span class="element-name">of</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="Variant.Config.Builder.html" title="type parameter in Variant.Config.Builder">T</a>&gt;&gt;&nbsp;of)</span></div>
+<div class="block">Assign the main conversion method 'of'
+ Note: Implementations should be aware that the default of implementation invokes the parser.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>of</code> - the new conversion method</dd>
+<dt>Returns:</dt>
+<dd>this builder</dd>
 </dl>
 </section>
 </li>

@@ -114,8 +114,13 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createVariant(io.github.jonloucks.variants.api.Variant.Config)" class="member-name-link">createVariant</a><wbr>(<a href="Variant.Config.html" title="interface in io.github.jonloucks.variants.api">Variant.Config</a>&lt;T&gt;&nbsp;config)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>&lt;T&gt;&nbsp;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createVariant(java.util.function.Consumer)" class="member-name-link">createVariant</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;&gt;&nbsp;builderConsumer)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createVariant(java.util.function.BiConsumer)" class="member-name-link">createVariant</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/BiConsumer.html" title="class or interface in java.util.function" class="external-link">BiConsumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;,<wbr><a href="Parsers.html" title="interface in io.github.jonloucks.variants.api">Parsers</a>&gt;&nbsp;builderConsumer)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Create a Variant by configuration builder callback</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>&lt;T&gt;&nbsp;<a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createVariant(java.util.function.Consumer)" class="member-name-link">createVariant</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;&gt;&nbsp;builderConsumer)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Create a Variant by configuration builder callback</div>
 </div>
 </div>
@@ -151,6 +156,23 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createVariant(java.util.function.Consumer)">
 <h3>createVariant</h3>
 <div class="member-signature"><span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createVariant</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;&gt;&nbsp;builderConsumer)</span></div>
+<div class="block">Create a Variant by configuration builder callback</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the Variant value type</dd>
+<dt>Parameters:</dt>
+<dd><code>builderConsumer</code> - receives the configuration builder</dd>
+<dt>Returns:</dt>
+<dd>the new Variant</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when arguments are null or invalid</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createVariant(java.util.function.BiConsumer)">
+<h3>createVariant</h3>
+<div class="member-signature"><span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Variant.html" title="interface in io.github.jonloucks.variants.api">Variant</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createVariant</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/BiConsumer.html" title="class or interface in java.util.function" class="external-link">BiConsumer</a>&lt;<a href="Variant.Config.Builder.html" title="interface in io.github.jonloucks.variants.api">Variant.Config.Builder</a>&lt;T&gt;,<wbr><a href="Parsers.html" title="interface in io.github.jonloucks.variants.api">Parsers</a>&gt;&nbsp;builderConsumer)</span></div>
 <div class="block">Create a Variant by configuration builder callback</div>
 <dl class="notes">
 <dt>Type Parameters:</dt>

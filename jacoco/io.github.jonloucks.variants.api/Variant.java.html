@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import static io.github.jonloucks.variants.api.Checks.keyCheck;
 import static io.github.jonloucks.variants.api.Checks.keysCheck;
 import static java.util.Collections.singletonList;
+import static java.util.Optional.ofNullable;
 
 /**
  * Responsibility: Provide information on how to retrieve a configuration value.
@@ -20,7 +21,7 @@ public interface Variant&lt;T&gt; {
      * @return the ordered list of keys used to search for values.
      */
     default List&lt;String&gt; getKeys() {
-<span class="fc" id="L23">        return Collections.emptyList();</span>
+<span class="fc" id="L24">        return Collections.emptyList();</span>
     }
     
     /**
@@ -29,21 +30,21 @@ public interface Variant&lt;T&gt; {
      * @return The user facing name of this Variant
      */
     default Optional&lt;String&gt; getName() {
-<span class="fc" id="L32">        return Optional.empty();</span>
+<span class="fc" id="L33">        return Optional.empty();</span>
     }
     
     /**
      * @return the optional description
      */
     default Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L39">        return Optional.empty();</span>
+<span class="fc" id="L40">        return Optional.empty();</span>
     }
     
     /**
      * @return the optional fallback value. aka default value
      */
     default Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L46">        return Optional.empty();</span>
+<span class="fc" id="L47">        return Optional.empty();</span>
     }
     
     /**
@@ -52,7 +53,7 @@ public interface Variant&lt;T&gt; {
      * @return The optional link to another Variant
      */
     default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L55">        return Optional.empty();</span>
+<span class="fc" id="L56">        return Optional.empty();</span>
     }
     
     /**
@@ -63,7 +64,7 @@ public interface Variant&lt;T&gt; {
      * @return the optional Variance
      */
     default Optional&lt;T&gt; of(CharSequence rawText) {
-<span class="fc" id="L66">        return Optional.empty();</span>
+<span class="fc" id="L67">        return Optional.empty();</span>
     }
     
     /**
@@ -78,7 +79,7 @@ public interface Variant&lt;T&gt; {
          * @return the ordered list of keys used to search for values.
          */
         default List&lt;String&gt; getKeys() {
-<span class="fc" id="L81">            return Collections.emptyList();</span>
+<span class="fc" id="L82">            return Collections.emptyList();</span>
         }
         
         /**
@@ -86,21 +87,21 @@ public interface Variant&lt;T&gt; {
          * @return The user facing name of this Variant
          */
         default Optional&lt;String&gt; getName() {
-<span class="fc" id="L89">            return Optional.empty();</span>
+<span class="fc" id="L90">            return Optional.empty();</span>
         }
         
         /**
          * @return the optional description
          */
         default Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L96">            return Optional.empty();</span>
+<span class="fc" id="L97">            return Optional.empty();</span>
         }
         
         /**
          * @return the optional fallback value. aka default value
          */
         default Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L103">            return Optional.empty();</span>
+<span class="fc" id="L104">            return Optional.empty();</span>
         }
         
         /**
@@ -109,14 +110,29 @@ public interface Variant&lt;T&gt; {
          * @return The optional link to another Variant
          */
         default Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L112">            return Optional.empty();</span>
+<span class="fc" id="L113">            return Optional.empty();</span>
         }
         
         /**
          * @return The parser used to convert raw text into a Variant value
          */
         default Optional&lt;Function&lt;CharSequence, T&gt;&gt; getParser() {
-<span class="fc" id="L119">            return Optional.empty();</span>
+<span class="fc" id="L120">            return Optional.empty();</span>
+        }
+        
+        /**
+         * @return The parser used to convert raw text into a Variant value
+         */
+        default Function&lt;CharSequence, Optional&lt;T&gt;&gt; getOf() {
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            if (getParser().isPresent()) {</span>
+<span class="nc" id="L128">                return c -&gt;  {</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                    if (ofNullable(c).isPresent()) {</span>
+<span class="nc" id="L130">                        return ofNullable(getParser().get().apply(c));</span>
+                    }
+<span class="nc" id="L132">                    return Optional.empty();</span>
+                };
+            }
+<span class="pc" id="L135">            return c -&gt; Optional.empty();</span>
         }
 
         /**
@@ -133,7 +149,7 @@ public interface Variant&lt;T&gt; {
              * @return this Builder
              */
             default Builder&lt;T&gt; key(String key) {
-<span class="fc" id="L136">                return keys(singletonList(keyCheck(key)));</span>
+<span class="fc" id="L152">                return keys(singletonList(keyCheck(key)));</span>
             }
             
             /**
@@ -143,7 +159,7 @@ public interface Variant&lt;T&gt; {
              * @return this Builder
              */
             default Builder&lt;T&gt; keys(String... keys) {
-<span class="fc" id="L146">                return keys(Arrays.asList(keysCheck(keys)));</span>
+<span class="fc" id="L162">                return keys(Arrays.asList(keysCheck(keys)));</span>
             }
             
             /**
@@ -170,6 +186,15 @@ public interface Variant&lt;T&gt; {
              * @return this Builder
              */
             Builder&lt;T&gt; parser(Function&lt;CharSequence, T&gt; parser);
+            
+            /**
+             * Assign the main conversion method 'of'
+             * Note: Implementations should be aware that the default of implementation invokes the parser.
+             *
+             * @param of the new conversion method
+             * @return this builder
+             */
+            Builder&lt;T&gt; of(Function&lt;CharSequence, Optional&lt;T&gt;&gt; of);
             
             /**
              * Assign the description

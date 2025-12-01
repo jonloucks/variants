@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Parsers.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">variants</a> &gt; <a href="index.source.html" class="el_package">io.github.jonloucks.variants.api</a> &gt; <span class="el_source">Parsers.java</span></div><h1>Parsers.java</h1><pre class="source lang-java linenums">package io.github.jonloucks.variants.api;
+
+import io.github.jonloucks.contracts.api.Contract;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+import static io.github.jonloucks.variants.api.Checks.parserCheck;
+import static io.github.jonloucks.variants.api.Checks.textCheck;
+
+/**
+ * Responsibility: Parsers to assist source text conversion for a Variant
+ */
+public interface Parsers {
+    /**
+     * Contract for Parsers
+     */
+<span class="fc" id="L20">    Contract&lt;Parsers&gt; CONTRACT = Contract.create(Parsers.class, b -&gt; b.name(&quot;Variant Parsers&quot;));</span>
+    
+    /**
+     * @return a parser that converts a valid text into a String
+     */
+    default Function&lt;CharSequence, String&gt; stringParser() {
+<span class="fc" id="L26">        return text -&gt; textCheck(text).toString();</span>
+    }
+    
+    /**
+     * @return a text conversion to a Integer instance
+     */
+    default Function&lt;CharSequence, Optional&lt;String&gt;&gt; ofString() {
+<span class="fc" id="L33">        return text -&gt; Optional.of(textCheck(text).toString());</span>
+    }
+    
+    /**
+     * @return a parser that converts a valid text value into a Boolean instance
+     */
+    default Function&lt;CharSequence, Boolean&gt; booleanParser() {
+<span class="fc" id="L40">        return string(Boolean::parseBoolean);</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Boolean instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Boolean&gt;&gt; ofBoolean() {
+<span class="fc" id="L49">        return ofTrimAndSkipEmpty(booleanParser());</span>
+    }
+    
+    /**
+     * @return a parser that converts a valid text value into a Float instance
+     */
+    default Function&lt;CharSequence, Float&gt; floatParser() {
+<span class="fc" id="L56">        return string(Float::parseFloat);</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Float instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Float&gt;&gt; ofFloat() {
+<span class="fc" id="L65">        return ofTrimAndSkipEmpty(floatParser());</span>
+    }
+    
+    /**
+     * @return a parser that converts a valid text value into a Double instance
+     */
+    default Function&lt;CharSequence, Double&gt; doubleParser() {
+<span class="fc" id="L72">        return string(Double::parseDouble);</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Double instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Double&gt;&gt; ofDouble() {
+<span class="fc" id="L81">        return ofTrimAndSkipEmpty(doubleParser());</span>
+    }
+    
+    /**
+     * @return a parser that converts a valid text value into an Integer instance
+     */
+    default Function&lt;CharSequence, Integer&gt; integerParser() {
+<span class="fc" id="L88">        return string(Integer::parseInt);</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Integer instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Integer&gt;&gt; ofInteger() {
+<span class="fc" id="L97">        return ofTrimAndSkipEmpty(integerParser());</span>
+    }
+    
+    /**
+     * @return a parser that converts a valid text value into a Long instance
+     */
+    default Function&lt;CharSequence, Long&gt; longParser() {
+<span class="fc" id="L104">        return string(Long::parseLong);</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Long instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Long&gt;&gt; ofLong() {
+<span class="fc" id="L113">        return ofTrimAndSkipEmpty(longParser());</span>
+    }
+
+    /**
+     * @return a parser that converts a valid text value into a Boolean instance
+     */
+    default Function&lt;CharSequence, Duration&gt; durationParser() {
+<span class="fc" id="L120">        return text -&gt; Duration.parse(textCheck(text).toString());</span>
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a Duration instance
+     */
+    default Function&lt;CharSequence, Optional&lt;Duration&gt;&gt; ofDuration() {
+<span class="fc" id="L129">        return ofTrimAndSkipEmpty(durationParser());</span>
+    }
+    
+    /**
+     * A parser that converts a valid text value into a Boolean instance
+     *
+     * @param enumClass the Enum class
+     * @return A parser that converts a valid text value into a Boolean instance
+     * @param &lt;T&gt; the type of Enum
+     */
+    &lt;T extends Enum&lt;T&gt;&gt; Function&lt;CharSequence, T&gt; enumParser(Class&lt;T&gt; enumClass);
+    
+    /**
+     * text conversion to a Enm instance
+     *
+     * @param enumClass the enum class
+     * Input is trimmed and empty values are skipped
+     * @return a text conversion to a Duration instance
+     * @param &lt;T&gt; the type of Enum
+     */
+    default &lt;T extends Enum&lt;T&gt;&gt; Function&lt;CharSequence, Optional&lt;T&gt;&gt; ofEnum(Class&lt;T&gt; enumClass) {
+<span class="fc" id="L150">        return ofTrimAndSkipEmpty(enumParser(enumClass));</span>
+    }
+    
+    /**
+     * trim leading and trailing white space
+     *
+     * @param text the text to trim
+     * @return the trimmed text
+     */
+    CharSequence trim(CharSequence text);
+
+    /**
+     * A parser that converts text to a String
+     *
+     * @param parser the parser that accepts the String
+     * @return the new parser
+     * @param &lt;T&gt; the return type of the given parser
+     */
+    default &lt;T&gt; Function&lt;CharSequence, T&gt; string(Function&lt;String, T&gt; parser) {
+<span class="fc" id="L169">        final Function&lt;String, T&gt; validParser = parserCheck(parser);</span>
+<span class="fc" id="L170">        return chars -&gt; validParser.apply(textCheck(chars).toString());</span>
+    }
+    
+    /**
+     * Text to parser helper.
+     * Trims text
+     * Skips empty values
+     *
+     * @param parser the delegate parser
+     * @return the new 'of' function
+     * @param &lt;T&gt; the return type of the given parser
+     */
+    default &lt;T&gt; Function&lt;CharSequence, Optional&lt;T&gt;&gt; ofTrimAndSkipEmpty(Function&lt;CharSequence, T&gt; parser) {
+<span class="fc" id="L183">        final Function&lt;CharSequence, T&gt; validParser = parserCheck(parser);</span>
+<span class="fc" id="L184">        return chars -&gt; {</span>
+<span class="fc" id="L185">            final CharSequence trimmed = trim(chars);</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">            return trimmed.length() == 0 ? Optional.empty() : Optional.of(validParser.apply(trimmed));</span>
+        };
+    }
+    
+    /**
+     * Split the input text and parse each part into a list
+     *
+     * @param of the delegate text to value function
+     * @param delimiter the string delimiter. See {@link String#split(String)}
+     * @return the new parser
+     * @param &lt;T&gt; the return type of the given parser
+     */
+    &lt;T&gt; Function&lt;CharSequence, Optional&lt;List&lt;T&gt;&gt;&gt; ofList(Function&lt;CharSequence, Optional&lt;T&gt;&gt; of, String delimiter);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

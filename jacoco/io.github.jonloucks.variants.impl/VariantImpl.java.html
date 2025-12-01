@@ -9,7 +9,6 @@ import java.util.function.Function;
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Collections.unmodifiableList;
-import static java.util.Optional.ofNullable;
 
 /**
  * Responsibility: Immutable Variant implementation.
@@ -18,58 +17,52 @@ import static java.util.Optional.ofNullable;
 final class VariantImpl&lt;T&gt; implements Variant&lt;T&gt; {
     @Override
     public List&lt;String&gt; getKeys() {
-<span class="fc" id="L21">        return this.keys;</span>
+<span class="fc" id="L20">        return this.keys;</span>
     }
     
     @Override
     public Optional&lt;String&gt; getName() {
-<span class="fc" id="L26">        return this.name;</span>
+<span class="fc" id="L25">        return this.name;</span>
     }
     
     @Override
     public Optional&lt;String&gt; getDescription() {
-<span class="fc" id="L31">        return this.description;</span>
+<span class="fc" id="L30">        return this.description;</span>
     }
     
     @Override
     public Optional&lt;T&gt; getFallback() {
-<span class="fc" id="L36">        return this.fallback;</span>
+<span class="fc" id="L35">        return this.fallback;</span>
     }
     
     @Override
     public Optional&lt;Variant&lt;T&gt;&gt; getLink() {
-<span class="fc" id="L41">        return this.link;</span>
+<span class="fc" id="L40">        return this.link;</span>
     }
     
     @Override
     public Optional&lt;T&gt; of(CharSequence rawText) {
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (ofNullable(rawText).isPresent()) {</span>
-<span class="fc" id="L47">            return parser.map(p -&gt; p.apply(rawText));</span>
-        }
-<span class="fc" id="L49">        return Optional.empty();</span>
+<span class="fc" id="L45">        return of.apply(rawText);</span>
     }
     
     @Override
     public String toString() {
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (getName().isPresent()) {</span>
-<span class="fc" id="L55">            return &quot;Variant[name=&quot; + getName().get() + &quot;]&quot;;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (getName().isPresent()) {</span>
+<span class="fc" id="L51">            return &quot;Variant[name=&quot; + getName().get() + &quot;]&quot;;</span>
         } else {
-<span class="fc" id="L57">            return &quot;Variant[]&quot;;</span>
+<span class="fc" id="L53">            return &quot;Variant[]&quot;;</span>
         }
     }
     
-<span class="fc" id="L61">    VariantImpl(Variant.Config&lt;T&gt; config) {</span>
-<span class="fc" id="L62">        final Variant.Config&lt;T&gt; validConfig = configCheck(config);</span>
-<span class="fc" id="L63">        this.keys = unmodifiableList(validConfig.getKeys());</span>
-<span class="fc" id="L64">        this.name = nullCheck(validConfig.getName(), &quot;Optional name must be set.&quot;);</span>
-<span class="fc" id="L65">        this.description = nullCheck(validConfig.getDescription(), &quot;Optional description must be set.&quot;);</span>
-<span class="fc" id="L66">        this.link = nullCheck(validConfig.getLink(), &quot;Optional link must be set.&quot;);</span>
-<span class="fc" id="L67">        this.fallback = nullCheck(validConfig.getFallback(), &quot;Optional fallback must be set.&quot;);</span>
-<span class="fc" id="L68">        this.parser = nullCheck(validConfig.getParser(), &quot;Optional parser must be set.&quot;);</span>
-<span class="fc bfc" id="L69" title="All 4 branches covered.">        if (!keys.isEmpty() &amp;&amp; !parser.isPresent()) {</span>
-<span class="fc" id="L70">            throw new IllegalArgumentException(&quot;Parser is required when keys are present.&quot;);</span>
-        }
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L57">    VariantImpl(Variant.Config&lt;T&gt; config) {</span>
+<span class="fc" id="L58">        final Variant.Config&lt;T&gt; validConfig = configCheck(config);</span>
+<span class="fc" id="L59">        this.keys = unmodifiableList(validConfig.getKeys());</span>
+<span class="fc" id="L60">        this.name = nullCheck(validConfig.getName(), &quot;Optional name must be set.&quot;);</span>
+<span class="fc" id="L61">        this.description = nullCheck(validConfig.getDescription(), &quot;Optional description must be set.&quot;);</span>
+<span class="fc" id="L62">        this.link = nullCheck(validConfig.getLink(), &quot;Optional link must be set.&quot;);</span>
+<span class="fc" id="L63">        this.fallback = nullCheck(validConfig.getFallback(), &quot;Optional fallback must be set.&quot;);</span>
+<span class="fc" id="L64">        this.of = nullCheck(validConfig.getOf(), &quot;Of method must be set.&quot;);</span>
+<span class="fc" id="L65">    }</span>
     
     // Opting out of the best practice of not using Optionals as instance variables
     // Reason:  Remove redundant operations checking nullability, which reduces memory and CPU usage
@@ -82,8 +75,7 @@ final class VariantImpl&lt;T&gt; implements Variant&lt;T&gt; {
     private final Optional&lt;T&gt; fallback;
     @SuppressWarnings(&quot;OptionalUsedAsFieldOrParameterType&quot;)
     private final Optional&lt;Variant&lt;T&gt;&gt; link;
-    @SuppressWarnings(&quot;OptionalUsedAsFieldOrParameterType&quot;)
-    private final Optional&lt;Function&lt;CharSequence,T&gt;&gt; parser;
+    private final Function&lt;CharSequence,Optional&lt;T&gt;&gt; of;
     private final List&lt;String&gt; keys;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

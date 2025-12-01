@@ -3,6 +3,8 @@
 import io.github.jonloucks.contracts.api.ContractException;
 import io.github.jonloucks.contracts.api.Contracts;
 
+import java.util.function.Function;
+
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static io.github.jonloucks.contracts.api.Checks.validateContracts;
 
@@ -19,7 +21,7 @@ public final class Checks {
      * @throws IllegalArgumentException when invalid
      */
     public static Variants variantsCheck(Variants variants) {
-<span class="fc" id="L22">        return nullCheck(variants, &quot;Variants must be present.&quot;);</span>
+<span class="fc" id="L24">        return nullCheck(variants, &quot;Variants must be present.&quot;);</span>
     }
     
     /**
@@ -33,16 +35,16 @@ public final class Checks {
      * @throws IllegalArgumentException when invalid
      */
     public static void validateVariants(Contracts contracts, Variants variants) {
-<span class="fc" id="L36">        final Variants validVariants = variantsCheck(variants);</span>
-<span class="fc" id="L37">        validateContracts(contracts);</span>
+<span class="fc" id="L38">        final Variants validVariants = variantsCheck(variants);</span>
+<span class="fc" id="L39">        validateContracts(contracts);</span>
         
-<span class="fc" id="L39">        final Variants promisedVariants = contracts.claim(Variants.CONTRACT);</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (validVariants != promisedVariants) {</span>
-<span class="fc" id="L41">            throw new VariantException(&quot;Variants.CONTRACT claim is different.&quot;);</span>
+<span class="fc" id="L41">        final Variants promisedVariants = contracts.claim(Variants.CONTRACT);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (validVariants != promisedVariants) {</span>
+<span class="fc" id="L43">            throw new VariantException(&quot;Variants.CONTRACT claim is different.&quot;);</span>
         }
 
-<span class="fc" id="L44">        contracts.claim(VariantsFactory.CONTRACT);</span>
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L46">        contracts.claim(VariantsFactory.CONTRACT);</span>
+<span class="fc" id="L47">    }</span>
     
     /**
      * Check if given Variant is not null or invalid
@@ -53,7 +55,7 @@ public final class Checks {
      * @throws IllegalArgumentException when invalid
      */
     public static &lt;T&gt; Variant&lt;T&gt; variantCheck(Variant&lt;T&gt; variant) {
-<span class="fc" id="L56">        return nullCheck(variant, &quot;Variant must be present.&quot;);</span>
+<span class="fc" id="L58">        return nullCheck(variant, &quot;Variant must be present.&quot;);</span>
     }
     
     /**
@@ -64,7 +66,7 @@ public final class Checks {
      * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static String keyCheck(String key) {
-<span class="fc" id="L67">        return nullCheck(key, &quot;Key must be present.&quot;);</span>
+<span class="fc" id="L69">        return nullCheck(key, &quot;Key must be present.&quot;);</span>
     }
     
     /**
@@ -76,7 +78,29 @@ public final class Checks {
      * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static &lt;T&gt; T keysCheck(T keys) {
-<span class="fc" id="L79">        return nullCheck(keys, &quot;Keys must be present.&quot;);</span>
+<span class="fc" id="L81">        return nullCheck(keys, &quot;Keys must be present.&quot;);</span>
+    }
+    
+    /**
+     * Check if given parser is not null or invalid
+     *
+     * @param parser the parser to check
+     * @return a valid parser
+     * @param &lt;F&gt; the 'From' type
+     * @param &lt;T&gt; the 'To' type
+     */
+    public static &lt;F,T&gt; Function&lt;F,T&gt; parserCheck(Function&lt;F,T&gt; parser) {
+<span class="fc" id="L93">        return nullCheck(parser, &quot;Parser must be present.&quot;);</span>
+    }
+    
+    /**
+     * Check if given text is null or invalid
+     *
+     * @param sourceText the text to check
+     * @return a valid text
+     */
+    public static CharSequence textCheck(CharSequence sourceText) {
+<span class="fc" id="L103">        return nullCheck(sourceText, &quot;Text must be present.&quot;);</span>
     }
     
     private Checks() {

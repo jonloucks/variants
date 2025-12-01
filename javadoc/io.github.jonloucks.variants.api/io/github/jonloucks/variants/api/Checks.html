@@ -103,6 +103,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Check if given is not null or invalid</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;F,<wbr>
+T&gt;&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;F,<wbr>T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#parserCheck(java.util.function.Function)" class="member-name-link">parserCheck</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;F,<wbr>T&gt;&nbsp;parser)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Check if given parser is not null or invalid</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#textCheck(java.lang.CharSequence)" class="member-name-link">textCheck</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;sourceText)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Check if given text is null or invalid</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#validateVariants(io.github.jonloucks.contracts.api.Contracts,io.github.jonloucks.variants.api.Variants)" class="member-name-link">validateVariants</a><wbr>(io.github.jonloucks.contracts.api.Contracts&nbsp;contracts,
  <a href="Variants.html" title="interface in io.github.jonloucks.variants.api">Variants</a>&nbsp;variants)</code></div>
@@ -214,6 +225,36 @@ loadScripts(document, 'script');</script>
 <dd>valid keys</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when arguments are null or invalid</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="parserCheck(java.util.function.Function)">
+<h3>parserCheck</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;F,<wbr>
+T&gt;</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;F,<wbr>T&gt;</span>&nbsp;<span class="element-name">parserCheck</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;F,<wbr>T&gt;&nbsp;parser)</span></div>
+<div class="block">Check if given parser is not null or invalid</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>F</code> - the 'From' type</dd>
+<dd><code>T</code> - the 'To' type</dd>
+<dt>Parameters:</dt>
+<dd><code>parser</code> - the parser to check</dd>
+<dt>Returns:</dt>
+<dd>a valid parser</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="textCheck(java.lang.CharSequence)">
+<h3>textCheck</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a></span>&nbsp;<span class="element-name">textCheck</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;sourceText)</span></div>
+<div class="block">Check if given text is null or invalid</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>sourceText</code> - the text to check</dd>
+<dt>Returns:</dt>
+<dd>a valid text</dd>
 </dl>
 </section>
 </li>
