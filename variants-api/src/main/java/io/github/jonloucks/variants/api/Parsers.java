@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import static io.github.jonloucks.variants.api.Checks.parserCheck;
 import static io.github.jonloucks.variants.api.Checks.textCheck;
+import static java.util.Optional.ofNullable;
 
 /**
  * Responsibility: Parsers to assist source text conversion for a Variant
@@ -27,10 +28,20 @@ public interface Parsers {
     }
     
     /**
-     * @return a text conversion to a Integer instance
+     * No trimming or skipping empty values
+     * @return a text conversion to a String instance
+     */
+    default Function<CharSequence, Optional<String>> ofRawString() {
+        return text -> ofNullable(text).map(CharSequence::toString);
+    }
+    
+    /**
+     * Input is trimmed and empty values are skipped
+     *
+     * @return a text conversion to a String instance
      */
     default Function<CharSequence, Optional<String>> ofString() {
-        return text -> Optional.of(textCheck(text).toString());
+        return ofTrimAndSkipEmpty(stringParser());
     }
     
     /**
@@ -181,9 +192,13 @@ public interface Parsers {
      */
     default <T> Function<CharSequence, Optional<T>> ofTrimAndSkipEmpty(Function<CharSequence, T> parser) {
         final Function<CharSequence, T> validParser = parserCheck(parser);
-        return chars -> {
-            final CharSequence trimmed = trim(chars);
-            return trimmed.length() == 0 ? Optional.empty() : Optional.of(validParser.apply(trimmed));
+        return text -> {
+            if (ofNullable(text).isPresent()) {
+                final CharSequence trimmed = trim(text);
+                return trimmed.length() == 0 ? Optional.empty() : Optional.of(validParser.apply(trimmed));
+            } else {
+                return Optional.empty();
+            }
         };
     }
     

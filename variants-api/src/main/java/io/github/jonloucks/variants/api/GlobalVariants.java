@@ -3,6 +3,7 @@ package io.github.jonloucks.variants.api;
 import io.github.jonloucks.contracts.api.AutoClose;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
@@ -21,6 +22,18 @@ public final class GlobalVariants {
      * @throws IllegalArgumentException when arguments are null or invalid
      */
     public static <T> Variant<T> createVariant(Consumer<Variant.Config.Builder<T>> builderConsumer) {
+        return INSTANCE.variants.createVariant(builderConsumer);
+    }
+    
+    /**
+     * Create a Variant by configuration builder callback
+     *
+     * @param builderConsumer receives the configuration builder
+     * @return the new Variant
+     * @param <T> the Variant value type
+     * @throws IllegalArgumentException when arguments are null or invalid
+     */
+    public static <T> Variant<T> createVariant(BiConsumer<Variant.Config.Builder<T>, Parsers> builderConsumer) {
         return INSTANCE.variants.createVariant(builderConsumer);
     }
     

@@ -119,6 +119,19 @@ public interface GlobalVariantsTests {
     }
     
     @Test
+    default void lobalVariant_createVariant_WithConfigBuilderAndParsers_Works() {
+        final Variant<Integer> variant = GlobalVariants.createVariant((b, parsers) -> {
+                b.fallback(() -> 7);
+                assertObject(parsers);
+            }
+        );
+        assertObject(variant);
+        assertTrue(variant.getFallback().isPresent(), "Fallback value must be present.");
+        assertEquals(7, variant.getFallback().get());
+        assertFalse(variant.of("no-conversion").isPresent());
+    }
+    
+    @Test
     default void globalVariants_createEnvironment_WithNullConfig_Throws() {
         assertThrown(IllegalArgumentException.class,
             () -> GlobalVariants.createEnvironment((Environment.Config) null),
