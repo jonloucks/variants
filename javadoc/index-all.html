@@ -140,6 +140,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html#createVariant(io.github.jonloucks.variants.api.Variant.Config)" class="member-name-link">createVariant(Variant.Config&lt;T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html#createVariant(java.util.function.BiConsumer)" class="member-name-link">createVariant(BiConsumer&lt;Variant.Config.Builder&lt;T&gt;, Parsers&gt;)</a> - Static method in class io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/GlobalVariants.html" title="class in io.github.jonloucks.variants.api">GlobalVariants</a></dt>
+<dd>
+<div class="block">Create a Variant by configuration builder callback</div>
+</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html#createVariant(java.util.function.BiConsumer)" class="member-name-link">createVariant(BiConsumer&lt;Variant.Config.Builder&lt;T&gt;, Parsers&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/VariantFactory.html" title="interface in io.github.jonloucks.variants.api">VariantFactory</a></dt>
 <dd>
 <div class="block">Create a Variant by configuration builder callback</div>
@@ -378,8 +382,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Input is trimmed and empty values are skipped</div>
 </dd>
+<dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html#ofRawString()" class="member-name-link">ofRawString()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html" title="interface in io.github.jonloucks.variants.api">Parsers</a></dt>
+<dd>
+<div class="block">No trimming or skipping empty values</div>
+</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html#ofString()" class="member-name-link">ofString()</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html" title="interface in io.github.jonloucks.variants.api">Parsers</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Input is trimmed and empty values are skipped</div>
+</dd>
 <dt><a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html#ofTrimAndSkipEmpty(java.util.function.Function)" class="member-name-link">ofTrimAndSkipEmpty(Function&lt;CharSequence, T&gt;)</a> - Method in interface io.github.jonloucks.variants.api.<a href="io.github.jonloucks.variants.api/io/github/jonloucks/variants/api/Parsers.html" title="interface in io.github.jonloucks.variants.api">Parsers</a></dt>
 <dd>
 <div class="block">Text to parser helper.</div>

@@ -10,7 +10,7 @@ final class ParsersImpl implements Parsers {
 
     @Override
     public &lt;T&gt; Function&lt;CharSequence, Optional&lt;List&lt;T&gt;&gt;&gt; ofList(Function&lt;CharSequence, Optional&lt;T&gt;&gt; of, String delimiter) {
-<span class="fc" id="L13">        return new OfListImpl&lt;&gt;(of, delimiter).compile();</span>
+<span class="fc" id="L13">        return new OfListImpl&lt;&gt;(of, new SplitByRegex(delimiter).compile()).compile();</span>
     }
 
     @Override
