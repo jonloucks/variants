@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static io.github.jonloucks.contracts.api.GlobalContracts.claimContract;
 import static io.github.jonloucks.contracts.test.Tools.assertObject;
@@ -39,6 +41,25 @@ public interface VariantTests {
         assertFalse(variant.getLink().isPresent(), "By default link should not be present.");
         assertFalse(variant.getName().isPresent(), "By default name should not be present.");
         assertFalse(variant.getParser().isPresent(), "By parser should not be present.");
+        assertNotNull(variant.getOf(), "By default of() should be present.");
+        assertFalse(variant.getOf().apply("hello").isPresent(), "By default of() should return empty.");
+    }
+    
+    @Test
+    default void variant_Config_WithDefaultsAndParser_Works() {
+        final Variant.Config<String> variant = new Variant.Config<>() {
+            @Override
+            public Optional<Function<CharSequence, String>> getParser() {
+                return Optional.of(text -> text + "ish");
+            }
+        };
+        assertTrue(variant.getParser().isPresent(), "Override parser should be present.");
+        assertNotNull(variant.getOf(), "By default of() should be present.");
+        assertTrue(variant.getOf().apply("green").isPresent(), "Override of() should be present .");
+        assertEquals("greenish", variant.getOf().apply("green").get());
+        assertFalse(variant.getOf().apply(null).isPresent(), "Override of() should return empty for null text.");
+        assertTrue(variant.getOf().apply("").isPresent(), "Override of() should receive empty text.");
+        assertEquals("ish", variant.getOf().apply("").get(), "Override of() should receive empty text.");
     }
     
     @Test
