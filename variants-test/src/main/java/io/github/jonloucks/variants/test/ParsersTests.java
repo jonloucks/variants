@@ -64,14 +64,35 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofString_WithNullText_Throws() {
+    default void parsers_ofRawString_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
-            final Function<CharSequence, Optional<String>> of = parsers.ofString();
+            final Function<CharSequence, Optional<String>> of = parsers.ofRawString();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
+        });
+    }
+    
+    @Test
+    default void parsers_ofRawString_Works() {
+        withVariants((contracts,variants) -> {
+            final Parsers parsers = contracts.claim(Parsers.CONTRACT);
+            final Function<CharSequence, Optional<String>> of = parsers.ofRawString();
+            
+            assertEquals("", of.apply(toCharSequence("")).get());
+            assertEquals("green", of.apply(toCharSequence("green")).get());
+            assertEquals(" green ", of.apply(toCharSequence(" green ")).get());
+            assertEquals("green, blue, red", of.apply(toCharSequence("green, blue, red")).get());
+        });
+    }
+    
+    @Test
+    default void parsers_ofString_WithNullText_IsEmpty() {
+        withVariants((contracts,variants) -> {
+            final Parsers parsers = contracts.claim(Parsers.CONTRACT);
+            final Function<CharSequence, Optional<String>> of = parsers.ofRawString();
+            
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -81,9 +102,10 @@ public interface ParsersTests {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<String>> of = parsers.ofString();
             
-            assertEquals("", of.apply(toCharSequence("")).get());
+            assertFalse(of.apply(toCharSequence("")).isPresent());
+            assertFalse(of.apply(toCharSequence("  ")).isPresent());
             assertEquals("green", of.apply(toCharSequence("green")).get());
-            assertEquals(" green ", of.apply(toCharSequence(" green ")).get());
+            assertEquals("green", of.apply(toCharSequence(" green ")).get());
             assertEquals("green, blue, red", of.apply(toCharSequence("green, blue, red")).get());
         });
     }
@@ -114,14 +136,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofBoolean_WithNullText_Throws() {
+    default void parsers_ofBoolean_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Boolean>> of = parsers.ofBoolean();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -163,14 +183,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofInteger_WithNullText_Throws() {
+    default void parsers_ofInteger_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Integer>> of = parsers.ofInteger();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -213,14 +231,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofLong_WithNullText_Throws() {
+    default void parsers_ofLong_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Long>> of = parsers.ofLong();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -262,14 +278,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofFloat_WithNullText_Throws() {
+    default void parsers_ofFloat_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Float>> of = parsers.ofFloat();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -311,14 +325,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofDouble_WithNullText_Throws() {
+    default void parsers_ofDouble_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Double>> of = parsers.ofDouble();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -360,14 +372,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofDuration_WithNullText_Throws() {
+    default void parsers_ofDuration_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Duration>> of = parsers.ofDuration();
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -435,14 +445,12 @@ public interface ParsersTests {
     }
     
     @Test
-    default void parsers_ofEnum_WithNullText_Throws() {
+    default void parsers_ofEnum_WithNullText_IsEmpty() {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Thread.State>> of = parsers.ofEnum(Thread.State.class);
             
-            assertThrown(IllegalArgumentException.class,
-                () -> of.apply(null),
-                "Text must be present.");
+            assertFalse(of.apply(null).isPresent());
         });
     }
     
@@ -555,9 +563,21 @@ public interface ParsersTests {
         });
     }
     
+    @Test
+    default void parsers_ofList_WithNullText_IsSkipped() {
+        withVariants((contracts,variants) -> {
+            final Parsers parsers = contracts.claim(Parsers.CONTRACT);
+            final Function<CharSequence, Optional<Integer>> delegate = parsers.ofInteger();
+            final Function<CharSequence, Optional<List<Integer>>> wrappedParser =
+                parsers.ofList(delegate, ",");
+            
+            assertFalse(wrappedParser.apply(null).isPresent());
+        });
+    }
+    
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\r", ",", ", ,"})
-    default void parsers_ofList_WithEmpty_IsSkipped(String text) {
+    default void parsers_ofList_WithEmptyText_IsSkipped(String text) {
         withVariants((contracts,variants) -> {
             final Parsers parsers = contracts.claim(Parsers.CONTRACT);
             final Function<CharSequence, Optional<Integer>> delegate = parsers.ofInteger();
