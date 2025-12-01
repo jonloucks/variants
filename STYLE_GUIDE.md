@@ -6,7 +6,7 @@
     @Override
     public void doSomePublicallyDelaredAction() {
     }
-#### 2. When possible all code is ordered by accessibility.
+#### 2. When possible all code is ordered by accessibility. 
     public
     protected 
     package
