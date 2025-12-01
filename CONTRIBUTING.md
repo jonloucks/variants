@@ -13,7 +13,7 @@ Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDU
 6.  [Commit Message Styleguide](#commit-message-styleguide)
 7.  [Need Help?](#need-help)
 
-## 1. Reporting Bugs 
+## 1. Reporting Bugs
 We use [GitHub Issues](https://github.com/jonloucks/variants/issues) to track bugs. Before creating a new issue, please check the existing issues to ensure the bug has not already been reported.
 
 When submitting a [bug report](https://github.com/jonloucks/variants/issues/new), please provide the following information:
@@ -24,7 +24,7 @@ When submitting a [bug report](https://github.com/jonloucks/variants/issues/new)
 -   **Context:** Include your operating system, software version, and any relevant logs or screenshots.
 
 ## 2. Suggesting Enhancements
-For suggesting enhancements or new features, please [open a GitHub Issue]((https://github.com/jonloucks/variants/issues/new)) and follow these guidelines:
+For suggesting enhancements or new features, please [open a GitHub Issue](https://github.com/jonloucks/variants/issues/new) and follow these guidelines:
 -   **Use a descriptive title:** Identify the suggestion clearly.
 -   **Describe the enhancement:** Explain the feature in as much detail as possible, including its use case and why it would be valuable.
 -   **Check existing suggestions:** Search for similar ideas in the existing issues. If a similar suggestion exists, add your support or additional context there.
