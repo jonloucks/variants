@@ -124,15 +124,15 @@ public interface Variant&lt;T&gt; {
          * @return The parser used to convert raw text into a Variant value
          */
         default Function&lt;CharSequence, Optional&lt;T&gt;&gt; getOf() {
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            if (getParser().isPresent()) {</span>
-<span class="nc" id="L128">                return c -&gt;  {</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">                    if (ofNullable(c).isPresent()) {</span>
-<span class="nc" id="L130">                        return ofNullable(getParser().get().apply(c));</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            if (getParser().isPresent()) {</span>
+<span class="fc" id="L128">                return c -&gt;  {</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">                    if (ofNullable(c).isPresent()) {</span>
+<span class="fc" id="L130">                        return ofNullable(getParser().get().apply(c));</span>
                     }
-<span class="nc" id="L132">                    return Optional.empty();</span>
+<span class="fc" id="L132">                    return Optional.empty();</span>
                 };
             }
-<span class="pc" id="L135">            return c -&gt; Optional.empty();</span>
+<span class="fc" id="L135">            return c -&gt; Optional.empty();</span>
         }
 
         /**
