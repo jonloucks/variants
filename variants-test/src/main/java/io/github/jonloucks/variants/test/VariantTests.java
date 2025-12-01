@@ -92,10 +92,10 @@ public interface VariantTests {
                 .key("xyz")
                 .parser(Duration::parse)
             );
-            final Variant<Duration> variant = variantFactory.createVariant(b -> b
+            final Variant<Duration> variant = variantFactory.createVariant((b, parsers )-> b
                 .description("description")
                 .name("name")
-                .parser(Duration::parse)
+                .of(parsers.ofDuration())
                 .link(link)
                 .fallback(() -> Duration.ZERO)
                 .keys("key1", "key2", "key3")
@@ -187,13 +187,19 @@ public interface VariantTests {
     }
     
     @Test
-    default void variant_create_WithKeyAndNoParser_Throws() {
+    default void variant_create_UsingParsers_Works() {
         withVariants((contracts, variants) -> {
             final VariantFactory variantFactory = claimContract(VariantFactory.CONTRACT);
-
-            assertThrown(IllegalArgumentException.class,
-                () -> variantFactory.createVariant(b -> b.keys("key")),
-                "Parser is required when keys are present.");
+            final Duration duration = Duration.ofSeconds(7);
+            
+            final Variant<Duration> variant = variantFactory.createVariant(
+                ((b,parsers) -> {
+                    b.keys("key");
+                    b.parser(parsers.durationParser());
+                }));
+            
+            assertTrue(variant.of(duration.toString()).isPresent(), "Parsed value should be present.");
+            assertEquals(duration, variant.of(duration.toString()).get(), "Parsed value should match.");
         });
     }
 }

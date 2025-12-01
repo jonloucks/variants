@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import static io.github.jonloucks.variants.api.Checks.keyCheck;
 import static io.github.jonloucks.variants.api.Checks.keysCheck;
 import static java.util.Collections.singletonList;
+import static java.util.Optional.ofNullable;
 
 /**
  * Responsibility: Provide information on how to retrieve a configuration value.
@@ -118,6 +119,21 @@ public interface Variant<T> {
         default Optional<Function<CharSequence, T>> getParser() {
             return Optional.empty();
         }
+        
+        /**
+         * @return The parser used to convert raw text into a Variant value
+         */
+        default Function<CharSequence, Optional<T>> getOf() {
+            if (getParser().isPresent()) {
+                return c ->  {
+                    if (ofNullable(c).isPresent()) {
+                        return ofNullable(getParser().get().apply(c));
+                    }
+                    return Optional.empty();
+                };
+            }
+            return c -> Optional.empty();
+        }
 
         /**
          * Responsibility: Builder a configuration used to create a new Variant
@@ -170,6 +186,15 @@ public interface Variant<T> {
              * @return this Builder
              */
             Builder<T> parser(Function<CharSequence, T> parser);
+            
+            /**
+             * Assign the main conversion method 'of'
+             * Note: Implementations should be aware that the default of implementation invokes the parser.
+             *
+             * @param of the new conversion method
+             * @return this builder
+             */
+            Builder<T> of(Function<CharSequence, Optional<T>> of);
             
             /**
              * Assign the description

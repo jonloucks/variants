@@ -1,5 +1,6 @@
 package io.github.jonloucks.variants.impl;
 
+import io.github.jonloucks.contracts.api.BindStrategy;
 import io.github.jonloucks.variants.api.*;
 import io.github.jonloucks.contracts.api.Promisor;
 import io.github.jonloucks.contracts.api.Repository;
@@ -62,9 +63,12 @@ public final class VariantsFactoryImpl implements VariantsFactory {
     private void installCore(Variants.Config config, Repository repository) {
         repository.require(Repository.FACTORY);
         
-        repository.keep(Variants.Config.Builder.FACTORY, singleton(() -> ConfigBuilderImpl::new), IF_NOT_BOUND);
-        repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), IF_NOT_BOUND);
-        repository.keep(VariantFactory.CONTRACT, singleton(VariantFactoryImpl::new), IF_NOT_BOUND);
-        repository.keep(EnvironmentFactory.CONTRACT, singleton(EnvironmentFactoryImpl::new), IF_NOT_BOUND);
+        final BindStrategy strategy = IF_NOT_BOUND;
+        
+        repository.keep(Variants.Config.Builder.FACTORY, singleton(() -> ConfigBuilderImpl::new), strategy);
+        repository.keep(VariantsFactory.CONTRACT, lifeCycle(VariantsFactoryImpl::new), strategy);
+        repository.keep(VariantFactory.CONTRACT, singleton(() -> new VariantFactoryImpl(config)), strategy);
+        repository.keep(Parsers.CONTRACT, singleton(ParsersImpl::new), strategy);
+        repository.keep(EnvironmentFactory.CONTRACT, singleton(EnvironmentFactoryImpl::new), strategy);
     }
 }

@@ -30,6 +30,12 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     }
     
     @Override
+    public VariantBuilderImpl<T> of(Function<CharSequence, Optional<T>> of) {
+        this.of = of;
+        return this;
+    }
+    
+    @Override
     public VariantBuilderImpl<T> description(String description) {
         this.description = description;
         return this;
@@ -83,7 +89,27 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
         return ofNullable(parser);
     }
     
+    @Override
+    public Function<CharSequence, Optional<T>> getOf() {
+        return ofNullable(of).orElseGet(this::compileOf);
+    }
+    
     VariantBuilderImpl() {
+    }
+    
+    private Function<CharSequence,Optional<T>> compileOf() {
+        final Optional<Function<CharSequence,T>> optionalParser = getParser();
+        if (optionalParser.isPresent()) {
+            final Function<CharSequence,T> validParser = optionalParser.get();
+            return chars -> {
+                if (ofNullable(chars).isPresent()) {
+                    return ofNullable(validParser.apply(chars));
+                }
+                return Optional.empty();
+            };
+        } else {
+            return c -> Optional.empty();
+        }
     }
     
     private String name;
@@ -91,5 +117,6 @@ final class VariantBuilderImpl<T> implements Variant.Config.Builder<T> {
     private Supplier<T> fallback = () -> null;
     private final LinkedHashSet<String> keys = new LinkedHashSet<>() ;
     private Function<CharSequence,T> parser;
+    private Function<CharSequence, Optional<T>> of;
     private Variant<T> link;
 }

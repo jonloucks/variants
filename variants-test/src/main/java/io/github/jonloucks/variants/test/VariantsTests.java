@@ -108,6 +108,21 @@ public interface VariantsTests {
     }
     
     @Test
+    default void variants_createVariant_WithConfigBuilderAndParsers_Works() {
+        withVariants((contracts, variants) -> {
+            final Variant<Integer> variant = variants.createVariant((b, parsers) -> {
+                    b.fallback(() -> 7);
+                    assertObject(parsers);
+                }
+            );
+            assertObject(variant);
+            assertTrue(variant.getFallback().isPresent(), "Fallback value must be present.");
+            assertEquals(7, variant.getFallback().get());
+            assertFalse(variant.of("no-conversion").isPresent());
+        });
+    }
+    
+    @Test
     default void variants_createEnvironment_WithNullConfig_Throws() {
         withVariants((contracts, variants) -> {
             assertThrown(IllegalArgumentException.class,

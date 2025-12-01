@@ -9,7 +9,6 @@ import java.util.function.Function;
 import static io.github.jonloucks.contracts.api.Checks.configCheck;
 import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static java.util.Collections.unmodifiableList;
-import static java.util.Optional.ofNullable;
 
 /**
  * Responsibility: Immutable Variant implementation.
@@ -43,10 +42,7 @@ final class VariantImpl<T> implements Variant<T> {
     
     @Override
     public Optional<T> of(CharSequence rawText) {
-        if (ofNullable(rawText).isPresent()) {
-            return parser.map(p -> p.apply(rawText));
-        }
-        return Optional.empty();
+        return of.apply(rawText);
     }
     
     @Override
@@ -65,10 +61,7 @@ final class VariantImpl<T> implements Variant<T> {
         this.description = nullCheck(validConfig.getDescription(), "Optional description must be set.");
         this.link = nullCheck(validConfig.getLink(), "Optional link must be set.");
         this.fallback = nullCheck(validConfig.getFallback(), "Optional fallback must be set.");
-        this.parser = nullCheck(validConfig.getParser(), "Optional parser must be set.");
-        if (!keys.isEmpty() && !parser.isPresent()) {
-            throw new IllegalArgumentException("Parser is required when keys are present.");
-        }
+        this.of = nullCheck(validConfig.getOf(), "Of method must be set.");
     }
     
     // Opting out of the best practice of not using Optionals as instance variables
@@ -82,7 +75,6 @@ final class VariantImpl<T> implements Variant<T> {
     private final Optional<T> fallback;
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private final Optional<Variant<T>> link;
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    private final Optional<Function<CharSequence,T>> parser;
+    private final Function<CharSequence,Optional<T>> of;
     private final List<String> keys;
 }

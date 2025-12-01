@@ -10,6 +10,7 @@ public interface Tests extends
     EnvironmentTests,
     GlobalVariantsTests,
     InternalTests,
+    ParsersTests,
     VariantTests,
     VariantsConfigTests,
     VariantsTests,
