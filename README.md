@@ -25,7 +25,7 @@ Variant<String> greeting = GlobalVariants.createVariant(
 assertEquals("Hello", environment.getVariance(greeting));
 ````
 
-##### Try everything example:
+##### Try everything example
 ``` 
 // A source takes a key and returns non-null value or empty.
 VariantSource customSource = key -> "YOUR_TIMEOUT".equals(key) ? Optional.of("PT30S") : Optional.empty();
