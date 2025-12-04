@@ -25,7 +25,7 @@ Variant<String> greeting = GlobalVariants.createVariant(
 assertEquals("Hello", environment.getVariance(greeting));
 ````
 
-##### Try everything example:
+##### Try everything example
 ``` 
 // A source takes a key and returns non-null value or empty.
 VariantSource customSource = key -> "YOUR_TIMEOUT".equals(key) ? Optional.of("PT30S") : Optional.empty();
@@ -36,7 +36,8 @@ Environment environment = GlobalVariants.createEnvironment(
         .addSystemEnvironmentSource()                               // opt-in; add System.getenv source
         .addSystemPropertiesSource()                                // opt-in; add System.getProperty source
         .addPropertiesSource(new Properties())                      // opt-in; add properties source
-        .addMapSource(Collections.singletonMap("key", "value"))     // opt-in; add map source
+        .addMapSource(new HashMap())                                // opt-in; add map source
+        .addSingletonSource("key", "value")                         // opt-in; add single key value pair source
         .addSource(customSource)                                    // opt-in; custom source
 );
 
