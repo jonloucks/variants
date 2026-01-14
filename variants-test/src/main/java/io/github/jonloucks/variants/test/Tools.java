@@ -9,10 +9,8 @@ import java.util.ServiceLoader;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static io.github.jonloucks.contracts.api.Checks.nullCheck;
 import static io.github.jonloucks.variants.api.GlobalVariants.findVariantsFactory;
 import static io.github.jonloucks.contracts.test.Tools.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public final class Tools {
     
@@ -52,20 +50,6 @@ public final class Tools {
     public static VariantsFactory getVariantsFactory(Variants.Config config) {
         return findVariantsFactory(config)
             .orElseThrow(() -> new TestAbortedException("Variants Factory not found."));
-    }
-    
-    /**
-     * Assert close can be called more than once without producing an exception
-     *
-     * @param autoClose the AutoClose to close
-     * @throws IllegalArgumentException when arguments are null
-     */
-    public static void assertIdempotent(AutoClose autoClose) {
-        final AutoClose validClose = nullCheck(autoClose, "AutoClose must be present.");
-        for (int n = 0; n < 7; n++) {
-            assertDoesNotThrow(() -> implicitClose(validClose), "AutoClose should be idempotent.");
-            assertObject(autoClose); // should not become a landmine
-        }
     }
     
     /**
