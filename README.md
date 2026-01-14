@@ -111,7 +111,7 @@ Variant<Duration> timeout = GlobalVariants.createVariant(
 - **[Java API Documentation](https://jonloucks.github.io/variants/javadoc/)** - Complete JavaDoc reference
 - **[Test Coverage Report](https://jonloucks.github.io/variants/jacoco/)** - JaCoCo coverage metrics
 
-## Project Statuentation and Reports
+## Project Status and Reports
 [Java API](https://jonloucks.github.io/variants/javadoc/)
 
 [Java Test Coverage](https://jonloucks.github.io/variants/jacoco/)
