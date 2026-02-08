@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"io.github.jonloucks.variants.api"}];updateSearchResults();
